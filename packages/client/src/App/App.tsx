@@ -1,7 +1,9 @@
 import { useEffect } from 'react'
 import './App.css'
-import { Router } from './core/Routes'
-import { Layout } from './components'
+import { ChakraProvider } from '@chakra-ui/react'
+import { Router } from '../core/Routes'
+import { Layout } from '../components'
+import { theme } from './constants'
 
 function App() {
   useEffect(() => {
@@ -14,11 +16,12 @@ function App() {
 
     fetchServerData()
   }, [])
-
   return (
-    <Layout>
-      <Router />
-    </Layout>
+    <ChakraProvider theme={theme}>
+      <Layout>
+        <Router />
+      </Layout>
+    </ChakraProvider>
   )
 }
 
