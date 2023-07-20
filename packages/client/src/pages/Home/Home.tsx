@@ -1,8 +1,8 @@
-import React from 'react'
+import React, { FC } from 'react'
 import { Link } from 'react-router-dom'
-import { ERoutes } from '../../core/ERoutes'
+import { ERoutes } from '../../core/Router/ERoutes'
 
-const Home = () => {
+const Home: FC = () => {
   return (
     <div>
       <h2>Вот тут будет жить ваше приложение :)</h2>
@@ -11,11 +11,11 @@ const Home = () => {
           <Link to={ERoutes.LOGIN}>Login</Link>
         </li>
         <li>
-          <Link to='/404'>404</Link>
+          <Link to="/404">404</Link>
         </li>
       </ul>
     </div>
-      )
+  )
 }
 
 export default Home

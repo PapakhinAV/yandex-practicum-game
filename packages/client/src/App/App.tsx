@@ -1,9 +1,10 @@
 import { useEffect } from 'react'
 import './App.css'
+import { HelmetProvider } from 'react-helmet-async'
 import { ChakraProvider } from '@chakra-ui/react'
-import { Router } from '../core/Routes'
-import { Layout } from '../components'
 import { theme } from './constants'
+import { Layout } from '../components'
+import { Router } from '../core/Router/Routes'
 
 function App() {
   useEffect(() => {
@@ -17,11 +18,13 @@ function App() {
     fetchServerData()
   }, [])
   return (
-    <ChakraProvider theme={theme}>
-      <Layout>
-        <Router />
-      </Layout>
-    </ChakraProvider>
+    <HelmetProvider>
+      <ChakraProvider theme={theme}>
+        <Layout>
+          <Router />
+        </Layout>
+      </ChakraProvider>
+    </HelmetProvider>
   )
 }
 
