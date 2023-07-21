@@ -1,8 +1,8 @@
 import { FC } from 'react'
 import { Helmet } from 'react-helmet-async'
 import { ErrorBoundary } from 'react-error-boundary'
-import { ErrorFallback } from '../../pages'
 import { AppRouteProps } from './types'
+import ErrorFallback from '../ErrorFallback/ErrorFallback'
 
 const AppRoute: FC<AppRouteProps> = ({ element, metaInfo }) => {
   return (
