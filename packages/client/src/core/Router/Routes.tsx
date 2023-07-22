@@ -1,6 +1,6 @@
 import React from 'react'
 import { Route, Routes } from 'react-router-dom'
-import { Game, Home, ErrorPage } from '../../pages'
+import { Game, Home, ErrorPage, Profile } from '../../pages'
 import { ERoutes } from './ERoutes'
 import AppRoute from './AppRoute'
 
@@ -15,7 +15,9 @@ export const Router = () => (
     />
     <Route
       path={ERoutes.PROFILE}
-      element={<AppRoute element={<>PROFILE</>} />}
+      element={
+        <AppRoute element={<Profile />} metaInfo={{ title: 'Профиль' }} />
+      }
     />
     <Route path={ERoutes.GAME} element={<AppRoute element={<>GAME</>} />} />
     <Route
