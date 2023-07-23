@@ -1,5 +1,5 @@
 import { IEnemy, IPosition } from './types'
-import { titleSize } from './baseConstants'
+import { tileSize } from './baseConstants'
 
 export class Enemy implements IEnemy {
   waypoints: IPosition[]
@@ -11,8 +11,8 @@ export class Enemy implements IEnemy {
   constructor(waypoints: IPosition[], gap = 0) {
     this.waypoints = waypoints
     this.position = { x: waypoints[0].x - gap, y: waypoints[0].y }
-    this.width = titleSize
-    this.height = titleSize
+    this.width = tileSize
+    this.height = tileSize
     this.wayPointIndex = 1
     this.center = {
       x: this.position.x + this.width / 2,

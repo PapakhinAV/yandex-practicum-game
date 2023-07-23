@@ -1,7 +1,9 @@
 import { IAnimateCanvasParams, IEnemy, IPosition } from './types'
 import { Enemy } from './Enemy'
 import { collsOnMap } from './baseConstants'
+import { Building } from './Building'
 import { Placement } from './Placement'
+import React from 'react'
 
 export const createEnemies = (
   quantity: number,
@@ -35,8 +37,15 @@ export const animateCanvasWrapper = (params: IAnimateCanvasParams) => {
 }
 
 const animateCanvas = (params: IAnimateCanvasParams) => {
-  const { context, background, placementTiles, enemies, mouseRef } = params
-
+  const {
+    context,
+    background,
+    placementTiles,
+    enemies,
+    mouseRef,
+    buildingsRef,
+  } = params
+  const buildings = buildingsRef.current
   if (context) {
     context.drawImage(background, 0, 0)
     enemies.forEach(enemy => enemy.update(context))
@@ -44,6 +53,30 @@ const animateCanvas = (params: IAnimateCanvasParams) => {
       tile.update(context, mouseRef.current)
     })
 
+    buildings &&
+      buildings.forEach(building => {
+        building.draw(context)
+      })
+
     animateCanvasWrapper(params)
+  }
+}
+
+export const handlerCanvasClick = (
+  activeTile: React.RefObject<Placement | null>,
+  buildingsRef: React.RefObject<Building[]>
+): void => {
+  const tile = activeTile.current
+
+  if (tile && buildingsRef.current && !tile.occupied) {
+    buildingsRef.current.push(
+      new Building({
+        position: {
+          x: tile.position.x,
+          y: tile.position.y,
+        },
+      })
+    )
+    tile.occupied = true
   }
 }

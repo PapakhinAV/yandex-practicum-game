@@ -1,4 +1,6 @@
 import { Placement } from './Placement'
+import { Building } from './Building'
+import React from 'react'
 
 export interface IPosition {
   x: number
@@ -27,6 +29,7 @@ export interface IAnimateCanvasParams {
   context: CanvasRenderingContext2D | null | undefined
   background: HTMLImageElement
   placementTiles: Placement[]
+  buildingsRef: React.RefObject<Building[]>
   enemies: IEnemy[]
   mouseRef: React.MutableRefObject<IPosition>
 }
