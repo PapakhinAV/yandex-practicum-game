@@ -1,12 +1,13 @@
 import React from 'react'
 import { Route, Routes } from 'react-router-dom'
-import { Home, Page404 } from '../../pages'
+import { Game, Home, Page404 } from '../../pages'
 import { ERoutes } from './ERoutes'
 import AppRoute from './AppRoute'
 
 export const Router = () => (
   <Routes>
     <Route path={ERoutes.HOME} element={<AppRoute element={<Home />} />} />
+    <Route path={ERoutes.GAME} element={<AppRoute element={<Game />} />} />
     <Route path={ERoutes.LOGIN} element={<AppRoute element={<>LOGIN</>} />} />
     <Route
       path={ERoutes.REGISTER}
