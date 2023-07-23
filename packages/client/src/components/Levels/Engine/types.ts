@@ -1,6 +1,7 @@
 import { Placement } from './Placement'
 import { Building } from './Building'
 import React from 'react'
+import { Enemy } from './Enemy'
 
 export interface IPosition {
   x: number
@@ -23,6 +24,22 @@ export interface IPlacementOptions {
 
 export interface IBuildingOptions {
   position?: IPosition
+  enemiesRef: React.MutableRefObject<Enemy[]>
+}
+
+export interface IEnemyOptions {
+  waypoints: IPosition[]
+  gap?: number
+  health?: number
+  speed?: number
+}
+
+export interface IProjectileOptions {
+  position?: IPosition
+  enemiesRef: React.MutableRefObject<Enemy[]>
+  enemy: Enemy
+  speed?: number
+  power?: number
 }
 
 export interface IAnimateCanvasParams {
@@ -30,6 +47,17 @@ export interface IAnimateCanvasParams {
   background: HTMLImageElement
   placementTiles: Placement[]
   buildingsRef: React.RefObject<Building[]>
-  enemies: IEnemy[]
+  enemiesRef: React.MutableRefObject<Enemy[]>
   mouseRef: React.MutableRefObject<IPosition>
+  waves: ICreateEnemyOptions[]
+  hearts: React.MutableRefObject<number>
+  setHearts: (newValue: number) => void
+}
+
+export interface ICreateEnemyOptions {
+  quantity: number
+  levelPoints: IPosition[]
+  gap?: number
+  health?: number
+  speed?: number
 }

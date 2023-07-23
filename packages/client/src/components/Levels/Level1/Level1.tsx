@@ -1,7 +1,7 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { FC } from 'react'
 import map from './img/map.png'
-import { level1Placements, level1WayPoints } from './constants'
+import { enemyWavesLevel1, level1Placements } from './constants'
 import {
   createEnemies,
   animateCanvasWrapper,
@@ -12,21 +12,35 @@ import {
   usePlacementTiles,
   canvasHeight,
   canvasWidth,
+  Enemy,
 } from '../Engine'
+import styles from './Level1.module.scss'
+import { Heading } from '@chakra-ui/react'
 
 const Level1: FC = () => {
-  const buildingsRef = useRef<Building[]>([])
   const canvasRef = useRef<HTMLCanvasElement>(null)
+  const buildingsRef = useRef<Building[]>([])
+  const hearts = useRef<number>(2)
+  const [heartsState, setHearts] = useState(2)
+
+  const waves = [...enemyWavesLevel1]
+  const wave = waves.shift()
+  const enemiesRef = useRef<Enemy[]>(wave ? createEnemies(wave) : [])
+
   const { placementTiles } = usePlacementTiles(level1Placements)
   const { activeTileRef } = useActiveTile(canvasRef, placementTiles)
   const { mouseRef } = useMousePosition(canvasRef)
+
   const background = new Image()
+
+  const handlerHeartsChange = (newValue: number): void => {
+    hearts.current = newValue
+    setHearts(newValue)
+  }
 
   useEffect(() => {
     const canvas = canvasRef.current
     const context = canvas?.getContext('2d')
-
-    const enemies = createEnemies(10, level1WayPoints, 150)
 
     if (canvas) {
       canvas.width = canvasWidth
@@ -41,18 +55,28 @@ const Level1: FC = () => {
           background,
           placementTiles,
           buildingsRef,
-          enemies,
+          enemiesRef,
           mouseRef,
+          waves,
+          hearts,
+          setHearts: handlerHeartsChange,
         })
       }
     }
   }, [])
 
   return (
-    <canvas
-      onClick={() => handlerCanvasClick(activeTileRef, buildingsRef)}
-      ref={canvasRef}
-    />
+    <div className={styles.level1__wrapper}>
+      <canvas
+        onClick={() =>
+          handlerCanvasClick(activeTileRef, buildingsRef, enemiesRef)
+        }
+        ref={canvasRef}
+      />
+      {!heartsState && (
+        <Heading className={styles.level1__endGame}>Game Over</Heading>
+      )}
+    </div>
   )
 }
 

@@ -12,6 +12,8 @@ export class Placement {
     this.size = tileSize
     this.color = 'rgba(255,255,255,0.15)'
     this.occupied = false
+    this.draw = this.draw.bind(this)
+    this.update = this.update.bind(this)
   }
 
   draw(context: CanvasRenderingContext2D) {

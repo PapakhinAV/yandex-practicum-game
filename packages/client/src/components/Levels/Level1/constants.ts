@@ -1,6 +1,8 @@
+import { ICreateEnemyOptions } from '../Engine/types'
+
 export const level1WayPoints = [
   {
-    x: -66.6043468100023,
+    x: -100.6043468100023,
     y: 580,
   },
   {
@@ -44,4 +46,15 @@ export const level1Placements = [
   0, 0, 0, 0, 14, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 14,
   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 14, 0, 0, 0, 0, 14, 0, 14, 0, 0, 0, 14, 0,
   14, 0, 14, 0, 0, 0, 0, 14, 0, 0, 0, 0, 14, 0, 14, 0, 0,
+]
+
+export const enemyWavesLevel1: ICreateEnemyOptions[] = [
+  { quantity: 3, levelPoints: level1WayPoints, gap: 100, speed: 20 },
+  {
+    quantity: 1,
+    levelPoints: level1WayPoints,
+    gap: 150,
+    speed: 1,
+    health: 300,
+  },
 ]
