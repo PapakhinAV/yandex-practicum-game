@@ -15,6 +15,7 @@ import { ICreateEnemyOptions } from '../types'
 export interface IStartGameOptions {
   hearts: MutableRefObject<number>
   onHeartsChange: (newValue: number) => void
+  onEnemyDefeated: (newValue: number) => void
   gameParams: {
     map: string
     enemyWaves: ICreateEnemyOptions[]
@@ -23,7 +24,7 @@ export interface IStartGameOptions {
 }
 
 const useStartGame = (props: IStartGameOptions) => {
-  const { hearts, onHeartsChange, gameParams } = props
+  const { hearts, onHeartsChange, gameParams, onEnemyDefeated } = props
   const { map, enemyWaves, levelPlacements } = gameParams
 
   const canvasRef = useRef<HTMLCanvasElement>(null)
@@ -58,6 +59,7 @@ const useStartGame = (props: IStartGameOptions) => {
           waves,
           hearts,
           setHearts: onHeartsChange,
+          onEnemyDefeated: onEnemyDefeated,
         })
       }
     }

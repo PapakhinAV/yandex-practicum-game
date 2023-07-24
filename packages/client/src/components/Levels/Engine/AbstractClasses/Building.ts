@@ -14,6 +14,7 @@ export class Building {
   target: Enemy | null
   frames: number
   enemiesRef: React.MutableRefObject<Enemy[]>
+  price: number
 
   constructor({ position = { x: 0, y: 0 }, enemiesRef }: IBuildingOptions) {
     this.position = position
@@ -29,6 +30,7 @@ export class Building {
     this.target = null
     this.frames = 0
     this.enemiesRef = enemiesRef
+    this.price = 10
   }
 
   draw(context: CanvasRenderingContext2D) {
@@ -43,7 +45,7 @@ export class Building {
 
   update(context: CanvasRenderingContext2D) {
     this.draw(context)
-    if (this.frames % 20 === 0 && this.target) {
+    if (this.frames % 70 === 0 && this.target) {
       this.projectiles.push(
         new Projectile({
           position: {

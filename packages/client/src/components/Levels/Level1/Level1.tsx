@@ -1,20 +1,17 @@
 import React, { memo, useEffect, useRef } from 'react'
 import { FC } from 'react'
-import styles from './Level1.module.scss'
-import { Heading } from '@chakra-ui/react'
-import { useDispatch, useSelector } from 'react-redux'
-import { getHearts, newGame, setHearts } from '../../../pages/Game/gameSlice'
-import { handlerCanvasClick, useStartGame } from '../Engine'
+import { useDispatch } from 'react-redux'
+import { addCoins, newGame, setHearts } from '../../../pages/Game/gameSlice'
+import { Building, useCanvasClickHandler, useStartGame } from '../Engine'
 import { enemyWavesLevel1, level1Placements } from './constants'
 import map from './img/map.png'
 
 const Level1: FC = () => {
   const dispatch = useDispatch()
-  const heartsFromStore = useSelector(getHearts)
   const hearts = useRef<number>(2)
 
   useEffect(() => {
-    dispatch(newGame({ hearts: hearts.current }))
+    dispatch(newGame({ hearts: hearts.current, coins: 30 }))
   }, [])
 
   const handlerHeartsChange = (newValue: number): void => {
@@ -22,9 +19,14 @@ const Level1: FC = () => {
     dispatch(setHearts(newValue))
   }
 
+  const handlerEnemyDefeated = (newValue: number): void => {
+    dispatch(addCoins(newValue))
+  }
+
   const { canvasRef, activeTileRef, buildingsRef, enemiesRef } = useStartGame({
     hearts: hearts,
     onHeartsChange: handlerHeartsChange,
+    onEnemyDefeated: handlerEnemyDefeated,
     gameParams: {
       enemyWaves: enemyWavesLevel1,
       levelPlacements: level1Placements,
@@ -32,23 +34,14 @@ const Level1: FC = () => {
     },
   })
 
-  return (
-    <div className={styles.level1__wrapper}>
-      <div>
-        <span>Lives: </span>
-        <span>{heartsFromStore}</span>
-      </div>
-      <canvas
-        onClick={() =>
-          handlerCanvasClick(activeTileRef, buildingsRef, enemiesRef)
-        }
-        ref={canvasRef}
-      />
-      {!heartsFromStore && (
-        <Heading className={styles.level1__endGame}>Game Over</Heading>
-      )}
-    </div>
+  const canvasClickHandler = useCanvasClickHandler(
+    activeTileRef,
+    buildingsRef,
+    enemiesRef,
+    Building
   )
+
+  return <canvas onClick={canvasClickHandler} ref={canvasRef} />
 }
 
 export default memo(Level1)

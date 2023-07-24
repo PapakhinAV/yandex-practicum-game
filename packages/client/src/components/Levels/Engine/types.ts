@@ -52,6 +52,7 @@ export interface IAnimateCanvasParams {
   waves: ICreateEnemyOptions[]
   hearts: React.MutableRefObject<number>
   setHearts: (newValue: number) => void
+  onEnemyDefeated: (newValue: number) => void
 }
 
 export interface ICreateEnemyOptions {

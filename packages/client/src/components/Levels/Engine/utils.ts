@@ -2,8 +2,6 @@ import { IAnimateCanvasParams, ICreateEnemyOptions, IPosition } from './types'
 import { Enemy } from './AbstractClasses/Enemy'
 import { collsOnMap } from './baseConstants'
 import { Building } from './AbstractClasses/Building'
-import { Placement } from './AbstractClasses/Placement'
-import React from 'react'
 import { Projectile } from './AbstractClasses/Projectile'
 
 export const createEnemies = (params: ICreateEnemyOptions): Enemy[] => {
@@ -31,13 +29,16 @@ export const transformPlacementTo2D = (
   return array2D
 }
 
-const calculateDistanceToProjectile = (projectile: Projectile) => {
+export const calculateDistanceToProjectile = (projectile: Projectile) => {
   const xDistance = projectile.enemy.center.x - projectile.position.x
   const yDistance = projectile.enemy.center.y - projectile.position.y
   return Math.hypot(xDistance, yDistance)
 }
 
-const calculateDistanceToBuilding = (enemy: Enemy, building: Building) => {
+export const calculateDistanceToBuilding = (
+  enemy: Enemy,
+  building: Building
+) => {
   const xDistance = enemy.center.x - building.center.x
   const yDistance = enemy.center.y - building.center.y
   return Math.hypot(xDistance, yDistance)
@@ -62,6 +63,7 @@ const animateCanvas = (params: IAnimateCanvasParams) => {
     waves,
     hearts,
     setHearts,
+    onEnemyDefeated,
   } = params
   const buildings = buildingsRef.current
   const enemies = enemiesRef.current
@@ -110,7 +112,10 @@ const animateCanvas = (params: IAnimateCanvasParams) => {
               const enemyIndex = enemies.findIndex(enemy => {
                 return projectile.enemy === enemy
               })
-              if (enemyIndex > -1) enemies.splice(enemyIndex, 1)
+              if (enemyIndex > -1) {
+                onEnemyDefeated(projectile.enemy.reward)
+                enemies.splice(enemyIndex, 1)
+              }
             }
             building.projectiles.splice(i, 1)
           }
@@ -118,27 +123,6 @@ const animateCanvas = (params: IAnimateCanvasParams) => {
       })
 
     animateCanvasWrapper(params)
-  }
-}
-
-export const handlerCanvasClick = (
-  activeTile: React.RefObject<Placement | null>,
-  buildingsRef: React.RefObject<Building[]>,
-  enemiesRef: React.MutableRefObject<Enemy[]>
-): void => {
-  const tile = activeTile.current
-
-  if (tile && buildingsRef.current && !tile.occupied) {
-    buildingsRef.current.push(
-      new Building({
-        position: {
-          x: tile.position.x,
-          y: tile.position.y,
-        },
-        enemiesRef,
-      })
-    )
-    tile.occupied = true
   }
 }
 

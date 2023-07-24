@@ -14,6 +14,7 @@ export class Enemy implements IEnemy {
   fullHealth: number
   speed: number
   velocity: IPosition
+  reward: number
   constructor({ waypoints, gap = 0, health = 100, speed = 1 }: IEnemyOptions) {
     this.waypoints = waypoints
     this.position = { x: waypoints[0].x - gap, y: waypoints[0].y }
@@ -31,6 +32,7 @@ export class Enemy implements IEnemy {
     this.velocity = { x: 0, y: 0 }
     this.draw = this.draw.bind(this)
     this.update = this.update.bind(this)
+    this.reward = 5
   }
   draw(context: CanvasRenderingContext2D) {
     context.fillStyle = 'red'
