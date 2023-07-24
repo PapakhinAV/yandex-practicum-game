@@ -1,5 +1,4 @@
-import { IBuildingOptions, IPosition, IProjectileOptions } from './types'
-import { tileSize, towerSize } from './baseConstants'
+import { IPosition, IProjectileOptions } from '../types'
 import { Enemy } from './Enemy'
 
 export class Projectile {

@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
 import { IPosition } from '../types'
-import { Placement } from '../Placement'
 
 const useMousePosition = (canvasRef: React.RefObject<HTMLCanvasElement>) => {
   const initialValue = { x: 0, y: 0 }

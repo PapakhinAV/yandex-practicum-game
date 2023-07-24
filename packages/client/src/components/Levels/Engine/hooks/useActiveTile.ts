@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react'
-import { Placement } from '../Placement'
+import { Placement } from '../AbstractClasses/Placement'
 import { tileSize, towerSize } from '../baseConstants'
 
 const useActiveTile = (

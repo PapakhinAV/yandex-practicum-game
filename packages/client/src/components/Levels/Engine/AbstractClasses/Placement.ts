@@ -1,5 +1,5 @@
-import { IPlacementOptions, IPosition } from './types'
-import { tileSize, towerSize } from './baseConstants'
+import { IPlacementOptions, IPosition } from '../types'
+import { tileSize, towerSize } from '../baseConstants'
 
 export class Placement {
   position: IPosition

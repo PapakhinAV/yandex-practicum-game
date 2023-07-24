@@ -1,7 +1,7 @@
-import { Placement } from './Placement'
-import { Building } from './Building'
+import { Placement } from './AbstractClasses/Placement'
+import { Building } from './AbstractClasses/Building'
 import React from 'react'
-import { Enemy } from './Enemy'
+import { Enemy } from './AbstractClasses/Enemy'
 
 export interface IPosition {
   x: number

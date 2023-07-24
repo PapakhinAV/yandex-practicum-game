@@ -1,6 +1,6 @@
-import { IEnemy, IEnemyOptions, IPosition } from './types'
-import { tileSize } from './baseConstants'
-import { healthToPixels } from './utils'
+import { IEnemy, IEnemyOptions, IPosition } from '../types'
+import { tileSize } from '../baseConstants'
+import { healthToPixels } from '../utils'
 
 export class Enemy implements IEnemy {
   waypoints: IPosition[]

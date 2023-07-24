@@ -49,7 +49,7 @@ export const level1Placements = [
 ]
 
 export const enemyWavesLevel1: ICreateEnemyOptions[] = [
-  { quantity: 3, levelPoints: level1WayPoints, gap: 100, speed: 20 },
+  { quantity: 3, levelPoints: level1WayPoints, gap: 100, speed: 10 },
   {
     quantity: 1,
     levelPoints: level1WayPoints,

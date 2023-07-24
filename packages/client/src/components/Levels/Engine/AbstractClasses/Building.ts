@@ -1,5 +1,5 @@
-import { IBuildingOptions, IPosition } from './types'
-import { tileSize, towerSize } from './baseConstants'
+import { IBuildingOptions, IPosition } from '../types'
+import { tileSize, towerSize } from '../baseConstants'
 import { Projectile } from './Projectile'
 import { Enemy } from './Enemy'
 import React from 'react'

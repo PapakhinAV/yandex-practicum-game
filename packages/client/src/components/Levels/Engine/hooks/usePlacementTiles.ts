@@ -1,5 +1,5 @@
 import { useMemo } from 'react'
-import { Placement } from '../Placement'
+import { Placement } from '../AbstractClasses/Placement'
 import { transformPlacementTo2D } from '../utils'
 import { tileSize } from '../baseConstants'
 

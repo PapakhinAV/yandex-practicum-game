@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { memo, useEffect, useRef, useState } from 'react'
 import { FC } from 'react'
 import map from './img/map.png'
 import { enemyWavesLevel1, level1Placements } from './constants'
@@ -16,13 +16,16 @@ import {
 } from '../Engine'
 import styles from './Level1.module.scss'
 import { Heading } from '@chakra-ui/react'
+import { useDispatch, useSelector } from 'react-redux'
+import { getHearts, newGame, setHearts } from '../../../pages/Game/gameSlice'
 
 const Level1: FC = () => {
+  const dispatch = useDispatch()
   const canvasRef = useRef<HTMLCanvasElement>(null)
+
   const buildingsRef = useRef<Building[]>([])
   const hearts = useRef<number>(2)
-  const [heartsState, setHearts] = useState(2)
-
+  const heartsFromStore = useSelector(getHearts)
   const waves = [...enemyWavesLevel1]
   const wave = waves.shift()
   const enemiesRef = useRef<Enemy[]>(wave ? createEnemies(wave) : [])
@@ -35,8 +38,12 @@ const Level1: FC = () => {
 
   const handlerHeartsChange = (newValue: number): void => {
     hearts.current = newValue
-    setHearts(newValue)
+    dispatch(setHearts(newValue))
   }
+
+  useEffect(() => {
+    dispatch(newGame({ hearts: hearts.current }))
+  }, [])
 
   useEffect(() => {
     const canvas = canvasRef.current
@@ -73,11 +80,11 @@ const Level1: FC = () => {
         }
         ref={canvasRef}
       />
-      {!heartsState && (
+      {!heartsFromStore && (
         <Heading className={styles.level1__endGame}>Game Over</Heading>
       )}
     </div>
   )
 }
 
-export default Level1
+export default memo(Level1)

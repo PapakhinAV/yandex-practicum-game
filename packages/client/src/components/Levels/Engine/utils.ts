@@ -1,10 +1,10 @@
 import { IAnimateCanvasParams, ICreateEnemyOptions, IPosition } from './types'
-import { Enemy } from './Enemy'
+import { Enemy } from './AbstractClasses/Enemy'
 import { collsOnMap } from './baseConstants'
-import { Building } from './Building'
-import { Placement } from './Placement'
+import { Building } from './AbstractClasses/Building'
+import { Placement } from './AbstractClasses/Placement'
 import React from 'react'
-import { Projectile } from './Projectile'
+import { Projectile } from './AbstractClasses/Projectile'
 
 export const createEnemies = (params: ICreateEnemyOptions): Enemy[] => {
   const { quantity, levelPoints, gap = 100, health, speed } = params || {}
