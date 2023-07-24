@@ -1,4 +1,5 @@
 import { ICreateEnemyOptions } from '../Engine/types'
+import { Ork } from '../Engine/Enemies/Ork'
 
 export const level1WayPoints = [
   {
@@ -49,12 +50,19 @@ export const level1Placements = [
 ]
 
 export const enemyWavesLevel1: ICreateEnemyOptions[] = [
-  { quantity: 3, levelPoints: level1WayPoints, gap: 100, speed: 3 },
+  {
+    quantity: 3,
+    levelPoints: level1WayPoints,
+    gap: 100,
+    speed: 3,
+    EnemyModel: Ork,
+  },
   {
     quantity: 1,
     levelPoints: level1WayPoints,
     gap: 150,
     speed: 1,
     health: 300,
+    EnemyModel: Ork,
   },
 ]

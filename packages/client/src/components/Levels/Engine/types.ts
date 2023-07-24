@@ -2,6 +2,7 @@ import { Placement } from './AbstractClasses/Placement'
 import { Building } from './AbstractClasses/Building'
 import React from 'react'
 import { Enemy } from './AbstractClasses/Enemy'
+import { Projectile } from './AbstractClasses/Projectile'
 
 export interface IPosition {
   x: number
@@ -25,6 +26,17 @@ export interface IPlacementOptions {
 export interface IBuildingOptions {
   position?: IPosition
   enemiesRef: React.MutableRefObject<Enemy[]>
+  imgPath?: string
+  frames?: number
+  offset?: IPosition
+  Bullet?: typeof Projectile
+  bulletParams?: IBulletParams
+  bulletOffset?: IPosition
+}
+
+export interface IBulletParams {
+  speed?: number
+  power?: number
 }
 
 export interface IEnemyOptions {
@@ -32,6 +44,8 @@ export interface IEnemyOptions {
   gap?: number
   health?: number
   speed?: number
+  imgPath?: string
+  frames?: number
 }
 
 export interface IProjectileOptions {
@@ -40,6 +54,7 @@ export interface IProjectileOptions {
   enemy: Enemy
   speed?: number
   power?: number
+  imgPath?: string
 }
 
 export interface IAnimateCanvasParams {
@@ -52,7 +67,7 @@ export interface IAnimateCanvasParams {
   waves: ICreateEnemyOptions[]
   hearts: React.MutableRefObject<number>
   setHearts: (newValue: number) => void
-  onEnemyDefeated: (newValue: number) => void
+  onEnemyDefeated: (coins: number, scorePoints: number) => void
 }
 
 export interface ICreateEnemyOptions {
@@ -61,4 +76,5 @@ export interface ICreateEnemyOptions {
   gap?: number
   health?: number
   speed?: number
+  EnemyModel: typeof Enemy
 }

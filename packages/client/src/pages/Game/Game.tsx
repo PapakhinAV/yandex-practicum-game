@@ -1,27 +1,33 @@
 import React, { FC } from 'react'
 import styles from './Game.module.scss'
 import { Level1 } from '../../components'
-import { Heading, Image } from '@chakra-ui/react'
+import { Image } from '@chakra-ui/react'
 import heart from './img/heart.svg'
 import coinsImg from './img/coins.svg'
+import star from './img/star.svg'
 import { useSelector } from 'react-redux'
-import { getCoins, getHearts } from './gameSlice'
+import { getCoins, getHearts, getScore } from './gameSlice'
 import { createSelector } from 'reselect'
 
 const getTotalHeartsAndCoins = createSelector(
-  [getHearts, getCoins],
-  (hearts, coins) => ({
+  [getHearts, getCoins, getScore],
+  (hearts, coins, score) => ({
     hearts,
     coins,
+    score,
   })
 )
 
 const Game: FC = () => {
-  const { hearts, coins } = useSelector(getTotalHeartsAndCoins)
+  const { hearts, coins, score } = useSelector(getTotalHeartsAndCoins)
 
   return (
     <div className={styles.game__wrapper}>
       <div className={styles.game__infoBar}>
+        <div className={styles.game__infoItem}>
+          <Image src={star} width={6} />
+          <div>{score}</div>
+        </div>
         <div className={styles.game__infoItem}>
           <Image src={coinsImg} width={6} />
           <div>{coins}</div>
@@ -32,7 +38,12 @@ const Game: FC = () => {
         </div>
       </div>
       <Level1 />
-      {!hearts && <Heading className={styles.game__endGame}>Game Over</Heading>}
+      {!hearts && (
+        <div className={styles.game__endGame}>
+          <p>Game Over</p>
+          <p>Score: {score}</p>
+        </div>
+      )}
     </div>
   )
 }

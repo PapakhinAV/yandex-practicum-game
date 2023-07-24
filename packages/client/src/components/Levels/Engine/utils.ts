@@ -1,17 +1,24 @@
-import { IAnimateCanvasParams, ICreateEnemyOptions, IPosition } from './types'
+import { IAnimateCanvasParams, ICreateEnemyOptions } from './types'
 import { Enemy } from './AbstractClasses/Enemy'
 import { collsOnMap } from './baseConstants'
 import { Building } from './AbstractClasses/Building'
 import { Projectile } from './AbstractClasses/Projectile'
 
 export const createEnemies = (params: ICreateEnemyOptions): Enemy[] => {
-  const { quantity, levelPoints, gap = 100, health, speed } = params || {}
+  const {
+    quantity,
+    levelPoints,
+    gap = 100,
+    health,
+    speed,
+    EnemyModel,
+  } = params || {}
   const enemies: Enemy[] = []
 
   for (let i = 0; i < quantity; i++) {
     const xOffset = i * gap
     enemies.push(
-      new Enemy({ waypoints: levelPoints, gap: xOffset, health, speed })
+      new EnemyModel({ waypoints: levelPoints, gap: xOffset, health, speed })
     )
   }
   return enemies
@@ -113,7 +120,10 @@ const animateCanvas = (params: IAnimateCanvasParams) => {
                 return projectile.enemy === enemy
               })
               if (enemyIndex > -1) {
-                onEnemyDefeated(projectile.enemy.reward)
+                onEnemyDefeated(
+                  projectile.enemy.reward.coins,
+                  projectile.enemy.reward.points
+                )
                 enemies.splice(enemyIndex, 1)
               }
             }

@@ -1,10 +1,11 @@
 import React, { memo, useEffect, useRef } from 'react'
 import { FC } from 'react'
 import { useDispatch } from 'react-redux'
-import { addCoins, newGame, setHearts } from '../../../pages/Game/gameSlice'
-import { Building, useCanvasClickHandler, useStartGame } from '../Engine'
+import { newGame, setHearts } from '../../../pages/Game/gameSlice'
+import { useCanvasClickHandler, useStartGame } from '../Engine'
 import { enemyWavesLevel1, level1Placements } from './constants'
 import map from './img/map.png'
+import { Tower } from '../Engine/Towers/Tower'
 
 const Level1: FC = () => {
   const dispatch = useDispatch()
@@ -19,14 +20,9 @@ const Level1: FC = () => {
     dispatch(setHearts(newValue))
   }
 
-  const handlerEnemyDefeated = (newValue: number): void => {
-    dispatch(addCoins(newValue))
-  }
-
   const { canvasRef, activeTileRef, buildingsRef, enemiesRef } = useStartGame({
     hearts: hearts,
     onHeartsChange: handlerHeartsChange,
-    onEnemyDefeated: handlerEnemyDefeated,
     gameParams: {
       enemyWaves: enemyWavesLevel1,
       levelPlacements: level1Placements,
@@ -38,7 +34,7 @@ const Level1: FC = () => {
     activeTileRef,
     buildingsRef,
     enemiesRef,
-    Building
+    Tower
   )
 
   return <canvas onClick={canvasClickHandler} ref={canvasRef} />

@@ -9,6 +9,8 @@ export class Projectile {
   radius: number
   speed: number
   power: number
+  image: HTMLImageElement
+  imgPath: string
 
   constructor({
     position = { x: 0, y: 0 },
@@ -16,6 +18,7 @@ export class Projectile {
     enemy,
     speed = 10,
     power = 20,
+    imgPath = '',
   }: IProjectileOptions) {
     this.position = position
     this.velocity = { x: 0, y: 0 }
@@ -26,13 +29,20 @@ export class Projectile {
     this.update = this.update.bind(this)
     this.speed = speed
     this.power = power
+    this.image = new Image()
+    this.image.src = imgPath
+    this.imgPath = imgPath
   }
 
   draw(context: CanvasRenderingContext2D) {
-    context.beginPath()
-    context.arc(this.position.x, this.position.y, this.radius, 0, Math.PI * 2)
-    context.fillStyle = 'orange'
-    context.fill()
+    if (this.imgPath) {
+      context.drawImage(this.image, this.position.x, this.position.y)
+    } else {
+      context.beginPath()
+      context.arc(this.position.x, this.position.y, this.radius, 0, Math.PI * 2)
+      context.fillStyle = 'orange'
+      context.fill()
+    }
   }
   update(context: CanvasRenderingContext2D) {
     this.draw(context)

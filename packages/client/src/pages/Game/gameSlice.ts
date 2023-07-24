@@ -21,12 +21,12 @@ const gameSlice = createSlice({
   reducers: {
     newGame: (
       state: IGameState,
-      action: PayloadAction<{ hearts?: number; coins?: number }>
+      action: PayloadAction<{ hearts?: number; coins?: number; score?: number }>
     ) => {
-      const { hearts = 5, coins = 20 } = action.payload
+      const { hearts = 5, coins = 20, score = 0 } = action.payload
 
       state.hearts = hearts
-      state.score = 0
+      state.score = score
       state.coins = coins
     },
     setHearts: (state: IGameState, action: PayloadAction<number>) => {
@@ -38,12 +38,17 @@ const gameSlice = createSlice({
     removeCoins: (state: IGameState, action: PayloadAction<number>) => {
       state.coins -= action.payload
     },
+    addScore: (state: IGameState, action: PayloadAction<number>) => {
+      state.score += action.payload
+    },
   },
 })
 
-export const { newGame, setHearts, addCoins, removeCoins } = gameSlice.actions
+export const { newGame, setHearts, addCoins, removeCoins, addScore } =
+  gameSlice.actions
 
 export default gameSlice.reducer
 
 export const getHearts = (state: IRootState) => state[reducerName].hearts
 export const getCoins = (state: IRootState) => state[reducerName].coins
+export const getScore = (state: IRootState) => state[reducerName].score

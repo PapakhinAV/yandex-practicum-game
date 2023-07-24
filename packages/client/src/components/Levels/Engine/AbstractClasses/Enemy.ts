@@ -14,8 +14,20 @@ export class Enemy implements IEnemy {
   fullHealth: number
   speed: number
   velocity: IPosition
-  reward: number
-  constructor({ waypoints, gap = 0, health = 100, speed = 1 }: IEnemyOptions) {
+  reward: { coins: number; points: number }
+  image: HTMLImageElement
+  imgPath: string
+  currentFrame: number
+  imgFrames: number
+  elapsed: number
+  constructor({
+    waypoints,
+    gap = 0,
+    health = 100,
+    speed = 1,
+    imgPath = '',
+    frames = 1,
+  }: IEnemyOptions) {
     this.waypoints = waypoints
     this.position = { x: waypoints[0].x - gap, y: waypoints[0].y }
     this.width = tileSize
@@ -29,17 +41,53 @@ export class Enemy implements IEnemy {
     this.fullHealth = health
     this.health = health
     this.speed = speed
+    this.image = new Image()
+    this.image.src = imgPath
+    this.imgPath = imgPath
+    this.imgFrames = frames
     this.velocity = { x: 0, y: 0 }
+    this.reward = { coins: 5, points: 1 }
+    this.currentFrame = 0
+    this.elapsed = 0
     this.draw = this.draw.bind(this)
     this.update = this.update.bind(this)
-    this.reward = 5
   }
   draw(context: CanvasRenderingContext2D) {
-    context.fillStyle = 'red'
-    // context.fillRect(this.position.x, this.position.y, this.width, this.height)
-    context.beginPath()
-    context.arc(this.center.x, this.center.y, this.radius, 0, Math.PI * 2)
-    context.fill()
+    this.elapsed++
+    if (this.imgPath) {
+      const cropWidth = this.image.width / this.imgFrames
+      const crop = {
+        position: {
+          x: cropWidth * this.currentFrame,
+          y: 0,
+        },
+        width: cropWidth,
+        height: this.image.height,
+      }
+      context.drawImage(
+        this.image,
+        crop.position.x,
+        crop.position.y,
+        crop.width,
+        crop.height,
+        this.position.x,
+        this.position.y,
+        crop.width,
+        crop.height
+      )
+
+      if (this.elapsed % 3 === 0) {
+        this.currentFrame++
+        if (this.currentFrame >= this.imgFrames - 1) {
+          this.currentFrame = 0
+        }
+      }
+    } else {
+      context.fillStyle = 'red'
+      context.beginPath()
+      context.arc(this.center.x, this.center.y, this.radius, 0, Math.PI * 2)
+      context.fill()
+    }
 
     //health bar
     context.fillStyle = 'red'

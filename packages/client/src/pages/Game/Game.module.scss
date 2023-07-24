@@ -17,6 +17,10 @@
     font-size: 72px;
     text-transform: uppercase;
     font-weight: bold;
+    display: flex;
+    flex-direction: column;
+    row-gap: 8px;
+    text-align: center;
   }
 
   &__infoBar {
@@ -26,7 +30,7 @@
     justify-content: end;
     margin-bottom: 8px;
   }
-  &__infoItem{
+  &__infoItem {
     display: flex;
     flex-direction: row;
     column-gap: 4px;
