@@ -1,0 +1,17 @@
+.error {
+    &__wrapper {
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        color: #FFF;
+    }
+    &__status {
+        font-size: 72px;
+    }
+    &__message {
+        font-size: 16px;
+        margin-bottom: 20px;
+    }
+}

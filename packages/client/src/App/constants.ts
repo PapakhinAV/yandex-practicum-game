@@ -9,11 +9,18 @@ export enum EColors {
 }
 
 export const theme = extendTheme({
+  fonts: {
+    heading: `'Rubik', sans-serif`,
+    body: `'Rubik', sans-serif`,
+  },
   styles: {
     global: {
       'h1, h2, h3, h4, h5, h6': {
         fontSize: 'initial',
         fontWeight: 'initial',
+      },
+      a: {
+        color: '#0085FF',
       },
     },
   },

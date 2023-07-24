@@ -8,4 +8,5 @@ export enum ERoutes {
   FORUM = '/forum',
   FORUM_TOPIC = '/forum/:topicId',
   PAGE_404 = '*',
+  PAGE_500 = '/500',
 }
