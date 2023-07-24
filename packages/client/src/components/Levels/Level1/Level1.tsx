@@ -1,79 +1,43 @@
-import React, { memo, useEffect, useRef, useState } from 'react'
+import React, { memo, useEffect, useRef } from 'react'
 import { FC } from 'react'
-import map from './img/map.png'
-import { enemyWavesLevel1, level1Placements } from './constants'
-import {
-  createEnemies,
-  animateCanvasWrapper,
-  handlerCanvasClick,
-  Building,
-  useActiveTile,
-  useMousePosition,
-  usePlacementTiles,
-  canvasHeight,
-  canvasWidth,
-  Enemy,
-} from '../Engine'
 import styles from './Level1.module.scss'
 import { Heading } from '@chakra-ui/react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getHearts, newGame, setHearts } from '../../../pages/Game/gameSlice'
+import { handlerCanvasClick, useStartGame } from '../Engine'
+import { enemyWavesLevel1, level1Placements } from './constants'
+import map from './img/map.png'
 
 const Level1: FC = () => {
   const dispatch = useDispatch()
-  const canvasRef = useRef<HTMLCanvasElement>(null)
-
-  const buildingsRef = useRef<Building[]>([])
-  const hearts = useRef<number>(2)
   const heartsFromStore = useSelector(getHearts)
-  const waves = [...enemyWavesLevel1]
-  const wave = waves.shift()
-  const enemiesRef = useRef<Enemy[]>(wave ? createEnemies(wave) : [])
+  const hearts = useRef<number>(2)
 
-  const { placementTiles } = usePlacementTiles(level1Placements)
-  const { activeTileRef } = useActiveTile(canvasRef, placementTiles)
-  const { mouseRef } = useMousePosition(canvasRef)
-
-  const background = new Image()
+  useEffect(() => {
+    dispatch(newGame({ hearts: hearts.current }))
+  }, [])
 
   const handlerHeartsChange = (newValue: number): void => {
     hearts.current = newValue
     dispatch(setHearts(newValue))
   }
 
-  useEffect(() => {
-    dispatch(newGame({ hearts: hearts.current }))
-  }, [])
-
-  useEffect(() => {
-    const canvas = canvasRef.current
-    const context = canvas?.getContext('2d')
-
-    if (canvas) {
-      canvas.width = canvasWidth
-      canvas.height = canvasHeight
-    }
-
-    if (context) {
-      background.src = map
-      background.onload = () => {
-        animateCanvasWrapper({
-          context,
-          background,
-          placementTiles,
-          buildingsRef,
-          enemiesRef,
-          mouseRef,
-          waves,
-          hearts,
-          setHearts: handlerHeartsChange,
-        })
-      }
-    }
-  }, [])
+  const { canvasRef, activeTileRef, buildingsRef, enemiesRef } = useStartGame({
+    hearts: hearts,
+    onHeartsChange: handlerHeartsChange,
+    gameParams: {
+      enemyWaves: enemyWavesLevel1,
+      levelPlacements: level1Placements,
+      map,
+    },
+  })
 
   return (
     <div className={styles.level1__wrapper}>
+      <div>
+        <span>Lives: </span>
+        <span>{heartsFromStore}</span>
+      </div>
       <canvas
         onClick={() =>
           handlerCanvasClick(activeTileRef, buildingsRef, enemiesRef)

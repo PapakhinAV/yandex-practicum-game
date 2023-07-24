@@ -43,7 +43,7 @@ export class Building {
 
   update(context: CanvasRenderingContext2D) {
     this.draw(context)
-    if (this.frames % 100 === 0 && this.target) {
+    if (this.frames % 20 === 0 && this.target) {
       this.projectiles.push(
         new Projectile({
           position: {
@@ -52,6 +52,7 @@ export class Building {
           },
           enemiesRef: this.enemiesRef,
           enemy: this.target,
+          speed: 30,
         })
       )
     }
