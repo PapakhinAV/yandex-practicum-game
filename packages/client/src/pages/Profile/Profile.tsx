@@ -1,23 +1,21 @@
-import React from 'react'
+import React, { FC } from 'react'
 import CustomButton from '../../components/Button/Button'
-import {
-  Avatar,
-  Box,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalFooter,
-  ModalBody,
-  ModalCloseButton,
-  ModalHeader,
-  FormLabel,
-  FormControl,
-  useDisclosure,
-} from '@chakra-ui/react'
-import CustomInput from '../../components/fields/Input/Input'
+import { Avatar, Box, Modal, useDisclosure } from '@chakra-ui/react'
+import ModalEdit from './ModalEdit'
+import ModalChangePassword from './ModalChangePassword'
 
-const Profile = () => {
-  const { isOpen, onOpen, onClose } = useDisclosure()
+const Profile: FC = () => {
+  const {
+    isOpen: isOpenEdit,
+    onOpen: onOpenEdit,
+    onClose: onCloseEdit,
+  } = useDisclosure()
+  const {
+    isOpen: isOpenPassword,
+    onOpen: onOpenPassword,
+    onClose: onClosePassword,
+  } = useDisclosure()
+
   return (
     <Box
       display="grid"
@@ -40,47 +38,20 @@ const Profile = () => {
         size="2xl"
         margin="auto"
       />
-      <CustomButton width={250} onClick={onOpen}>
+      <CustomButton width={250} onClick={onOpenEdit}>
         Редактировать
       </CustomButton>
-      <CustomButton width={250}>Изменить пароль</CustomButton>
+      <CustomButton width={250} onClick={onOpenPassword}>
+        Изменить пароль
+      </CustomButton>
       <CustomButton colorScheme="red" width={250}>
         Выйти
       </CustomButton>
-      <Modal isOpen={isOpen} onClose={onClose}>
-        <ModalOverlay />
-        <ModalContent>
-          <ModalCloseButton />
-          <ModalHeader>Редактирование</ModalHeader>
-          <ModalBody>
-            <FormControl mb={5}>
-              <FormLabel>Имя</FormLabel>
-              <CustomInput name="first_name" />
-            </FormControl>
-            <FormControl mb={5}>
-              <FormLabel>Фамилия</FormLabel>
-              <CustomInput name="last_name" />
-            </FormControl>
-            <FormControl mb={5}>
-              <FormLabel>Почта</FormLabel>
-              <CustomInput name="email" />
-            </FormControl>
-            <FormControl mb={5}>
-              <FormLabel>Телефон</FormLabel>
-              <CustomInput name="phone" />
-            </FormControl>
-            <FormControl mb={5}>
-              <FormLabel>Логин</FormLabel>
-              <CustomInput name="login" />
-            </FormControl>
-          </ModalBody>
-          <ModalFooter>
-            <CustomButton>Сохранить</CustomButton>
-            <CustomButton variant="ghost" mr={3} onClick={onClose}>
-              Закрыть
-            </CustomButton>
-          </ModalFooter>
-        </ModalContent>
+      <Modal isOpen={isOpenPassword} onClose={onClosePassword}>
+        <ModalChangePassword onClose={onClosePassword} />
+      </Modal>
+      <Modal isOpen={isOpenEdit} onClose={onCloseEdit}>
+        <ModalEdit onClose={onCloseEdit} />
       </Modal>
     </Box>
   )

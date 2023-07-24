@@ -1,6 +1,9 @@
 import { TValidatorParam } from './types'
 
-export const nameValidator: TValidatorParam = (name, customErrorMessage) => {
+export const nameValidator: TValidatorParam = (
+  name = '',
+  customErrorMessage
+) => {
   const errors = []
 
   if (!/^[A-Za-zА-Яа-яЁё-]+$/.test(name)) {
@@ -17,7 +20,10 @@ export const nameValidator: TValidatorParam = (name, customErrorMessage) => {
   return undefined
 }
 
-export const loginValidator: TValidatorParam = (login, customErrorMessage) => {
+export const loginValidator: TValidatorParam = (
+  login = '',
+  customErrorMessage
+) => {
   const errors = []
 
   if (login.length < 3 || login.length > 20) {
@@ -37,7 +43,10 @@ export const loginValidator: TValidatorParam = (login, customErrorMessage) => {
   return undefined
 }
 
-export const emailValidator: TValidatorParam = (email, customErrorMessage) => {
+export const emailValidator: TValidatorParam = (
+  email = '',
+  customErrorMessage
+) => {
   const errors = []
 
   if (!/@/.test(email)) {
@@ -53,7 +62,7 @@ export const emailValidator: TValidatorParam = (email, customErrorMessage) => {
 }
 
 export const passwordValidator: TValidatorParam = (
-  password,
+  password = '',
   customErrorMessage
 ) => {
   const errors = []
@@ -73,7 +82,10 @@ export const passwordValidator: TValidatorParam = (
   return undefined
 }
 
-export const phoneValidator: TValidatorParam = (phone, customErrorMessage) => {
+export const phoneValidator: TValidatorParam = (
+  phone = '',
+  customErrorMessage
+) => {
   const errors = []
 
   if (phone.length < 10 || phone.length > 15) {
