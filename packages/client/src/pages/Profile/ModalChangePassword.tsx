@@ -10,15 +10,26 @@ import {
   FormLabel,
   FormControl,
 } from '@chakra-ui/react'
-import CustomInput from '../../components/fields/Input/Input'
+import {
+  passwordValidator,
+  twoPasswordValidator,
+} from '../../utils/validators/validators'
+import FormInput from '../../components/formFields/FormInput/FormInput'
+import { useForm } from 'react-hook-form'
+import CustomForm from '../../components/Form/Form'
 
 interface ModalChangePasswordProps {
   onClose: () => void
 }
 
 const ModalChangePassword: FC<ModalChangePasswordProps> = ({ onClose }) => {
+  const methods = useForm()
+  const onSubmit = (data: unknown) => {
+    console.log(data)
+  }
+
   return (
-    <>
+    <CustomForm onSubmit={methods.handleSubmit(onSubmit)} methods={methods}>
       <ModalOverlay />
       <ModalContent>
         <ModalCloseButton onClick={onClose} />
@@ -26,15 +37,30 @@ const ModalChangePassword: FC<ModalChangePasswordProps> = ({ onClose }) => {
         <ModalBody>
           <FormControl mb={5}>
             <FormLabel>Старый пароль</FormLabel>
-            <CustomInput name="first_name" />
+            <FormInput name="oldPassword" />
           </FormControl>
           <FormControl mb={5}>
             <FormLabel>Новый пароль</FormLabel>
-            <CustomInput name="newPassword" />
+            <FormInput
+              name="newPassword"
+              registerOptions={{
+                validate: value => passwordValidator(value),
+              }}
+            />
           </FormControl>
           <FormControl mb={5}>
             <FormLabel>Новый пароль(ещё)</FormLabel>
-            <CustomInput name="newPasswordAgain" />
+            <FormInput
+              name="newPasswordAgain"
+              registerOptions={{
+                validate: (value, formValues) =>
+                  twoPasswordValidator(
+                    value,
+                    undefined,
+                    formValues.newPassword
+                  ),
+              }}
+            />
           </FormControl>
         </ModalBody>
         <ModalFooter>
@@ -44,7 +70,7 @@ const ModalChangePassword: FC<ModalChangePasswordProps> = ({ onClose }) => {
           </CustomButton>
         </ModalFooter>
       </ModalContent>
-    </>
+    </CustomForm>
   )
 }
 

@@ -101,3 +101,14 @@ export const phoneValidator: TValidatorParam = (
   }
   return undefined
 }
+
+export const twoPasswordValidator: TValidatorParam = (
+  password = '',
+  customErrorMessage,
+  formValues
+) => {
+  if (password !== formValues?.newPassword) {
+    return customErrorMessage || 'Пароли не совпадают'
+  }
+  return undefined
+}
