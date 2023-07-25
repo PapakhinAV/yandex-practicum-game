@@ -20,7 +20,7 @@ export const theme = extendTheme({
         fontWeight: 'initial',
       },
       a: {
-        color: '#0085FF',
+        color: EColors.BLUE,
       },
     },
   },
