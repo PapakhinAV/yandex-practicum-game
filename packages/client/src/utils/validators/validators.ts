@@ -41,7 +41,7 @@ export const emailValidator: TValidatorParam = (email, customErrorMessage) => {
   const errors = []
 
   if (!/@/.test(email)) {
-    errors.push("Email должен содержать символ '@'")
+    errors.push('Email должен содержать символ \'@\'')
   }
   if (!/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/.test(email)) {
     errors.push('Введите действительный адрес электронной почты')
@@ -81,7 +81,7 @@ export const phoneValidator: TValidatorParam = (phone, customErrorMessage) => {
   }
   if (!/^(\+)?(\d+)$/.test(phone)) {
     errors.push(
-      "Номер телефона должен содержать только цифры и может начинаться с '+''"
+      'Номер телефона должен содержать только цифры и может начинаться с \'+\'\''
     )
   }
   if (errors.length > 0) {

@@ -1,5 +1,6 @@
 import { IPlacementOptions, IPosition } from '../types'
 import { tileSize, towerSize } from '../baseConstants'
+import { EColors } from '../../../../App/constants'
 
 export class Placement {
   position: IPosition
@@ -25,12 +26,12 @@ export class Placement {
     this.draw(context)
 
     if (
-      mouse.x > this.position.x &&
-      mouse.x < this.position.x + towerSize &&
-      mouse.y > this.position.y &&
-      mouse.y < this.position.y + this.size
+      mouse.x > this.position.x
+      && mouse.x < this.position.x + towerSize
+      && mouse.y > this.position.y
+      && mouse.y < this.position.y + this.size
     ) {
-      this.color = 'white'
+      this.color = EColors.WHITE
     } else this.color = 'rgba(255,255,255,0.15)'
   }
 }

@@ -1,5 +1,6 @@
 import { IPosition, IProjectileOptions } from '../types'
 import { Enemy } from './Enemy'
+import { EColors } from '../../../../App/constants'
 
 export class Projectile {
   position: IPosition
@@ -37,13 +38,14 @@ export class Projectile {
   draw(context: CanvasRenderingContext2D) {
     if (this.imgPath) {
       context.drawImage(this.image, this.position.x, this.position.y)
-    } else {
-      context.beginPath()
-      context.arc(this.position.x, this.position.y, this.radius, 0, Math.PI * 2)
-      context.fillStyle = 'orange'
-      context.fill()
+      return
     }
+    context.beginPath()
+    context.arc(this.position.x, this.position.y, this.radius, 0, Math.PI * 2)
+    context.fillStyle = EColors.ORANGE
+    context.fill()
   }
+
   update(context: CanvasRenderingContext2D) {
     this.draw(context)
 

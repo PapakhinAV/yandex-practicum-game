@@ -21,10 +21,10 @@ const useActiveTile = (
       for (let i = 0; i < placementTiles.length; i++) {
         const tile = placementTiles[i]
         if (
-          x > tile.position.x &&
-          x < tile.position.x + towerSize &&
-          y > tile.position.y &&
-          y < tile.position.y + tileSize
+          x > tile.position.x
+          && x < tile.position.x + towerSize
+          && y > tile.position.y
+          && y < tile.position.y + tileSize
         ) {
           activeTile.current = tile
           break

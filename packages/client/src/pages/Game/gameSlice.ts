@@ -44,8 +44,8 @@ const gameSlice = createSlice({
   },
 })
 
-export const { newGame, setHearts, addCoins, removeCoins, addScore } =
-  gameSlice.actions
+export const { newGame, setHearts, addCoins, removeCoins, addScore }
+  = gameSlice.actions
 
 export default gameSlice.reducer
 

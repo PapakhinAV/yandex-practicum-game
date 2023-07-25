@@ -4,6 +4,6 @@ import canonball from '../assets/projectile.png'
 
 export class Cannonball extends Projectile {
   constructor(props: IProjectileOptions) {
-    super({ ...props, imgPath: canonball})
+    super({ ...props, imgPath: canonball })
   }
 }

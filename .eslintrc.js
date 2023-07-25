@@ -16,6 +16,12 @@ module.exports = {
   plugins: ['@typescript-eslint'],
   rules: {
     '@typescript-eslint/ban-ts-comment': 1,
-    "semi": ["error", "never"]
+    'semi': ['error', 'never'],
+    'eol-last': ['error', 'always'],
+    'lines-between-class-members': ['error', 'always', { exceptAfterSingleLine: true }],
+    'operator-linebreak': ['error', 'before'],
+    'quotes': ['error', 'single'],
+    'arrow-parens': ['error', 'as-needed'],
+    'brace-style': ['error', '1tbs']
   },
 }

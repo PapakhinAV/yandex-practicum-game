@@ -1,6 +1,7 @@
 import { IEnemy, IEnemyOptions, IPosition } from '../types'
 import { tileSize } from '../baseConstants'
 import { healthToPixels } from '../utils'
+import { EColors } from '../../../../App/constants'
 
 export class Enemy implements IEnemy {
   waypoints: IPosition[]
@@ -52,6 +53,7 @@ export class Enemy implements IEnemy {
     this.draw = this.draw.bind(this)
     this.update = this.update.bind(this)
   }
+
   draw(context: CanvasRenderingContext2D) {
     this.elapsed++
     if (this.imgPath) {
@@ -83,17 +85,17 @@ export class Enemy implements IEnemy {
         }
       }
     } else {
-      context.fillStyle = 'red'
+      context.fillStyle = EColors.RED
       context.beginPath()
       context.arc(this.center.x, this.center.y, this.radius, 0, Math.PI * 2)
       context.fill()
     }
 
     //health bar
-    context.fillStyle = 'red'
+    context.fillStyle = EColors.RED
     context.fillRect(this.position.x, this.position.y - 15, this.width, 10)
 
-    context.fillStyle = 'green'
+    context.fillStyle = EColors.GREEN
     context.fillRect(
       this.position.x,
       this.position.y - 15,
@@ -101,6 +103,7 @@ export class Enemy implements IEnemy {
       10
     )
   }
+
   update(context: CanvasRenderingContext2D) {
     this.draw(context)
 
@@ -120,11 +123,11 @@ export class Enemy implements IEnemy {
     }
 
     if (
-      Math.abs(Math.round(this.center.x) - Math.round(waypoint.x)) <
-        Math.abs(this.velocity.x) &&
-      Math.abs(Math.round(this.center.y) - Math.round(waypoint.y)) <
-        Math.abs(this.velocity.y) &&
-      this.wayPointIndex < this.waypoints.length - 1
+      Math.abs(Math.round(this.center.x) - Math.round(waypoint.x))
+        < Math.abs(this.velocity.x)
+      && Math.abs(Math.round(this.center.y) - Math.round(waypoint.y))
+        < Math.abs(this.velocity.y)
+      && this.wayPointIndex < this.waypoints.length - 1
     ) {
       this.wayPointIndex++
     }

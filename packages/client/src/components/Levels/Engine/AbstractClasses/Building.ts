@@ -3,6 +3,7 @@ import { tileSize, towerSize } from '../baseConstants'
 import { Projectile } from './Projectile'
 import { Enemy } from './Enemy'
 import React from 'react'
+import { EColors } from '../../../../App/constants'
 
 export class Building {
   position: IPosition
@@ -92,7 +93,7 @@ export class Building {
         }
       }
     } else {
-      context.fillStyle = 'blue'
+      context.fillStyle = EColors.BLUE
       context.fillRect(this.position.x, this.position.y, this.width, tileSize)
     }
     context.beginPath()
@@ -107,6 +108,7 @@ export class Building {
       this.shoot()
     }
   }
+
   shoot() {
     if (this.target) {
       this.projectiles.push(

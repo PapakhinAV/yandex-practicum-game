@@ -95,42 +95,41 @@ const animateCanvas = (params: IAnimateCanvasParams) => {
       tile.update(context, mouseRef.current)
     })
 
-    buildings &&
-      buildings.forEach(building => {
-        building.update(context)
-        building.target = null
+    buildings?.forEach(building => {
+      building.update(context)
+      building.target = null
 
-        const validEnemies = enemies.filter(enemy => {
-          return (
-            calculateDistanceToBuilding(enemy, building) <
-            enemy.radius + building.radius
-          )
-        })
-        building.target = validEnemies[0]
-
-        for (let i = building.projectiles.length - 1; i >= 0; i--) {
-          const projectile = building.projectiles[i]
-          projectile.update(context)
-
-          const distance = calculateDistanceToProjectile(projectile)
-          if (distance < projectile.enemy.radius + projectile.radius) {
-            projectile.enemy.health -= projectile.power
-            if (projectile.enemy.health <= 0) {
-              const enemyIndex = enemies.findIndex(enemy => {
-                return projectile.enemy === enemy
-              })
-              if (enemyIndex > -1) {
-                onEnemyDefeated(
-                  projectile.enemy.reward.coins,
-                  projectile.enemy.reward.points
-                )
-                enemies.splice(enemyIndex, 1)
-              }
-            }
-            building.projectiles.splice(i, 1)
-          }
-        }
+      const validEnemies = enemies.filter(enemy => {
+        return (
+          calculateDistanceToBuilding(enemy, building)
+          < enemy.radius + building.radius
+        )
       })
+      building.target = validEnemies[0]
+
+      for (let i = building.projectiles.length - 1; i >= 0; i--) {
+        const projectile = building.projectiles[i]
+        projectile.update(context)
+
+        const distance = calculateDistanceToProjectile(projectile)
+        if (distance < projectile.enemy.radius + projectile.radius) {
+          projectile.enemy.health -= projectile.power
+          if (projectile.enemy.health <= 0) {
+            const enemyIndex = enemies.findIndex(enemy => {
+              return projectile.enemy === enemy
+            })
+            if (enemyIndex > -1) {
+              onEnemyDefeated(
+                projectile.enemy.reward.coins,
+                projectile.enemy.reward.points
+              )
+              enemies.splice(enemyIndex, 1)
+            }
+          }
+          building.projectiles.splice(i, 1)
+        }
+      }
+    })
 
     animateCanvasWrapper(params)
   }
