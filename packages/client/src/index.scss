@@ -1,5 +1,10 @@
 @import 'normalize.css';
 
+@font-face {
+  font-family: 'Rubik';
+  src: url('../src/assets/fonts/Rubik-Black.ttf') format('truetype');
+}
+
 $base-text-color: #fff;
 
 html {
