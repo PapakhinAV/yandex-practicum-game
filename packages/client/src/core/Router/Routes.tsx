@@ -29,13 +29,14 @@ export const Router = () => (
     />
     <Route
       path={ERoutes.PAGE_404}
-      element={<AppRoute element={<ErrorPage />} />}
+      element={<AppRoute element={<ErrorPage />} metaInfo={{ title: '404' }} />}
     />
     <Route
       path={ERoutes.PAGE_500}
       element={
         <AppRoute
           element={<ErrorPage status="500" message="Что-то пошло не так..." />}
+          metaInfo={{ title: '500' }}
         />
       }
     />
