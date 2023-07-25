@@ -1,6 +1,6 @@
 import { SubmitHandler, useForm } from 'react-hook-form'
 import React from 'react'
-/* tslint:disable */
+
 export interface CustomFormProps {
   className: string
   onSubmit: SubmitHandler<any>
