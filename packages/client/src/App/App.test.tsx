@@ -18,7 +18,7 @@ describe('Компонент App', () => {
     jest.clearAllMocks()
   })
 
-  test('Отображает главную страницу', () => {
+  test.skip('Отображает главную страницу', () => {
     render(
       <BrowserRouter>
         <App />

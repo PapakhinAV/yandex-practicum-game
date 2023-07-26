@@ -9,6 +9,7 @@ import {
   ModalHeader,
   FormLabel,
   FormControl,
+  Text,
 } from '@chakra-ui/react'
 import CustomForm from '../../components/Form/Form'
 import { useForm } from 'react-hook-form'
@@ -19,16 +20,30 @@ import {
   phoneValidator,
   loginValidator,
 } from '../../utils/validators/validators'
+import { useChangeProfileMutation } from '../../reducers/user'
+import { IUserState } from '../../store/appReducer'
 
 interface ModalEditProps {
-  onClose: () => void
+  onClose: () => void;
+  user: IUserState;
 }
 
-const ModalEdit: FC<ModalEditProps> = ({ onClose }) => {
-  const methods = useForm()
+const ModalEdit: FC<ModalEditProps> = ({ onClose, user }) => {
+  const methods = useForm<Record<string, string>>({
+    defaultValues: {
+      first_name: user.first_name || '',
+      second_name: user.second_name || '',
+      login: user.login || '',
+      display_name: user.display_name || '',
+      email: user.email || '',
+      phone: user.phone || '',
+    },
+  })
 
-  const onSubmit = (data: unknown) => {
-    console.log(data)
+  const [changeProfile, { isLoading, isError }] = useChangeProfileMutation()
+
+  const onSubmit = async (data: unknown) => {
+    await changeProfile(data).unwrap()
   }
   return (
     <CustomForm onSubmit={methods.handleSubmit(onSubmit)} methods={methods}>
@@ -88,7 +103,14 @@ const ModalEdit: FC<ModalEditProps> = ({ onClose }) => {
           </FormControl>
         </ModalBody>
         <ModalFooter>
-          <CustomButton type="submit">Сохранить</CustomButton>
+          {isError && (
+            <Text color="red" mr="10">
+              Не удалось сохранить
+            </Text>
+          )}
+          <CustomButton type="submit" disabled={isLoading}>
+            Сохранить
+          </CustomButton>
           <CustomButton variant="ghost" mr={3} onClick={onClose}>
             Закрыть
           </CustomButton>

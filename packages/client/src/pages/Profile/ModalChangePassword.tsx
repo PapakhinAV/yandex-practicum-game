@@ -9,6 +9,7 @@ import {
   ModalHeader,
   FormLabel,
   FormControl,
+  Text,
 } from '@chakra-ui/react'
 import {
   passwordValidator,
@@ -17,17 +18,22 @@ import {
 import FormInput from '../../components/formFields/FormInput/FormInput'
 import { useForm } from 'react-hook-form'
 import CustomForm from '../../components/Form/Form'
+import { useChangePasswordMutation } from '../../reducers/user'
 
 interface ModalChangePasswordProps {
-  onClose: () => void
+  onClose: () => void;
 }
 
 const ModalChangePassword: FC<ModalChangePasswordProps> = ({ onClose }) => {
   const methods = useForm()
-  const onSubmit = (data: unknown) => {
-    console.log(data)
+  const [changePassword, { isLoading, isError }] = useChangePasswordMutation()
+  const onSubmit = async (data: Record<string, string>) => {
+    await changePassword({
+      oldPassword: data.oldPassword,
+      newPassword: data.newPassword,
+    }).unwrap()
   }
-
+  console.log(useChangePasswordMutation())
   return (
     <CustomForm onSubmit={methods.handleSubmit(onSubmit)} methods={methods}>
       <ModalOverlay />
@@ -54,17 +60,20 @@ const ModalChangePassword: FC<ModalChangePasswordProps> = ({ onClose }) => {
               name="newPasswordAgain"
               registerOptions={{
                 validate: (value, formValues) =>
-                  twoPasswordValidator(
-                    value,
-                    undefined,
-                    formValues.newPassword
-                  ),
+                  twoPasswordValidator(value, undefined, formValues),
               }}
             />
           </FormControl>
         </ModalBody>
         <ModalFooter>
-          <CustomButton>Сохранить</CustomButton>
+          {isError && (
+            <Text color="red" mr="10">
+              Не удалось сохранить
+            </Text>
+          )}
+          <CustomButton type="submit" disabled={isLoading}>
+            Сохранить
+          </CustomButton>
           <CustomButton variant="ghost" mr={3} onClick={onClose}>
             Закрыть
           </CustomButton>
