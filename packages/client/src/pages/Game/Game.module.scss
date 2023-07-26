@@ -1,0 +1,42 @@
+.game {
+  &__wrapper {
+    height: 100vh;
+    display: grid;
+    place-content: center;
+    position: relative;
+  }
+
+  &__endGame {
+    position: absolute;
+    display: grid;
+    place-content: center;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    color: white;
+    font-size: 72px;
+    text-transform: uppercase;
+    font-weight: bold;
+    display: flex;
+    flex-direction: column;
+    row-gap: 8px;
+    text-align: center;
+  }
+  &__infoBar {
+    display: flex;
+    flex-direction: row;
+    column-gap: 16px;
+    justify-content: end;
+    margin-bottom: 8px;
+  }
+  &__infoItem {
+    display: flex;
+    flex-direction: row;
+    column-gap: 4px;
+    background-color: rgba(255, 255, 255, 0.2);
+    padding: 4px;
+    align-items: center;
+    border-radius: 8px;
+  }
+}
