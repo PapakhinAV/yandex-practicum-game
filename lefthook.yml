@@ -8,9 +8,6 @@ pre-commit:
       glob: '*.{css,scss}'
       run: yarn prettier -w {staged_files}
       stage_fixed: true
-    lint-fix:
-      glob: '*.{ts,tsx}'
-      run: lerna run lint:fix
     test:
       glob: '*.{ts,tsx}'
       run: yarn test
