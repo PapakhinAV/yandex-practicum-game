@@ -1,6 +1,6 @@
 import React from 'react'
 import { Route, Routes } from 'react-router-dom'
-import { Game, Home, Page404 } from '../../pages'
+import { Game, Home, ErrorPage } from '../../pages'
 import { ERoutes } from './ERoutes'
 import AppRoute from './AppRoute'
 
@@ -29,7 +29,16 @@ export const Router = () => (
     />
     <Route
       path={ERoutes.PAGE_404}
-      element={<AppRoute element={<Page404 />} />}
+      element={<AppRoute element={<ErrorPage />} metaInfo={{ title: '404' }} />}
+    />
+    <Route
+      path={ERoutes.PAGE_500}
+      element={
+        <AppRoute
+          element={<ErrorPage status="500" message="Что-то пошло не так..." />}
+          metaInfo={{ title: '500' }}
+        />
+      }
     />
   </Routes>
 )
