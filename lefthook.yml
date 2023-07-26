@@ -11,3 +11,6 @@ pre-commit:
     test:
       glob: '*.{ts,tsx}'
       run: yarn test
+    lint-fix:
+      glob: '*.{ts,tsx}'
+      run: lerna run lint:fix
