@@ -10,8 +10,8 @@ export enum EColors {
 
 export const theme = extendTheme({
   fonts: {
-    heading: `'Rubik', sans-serif`,
-    body: `'Rubik', sans-serif`,
+    heading: '"Rubik", sans-serif',
+    body: '"Rubik", sans-serif',
   },
   styles: {
     global: {
