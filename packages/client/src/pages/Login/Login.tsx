@@ -1,13 +1,14 @@
-import React from 'react'
 import { Link } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
+import { ERoutes } from '../../core/Router/ERoutes'
 import CustomForm from '../../components/Form/Form'
-import CustomInput from '../../components/fields/Input/Input'
+import FormInput from '../../components/formFields/FormInput/FormInput'
 import CustomButton from '../../components/Button/Button'
 import styles from './Login.module.scss'
 
 const Login = () => {
   const methods = useForm()
+
   const onSubmit = (data: unknown) => {
     console.log(data)
   }
@@ -22,18 +23,27 @@ const Login = () => {
           onSubmit={methods.handleSubmit(onSubmit)}
           methods={methods}>
           {
-            <React.Fragment>
-              <CustomInput className={styles.login__input}></CustomInput>
-              <CustomInput
-                className={styles.login__input}
-                type="password"></CustomInput>
+            <>
+              <div className={styles.login__field}>
+                <label>Логин</label>
+
+                <FormInput name="login" />
+              </div>
+
+              <div>
+                <label>Пароль</label>
+
+                <FormInput name="password" />
+              </div>
+
               <span className={styles.login__error}>
                 Login or password is incorrect
               </span>
+
               <CustomButton className={styles.login__button} type="submit">
                 Авторизоваться
               </CustomButton>
-            </React.Fragment>
+            </>
           }
         </CustomForm>
 
@@ -59,7 +69,7 @@ const Login = () => {
           </svg>
         </div>
 
-        <Link className={styles['login__link--register']} to={'/register'}>
+        <Link className={styles['login__link--register']} to={ERoutes.REGISTER}>
           Нет аккаунта?
         </Link>
       </div>
