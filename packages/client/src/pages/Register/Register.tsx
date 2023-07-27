@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { ERoutes } from '../../core/Router/ERoutes'
 import CustomForm from '../../components/Form/Form'
-import CustomInput from '../../components/fields/Input/Input'
+import FormInput from '../../components/formFields/FormInput/FormInput'
 import CustomButton from '../../components/Button/Button'
 import styles from './register.module.scss'
 
@@ -22,28 +22,22 @@ const Register = () => {
           className={styles.register__form}
           onSubmit={methods.handleSubmit(onSubmit)}
           methods={methods}>
-          <React.Fragment>
+          <>
             <div>
               <label>Почта</label>
 
-              <CustomInput
-                placeholder="email"
-                name="email"
-                type="email"></CustomInput>
+              <FormInput name="email" />
             </div>
             <div className={styles.register__field}>
               <div>
                 <label>Логин</label>
 
-                <CustomInput name="login" placeholder="login"></CustomInput>
+                <FormInput name="login" />
               </div>
               <div>
                 <label>Телефон</label>
 
-                <CustomInput
-                  name="phone"
-                  placeholder="phone"
-                  type="phone"></CustomInput>
+                <FormInput name="phone" />
               </div>
             </div>
 
@@ -51,16 +45,12 @@ const Register = () => {
               <div>
                 <label>Имя</label>
 
-                <CustomInput
-                  name="first_name"
-                  placeholder="first name"></CustomInput>
+                <FormInput name="first_name" />
               </div>
               <div>
                 <label>Фамилия</label>
 
-                <CustomInput
-                  name="second_name"
-                  placeholder="second name"></CustomInput>
+                <FormInput name="second_name" />
               </div>
             </div>
 
@@ -68,18 +58,12 @@ const Register = () => {
               <div>
                 <label>Пароль</label>
 
-                <CustomInput
-                  name="password"
-                  placeholder="password"
-                  type="password"></CustomInput>
+                <FormInput name="password" />
               </div>
               <div>
                 <label>Пароль (еще раз)</label>
 
-                <CustomInput
-                  name="repeat_pasword"
-                  placeholder="password"
-                  type="password"></CustomInput>
+                <FormInput name="repeat_pasword" />
               </div>
             </div>
 
@@ -92,7 +76,7 @@ const Register = () => {
             <Link className={styles.register__link} to={ERoutes.LOGIN}>
               Войти
             </Link>
-          </React.Fragment>
+          </>
         </CustomForm>
       </div>
     </div>
