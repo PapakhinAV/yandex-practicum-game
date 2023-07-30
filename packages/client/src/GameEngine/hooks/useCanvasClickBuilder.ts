@@ -1,17 +1,16 @@
-import { MutableRefObject, RefObject } from 'react'
-import { Building, Enemy, Placement } from '../'
+import { RefObject } from 'react'
+import { Building, Placement } from '../index'
 import { useDispatch, useSelector } from 'react-redux'
-import { getCoins, removeCoins } from '../../../../pages/Game/gameSlice'
+import { getCoins, removeCoins } from '../../pages/Game/gameSlice'
 
-const useCanvasClickHandler = (
+const useCanvasClickBuilder = (
   activeTile: RefObject<Placement | null>,
   buildingsRef: RefObject<Building[]>,
-  enemiesRef: MutableRefObject<Enemy[]>,
   Tower: typeof Building
 ) => {
   const coins = useSelector(getCoins)
   const dispatch = useDispatch()
-  const canvasClickHandler = () => {
+  const canvasClickBuilder = () => {
     const tile = activeTile.current
     if (tile && buildingsRef.current && !tile.occupied) {
       const newTower = new Tower({
@@ -19,7 +18,6 @@ const useCanvasClickHandler = (
           x: tile.position.x,
           y: tile.position.y,
         },
-        enemiesRef,
       })
 
       const isBuildingAvalible = coins >= newTower.price
@@ -31,7 +29,7 @@ const useCanvasClickHandler = (
     }
   }
 
-  return canvasClickHandler
+  return canvasClickBuilder
 }
 
-export default useCanvasClickHandler
+export default useCanvasClickBuilder

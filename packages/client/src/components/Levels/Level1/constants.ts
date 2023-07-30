@@ -1,5 +1,5 @@
-import { ICreateEnemyOptions } from '../Engine/types'
-import { Ork } from '../Engine/Enemies/Ork'
+import { ICreateEnemyOptions } from '../../../GameEngine/types'
+import { Ork } from '../../../GameEngine/GameElements/Enemies/Ork'
 
 export const level1WayPoints = [
   { x: -100, y: 580 },

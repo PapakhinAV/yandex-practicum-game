@@ -9,14 +9,13 @@ import {
   canvasHeight,
   canvasWidth,
   Enemy,
-} from '../'
+} from '../index'
 import { ICreateEnemyOptions } from '../types'
-import { addCoins, addScore } from '../../../../pages/Game/gameSlice'
+import { addCoins, addScore, setHearts } from '../../pages/Game/gameSlice'
 import { batch, useDispatch } from 'react-redux'
 
 export interface IStartGameOptions {
   hearts: MutableRefObject<number>
-  onHeartsChange: (newValue: number) => void
   gameParams: {
     map: string
     enemyWaves: ICreateEnemyOptions[]
@@ -24,10 +23,11 @@ export interface IStartGameOptions {
   }
 }
 
+
 const useStartGame = (props: IStartGameOptions) => {
   const dispatch = useDispatch()
 
-  const { hearts, onHeartsChange, gameParams } = props
+  const { hearts, gameParams } = props
   const { map, enemyWaves, levelPlacements } = gameParams
 
   const canvasRef = useRef<HTMLCanvasElement>(null)
@@ -36,9 +36,14 @@ const useStartGame = (props: IStartGameOptions) => {
   const wave = waves.shift()
   const enemiesRef = useRef<Enemy[]>(wave ? createEnemies(wave) : [])
   const { placementTiles } = usePlacementTiles(levelPlacements)
-  const { activeTileRef } = useActiveTile(canvasRef, placementTiles)
   const { mouseRef } = useMousePosition(canvasRef)
+  const { activeTileRef } = useActiveTile(mouseRef, placementTiles)
   const background = new Image()
+
+  const onHeartsChange = (newValue: number): void => {
+    hearts.current = newValue
+    dispatch(setHearts(newValue))
+  }
 
   const onEnemyDefeated = (coins: number, scorePoints: number): void => {
     batch(() => {

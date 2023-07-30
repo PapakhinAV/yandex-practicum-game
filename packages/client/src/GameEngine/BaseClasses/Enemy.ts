@@ -1,7 +1,7 @@
 import { IEnemy, IEnemyOptions, IPosition } from '../types'
 import { tileSize } from '../baseConstants'
 import { healthToPixels } from '../utils'
-import { EColors } from '../../../../App/constants'
+import { EColors } from '../../App/constants'
 
 export class Enemy implements IEnemy {
   waypoints: IPosition[]

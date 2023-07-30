@@ -1,8 +1,8 @@
-import { Placement } from './AbstractClasses/Placement'
-import { Building } from './AbstractClasses/Building'
+import { Placement } from './BaseClasses/Placement'
+import { Building } from './BaseClasses/Building'
 import React from 'react'
-import { Enemy } from './AbstractClasses/Enemy'
-import { Projectile } from './AbstractClasses/Projectile'
+import { Enemy } from './BaseClasses/Enemy'
+import { Projectile } from './BaseClasses/Projectile'
 
 export interface IPosition {
   x: number
@@ -25,14 +25,16 @@ export interface IPlacementOptions {
 
 export interface IBuildingOptions {
   position?: IPosition
-  enemiesRef: React.MutableRefObject<Enemy[]>
   imgPath?: string
   frames?: number
   offset?: IPosition
   Bullet?: typeof Projectile
   bulletParams?: IBulletParams
   bulletOffset?: IPosition
+  fireOnFrame?: number
+  renderEachXFrame?: number
 }
+
 
 export interface IBulletParams {
   speed?: number
@@ -50,7 +52,6 @@ export interface IEnemyOptions {
 
 export interface IProjectileOptions {
   position?: IPosition
-  enemiesRef: React.MutableRefObject<Enemy[]>
   enemy: Enemy
   speed?: number
   power?: number

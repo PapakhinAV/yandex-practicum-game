@@ -1,21 +1,18 @@
 import React, { useEffect, useRef } from 'react'
-import { Placement } from '../AbstractClasses/Placement'
+import { Placement } from '../BaseClasses/Placement'
 import { tileSize, towerSize } from '../baseConstants'
+import { IPosition } from '../types'
 
 const useActiveTile = (
-  canvasRef: React.RefObject<HTMLCanvasElement>,
+  mouseRef:  React.MutableRefObject<IPosition>,
   placementTiles: Placement[]
 ) => {
   const activeTile = useRef<Placement | null>(null)
 
   useEffect(() => {
-    const canvas = canvasRef.current
-    if (!canvas) return
 
-    const updateActiveTile = (event: MouseEvent) => {
-      const rect = canvas.getBoundingClientRect()
-      const x = event.clientX - rect.left
-      const y = event.clientY - rect.top
+      const x = mouseRef.current.x
+      const y = mouseRef.current.y
 
       activeTile.current = null
       for (let i = 0; i < placementTiles.length; i++) {
@@ -30,14 +27,8 @@ const useActiveTile = (
           break
         }
       }
-    }
 
-    canvas.addEventListener('mousemove', updateActiveTile)
-
-    return () => {
-      canvas.removeEventListener('mousemove', updateActiveTile)
-    }
-  }, [canvasRef])
+  }, [mouseRef.current])
 
   return { activeTileRef: activeTile }
 }

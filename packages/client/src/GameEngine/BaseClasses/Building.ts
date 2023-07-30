@@ -3,7 +3,7 @@ import { tileSize, towerSize } from '../baseConstants'
 import { Projectile } from './Projectile'
 import { Enemy } from './Enemy'
 import React from 'react'
-import { EColors } from '../../../../App/constants'
+import { EColors } from '../../App/constants'
 
 export class Building {
   position: IPosition
@@ -14,7 +14,6 @@ export class Building {
   radius: number
   target: Enemy | null
   elapsedSpawnTime: number
-  enemiesRef: React.MutableRefObject<Enemy[]>
   price: number
   image: HTMLImageElement
   imgPath: string
@@ -25,16 +24,19 @@ export class Building {
   Bullet: typeof Projectile
   bulletParams: IBulletParams
   bulletOffset: IPosition
+  fireOnFrame: number
+  renderEachXFrame: number
 
   constructor({
     position = { x: 0, y: 0 },
-    enemiesRef,
     imgPath = '',
     frames = 1,
     offset = { x: 0, y: 0 },
     Bullet = Projectile,
     bulletParams = {},
     bulletOffset = { x: 0, y: 0 },
+    fireOnFrame = 1,
+    renderEachXFrame = 3
   }: IBuildingOptions) {
     this.position = position
     this.width = towerSize
@@ -46,9 +48,10 @@ export class Building {
     this.projectiles = []
     this.radius = 250
     this.draw = this.draw.bind(this)
+    this.update = this.update.bind(this)
+    this.shoot = this.shoot.bind(this)
     this.target = null
     this.elapsedSpawnTime = 0
-    this.enemiesRef = enemiesRef
     this.price = 10
     this.image = new Image()
     this.image.src = imgPath
@@ -57,6 +60,8 @@ export class Building {
     this.currentFrame = 0
     this.elapsed = 0
     this.offset = offset
+    this.fireOnFrame = fireOnFrame
+    this.renderEachXFrame = renderEachXFrame
     this.Bullet = Bullet
     this.bulletParams = bulletParams
     this.bulletOffset = bulletOffset
@@ -86,7 +91,7 @@ export class Building {
         crop.height
       )
 
-      if (this.elapsed % 3 === 0 && this.target) {
+      if (this.elapsed % this.renderEachXFrame === 0 && this.target) {
         this.currentFrame++
         if (this.currentFrame >= this.imgFrames - 1) {
           this.currentFrame = 0
@@ -104,7 +109,7 @@ export class Building {
 
   update(context: CanvasRenderingContext2D) {
     this.draw(context)
-    if (this.currentFrame === 6 && this.elapsed % 3 === 0) {
+    if (this.currentFrame === this.fireOnFrame && this.elapsed % this.renderEachXFrame === 0) {
       this.shoot()
     }
   }
@@ -117,9 +122,7 @@ export class Building {
             x: this.center.x + this.bulletOffset.x,
             y: this.center.y + this.bulletOffset.y,
           },
-          enemiesRef: this.enemiesRef,
           enemy: this.target,
-          speed: 10,
           ...this.bulletParams,
         })
       )
