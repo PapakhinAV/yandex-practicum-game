@@ -1,5 +1,5 @@
 import { useMemo } from 'react'
-import { Placement } from '../AbstractClasses/Placement'
+import { Placement } from '../BaseClasses/Placement'
 import { transformPlacementTo2D } from '../utils'
 import { tileSize } from '../baseConstants'
 
@@ -21,7 +21,6 @@ const usePlacementTiles = (levelPlacements: number[]) => {
       }
     })
   })
-
   return { placementTiles }
 }
 

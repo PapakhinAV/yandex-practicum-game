@@ -1,11 +1,11 @@
 import React, { memo, useEffect, useRef } from 'react'
 import { FC } from 'react'
 import { useDispatch } from 'react-redux'
-import { newGame, setHearts } from '../../../pages/Game/gameSlice'
-import { useCanvasClickHandler, useStartGame } from '../Engine'
+import { newGame } from '../../../pages/Game/gameSlice'
+import { useCanvasClickBuilder, useStartGame } from '../../../GameEngine'
 import { enemyWavesLevel1, level1Placements } from './constants'
 import map from './img/map.png'
-import { Tower } from '../Engine/Towers/Tower'
+import { OrkTower } from '../../../GameEngine/GameElements'
 
 const Level1: FC = () => {
   const dispatch = useDispatch()
@@ -15,14 +15,8 @@ const Level1: FC = () => {
     dispatch(newGame({ hearts: hearts.current, coins: 30 }))
   }, [])
 
-  const handlerHeartsChange = (newValue: number): void => {
-    hearts.current = newValue
-    dispatch(setHearts(newValue))
-  }
-
-  const { canvasRef, activeTileRef, buildingsRef, enemiesRef } = useStartGame({
+  const { canvasRef, activeTileRef, buildingsRef } = useStartGame({
     hearts: hearts,
-    onHeartsChange: handlerHeartsChange,
     gameParams: {
       enemyWaves: enemyWavesLevel1,
       levelPlacements: level1Placements,
@@ -30,11 +24,10 @@ const Level1: FC = () => {
     },
   })
 
-  const canvasClickHandler = useCanvasClickHandler(
+  const canvasClickHandler = useCanvasClickBuilder(
     activeTileRef,
     buildingsRef,
-    enemiesRef,
-    Tower
+    OrkTower
   )
 
   return <canvas onClick={canvasClickHandler} ref={canvasRef} />

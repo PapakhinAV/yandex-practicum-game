@@ -1,6 +1,6 @@
 import { IPlacementOptions, IPosition } from '../types'
 import { tileSize, towerSize } from '../baseConstants'
-import { EColors } from '../../../../App/constants'
+import { EColors } from '../../App/constants'
 
 export class Placement {
   position: IPosition

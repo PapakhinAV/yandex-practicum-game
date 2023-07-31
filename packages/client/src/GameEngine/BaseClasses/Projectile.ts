@@ -1,11 +1,10 @@
 import { IPosition, IProjectileOptions } from '../types'
 import { Enemy } from './Enemy'
-import { EColors } from '../../../../App/constants'
+import { EColors } from '../../App/constants'
 
 export class Projectile {
   position: IPosition
   velocity: IPosition
-  enemies: Enemy[]
   enemy: Enemy
   radius: number
   speed: number
@@ -15,7 +14,6 @@ export class Projectile {
 
   constructor({
     position = { x: 0, y: 0 },
-    enemiesRef,
     enemy,
     speed = 10,
     power = 20,
@@ -23,7 +21,6 @@ export class Projectile {
   }: IProjectileOptions) {
     this.position = position
     this.velocity = { x: 0, y: 0 }
-    this.enemies = enemiesRef.current
     this.enemy = enemy
     this.radius = 10
     this.draw = this.draw.bind(this)
