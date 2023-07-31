@@ -12,7 +12,7 @@ import {
   Text,
 } from '@chakra-ui/react'
 import CustomForm from '../../components/Form/Form'
-import { useForm } from 'react-hook-form'
+import { FieldValues, useForm } from 'react-hook-form'
 import FormInput from '../../components/formFields/FormInput/FormInput'
 import {
   emailValidator,
@@ -24,12 +24,12 @@ import { useChangeProfileMutation } from '../../reducers/user'
 import { IUserState } from '../../store/appReducer'
 
 interface ModalEditProps {
-  onClose: () => void;
-  user: IUserState;
+  onClose: () => void
+  user: IUserState
 }
 
 const ModalEdit: FC<ModalEditProps> = ({ onClose, user }) => {
-  const methods = useForm<Record<string, string>>({
+  const methods = useForm<FieldValues>({
     defaultValues: {
       first_name: user.first_name || '',
       second_name: user.second_name || '',

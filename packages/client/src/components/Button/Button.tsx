@@ -1,7 +1,6 @@
 import React from 'react'
 import { Button } from '@chakra-ui/react'
 import { CustomButtonProps } from './types'
-import classNames from 'classnames'
 
 const CustomButton: React.FC<CustomButtonProps> = ({
   className,
@@ -12,7 +11,7 @@ const CustomButton: React.FC<CustomButtonProps> = ({
     <Button
       colorScheme={disabled ? 'blackAlpha' : 'blue'}
       {...props}
-      className={classNames(className)}
+      className={className}
     >
       {props.children}
     </Button>

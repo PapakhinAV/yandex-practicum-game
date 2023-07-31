@@ -33,7 +33,7 @@ const ModalChangePassword: FC<ModalChangePasswordProps> = ({ onClose }) => {
       newPassword: data.newPassword,
     }).unwrap()
   }
-  console.log(useChangePasswordMutation())
+
   return (
     <CustomForm onSubmit={methods.handleSubmit(onSubmit)} methods={methods}>
       <ModalOverlay />

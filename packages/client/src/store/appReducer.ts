@@ -16,7 +16,7 @@ export interface IUserState {
 }
 
 interface ISettingsState {
-  sound: boolean;
+  sound: boolean
   difficulty: 'easy' | 'medium' | 'hard'
 }
 
