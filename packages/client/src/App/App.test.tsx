@@ -2,8 +2,10 @@ import { render, screen } from '@testing-library/react'
 import { BrowserRouter } from 'react-router-dom'
 import App from './App'
 import '@testing-library/jest-dom/extend-expect'
+import { Provider } from 'react-redux'
+import store from '../store/store'
 
-const homeContent = 'Вот тут будет жить ваше приложение :)'
+const homeContent = 'Загрузка'
 
 describe('Компонент App', () => {
   beforeEach(() => {
@@ -18,11 +20,13 @@ describe('Компонент App', () => {
     jest.clearAllMocks()
   })
 
-  test.skip('Отображает главную страницу', () => {
+  test('Отображает главную страницу', () => {
     render(
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
+      <Provider store={store}>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </Provider>
     )
 
     const homePageElement = screen.getByText(homeContent)
