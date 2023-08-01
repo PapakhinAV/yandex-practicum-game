@@ -1,12 +1,12 @@
-import { useEffect } from 'react'
+import { FC, useEffect } from 'react'
 import './App.css'
 import { HelmetProvider } from 'react-helmet-async'
 import { ChakraProvider } from '@chakra-ui/react'
 import { theme } from './constants'
 import { Layout } from '../components'
-import { Router } from '../core/Router/Routes'
+import Router from '../core/Router/Routes'
 
-function App() {
+const App: FC = () => {
   useEffect(() => {
     const fetchServerData = async () => {
       const url = `http://localhost:${__SERVER_PORT__}`

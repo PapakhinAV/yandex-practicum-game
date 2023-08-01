@@ -2,8 +2,13 @@ import React from 'react'
 import { FieldError, useFormContext } from 'react-hook-form'
 import { Input } from '../../fields'
 import { FormInputProps } from './types'
+import styles from './FormInput.module.scss'
 
-const FormInput: React.FC<FormInputProps> = ({ name, ...props }) => {
+const FormInput: React.FC<FormInputProps> = ({
+  name,
+  registerOptions,
+  ...props
+}) => {
   const {
     register,
     formState: { errors },
@@ -12,11 +17,10 @@ const FormInput: React.FC<FormInputProps> = ({ name, ...props }) => {
   const error = errors[name] as FieldError | undefined
 
   return (
-    <div>
-      <Input {...register(name)} {...props} />
-      {error && typeof error === 'string' && <span>{error}</span>}
-      {error && typeof error === 'object' && <span>{error.message}</span>}
-    </div>
+    <>
+      <Input register={register(name, registerOptions)} {...props} />
+      {error && <span className={styles.error}>{error.message}</span>}
+    </>
   )
 }
 

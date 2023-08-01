@@ -1,10 +1,18 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { authApi } from '../reducers/auth'
+import { userApi } from '../reducers/user'
 
 // Пример-заготовка под стейт приложения.
 
-interface IUserState {
-  name: string
-  id: number
+export interface IUserState {
+  id: string
+  first_name: string
+  second_name: string
+  display_name: string | null
+  login: string
+  avatar: string | null
+  email: string
+  phone: string
 }
 
 interface ISettingsState {
@@ -13,15 +21,12 @@ interface ISettingsState {
 }
 
 export interface IAppState {
-  user: IUserState
+  user: IUserState | null
   settings: ISettingsState
 }
 
 const initialState: IAppState = {
-  user: {
-    name: '',
-    id: 0,
-  },
+  user: null,
   settings: {
     sound: true,
     difficulty: 'medium',
@@ -38,6 +43,29 @@ const appSlice = createSlice({
     setSettings: (state, action: PayloadAction<ISettingsState>) => {
       state.settings = action.payload
     },
+  },
+  extraReducers: builder => {
+    builder.addMatcher(
+      authApi.endpoints.getUser.matchFulfilled,
+      (state, { payload }) => {
+        state.user = payload
+      }
+    )
+    builder.addMatcher(authApi.endpoints.logout.matchFulfilled, state => {
+      state.user = null
+    })
+    builder.addMatcher(
+      userApi.endpoints.changeProfile.matchFulfilled,
+      (state, { payload }) => {
+        state.user = payload
+      }
+    )
+    builder.addMatcher(
+      userApi.endpoints.changeAvatarProfile.matchFulfilled,
+      (state, { payload }) => {
+        state.user = payload
+      }
+    )
   },
 })
 
