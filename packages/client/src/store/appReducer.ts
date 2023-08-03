@@ -5,7 +5,7 @@ import { userApi } from '../api/user'
 // Пример-заготовка под стейт приложения.
 
 export interface IUserState {
-  id: string
+  id: number
   first_name: string
   second_name: string
   display_name: string | null

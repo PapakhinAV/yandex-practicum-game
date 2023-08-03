@@ -16,11 +16,13 @@ import {
 } from '@chakra-ui/react'
 import { TriangleDownIcon } from '@chakra-ui/icons'
 import ReactPaginate from 'react-paginate'
+import { useSelector } from 'react-redux'
+import { IRootState } from '../../store/types'
 
 const Leaderboard: FC = () => {
   const [cursor, setCursor] = useState(0)
   const [ ratingFieldName, setRatingFieldName ] = useState('scope')
-
+  const user = useSelector((state: IRootState) => state.app.user!)
   const { data, isLoading } = useGetLeaderboardQuery({
     cursor,
     ratingFieldName,
@@ -96,7 +98,11 @@ const Leaderboard: FC = () => {
           {data && (
             <Tbody>
               {data.map((item, index) => (
-                <Tr key={index}>
+                <Tr
+                  key={index}
+                  backgroundColor={user.id === item.data.id ? 'blue.100' : undefined}
+                  color={user.id === item.data.id ? 'black' : undefined}
+                >
                   <Td>{index + 1}</Td>
                   <Td>{item.data.username}</Td>
                   <Td>{item.data.difficulty}</Td>

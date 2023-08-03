@@ -11,6 +11,7 @@ interface ILeaderboard {
   scope: number
   username: string
   difficulty: string
+  id: number
 
 }
 
