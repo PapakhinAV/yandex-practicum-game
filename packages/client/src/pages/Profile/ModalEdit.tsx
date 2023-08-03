@@ -20,7 +20,7 @@ import {
   phoneValidator,
   loginValidator,
 } from '../../utils/validators/validators'
-import { useChangeProfileMutation } from '../../reducers/user'
+import { useChangeProfileMutation } from '../../api/user'
 import { IUserState } from '../../store/appReducer'
 
 interface ModalEditProps {

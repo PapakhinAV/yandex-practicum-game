@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { authApi } from '../reducers/auth'
-import { userApi } from '../reducers/user'
+import { authApi } from '../api/auth'
+import { userApi } from '../api/user'
 
 // Пример-заготовка под стейт приложения.
 

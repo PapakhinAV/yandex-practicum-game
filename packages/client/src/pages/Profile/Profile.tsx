@@ -5,8 +5,8 @@ import ModalEdit from './ModalEdit'
 import ModalChangePassword from './ModalChangePassword'
 import { useSelector } from 'react-redux'
 import { IRootState } from '../../store/types'
-import { useChangeAvatarProfileMutation } from '../../reducers/user'
-import { useLogoutMutation } from '../../reducers/auth'
+import { useChangeAvatarProfileMutation } from '../../api/user'
+import { useLogoutMutation } from '../../api/auth'
 
 const Profile: FC = () => {
   const user = useSelector((state: IRootState) => state.app.user)

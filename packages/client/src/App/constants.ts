@@ -27,3 +27,5 @@ export const theme = extendTheme({
     },
   },
 })
+
+export const TEAM_NAME = '4tunas'

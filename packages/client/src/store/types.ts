@@ -7,4 +7,5 @@ export interface IRootState {
   game: IGameState
   authApi: ReturnType<Reducer>
   userApi: ReturnType<Reducer>
+  leaderboardApi: ReturnType<Reducer>
 }

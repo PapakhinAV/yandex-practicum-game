@@ -1,12 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit'
 import rootReducer from './reducer'
-import { authApi } from '../reducers/auth'
-import { userApi } from '../reducers/user'
+import { authApi } from '../api/auth'
+import { userApi } from '../api/user'
+import { leaderboardApi } from '../api/leaderboard'
 
 const store = configureStore({
   reducer: rootReducer,
   middleware: getDefaultMiddleware =>
-    getDefaultMiddleware().concat(authApi.middleware, userApi.middleware),
+    getDefaultMiddleware().concat(authApi.middleware, userApi.middleware, leaderboardApi.middleware),
 })
 
 export default store
