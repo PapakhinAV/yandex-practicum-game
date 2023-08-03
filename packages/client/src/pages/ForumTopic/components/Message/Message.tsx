@@ -6,26 +6,19 @@ import {
   Avatar,
 } from '@chakra-ui/react'
 import { FC } from 'react'
-import { TMessage, TUser } from '../../types'
+import { TMessage } from '../../types'
 import { EColors } from '../../../../App/constants'
 import { formatDate } from '../../utils'
+import { useSelector } from 'react-redux'
+import { IRootState } from '../../../../store/types'
 
 interface MessageComponentProps {
   messageData: TMessage;
 }
 
-const currentUser: TUser = {
-  id: '2',
-  first_name: 'Ryan',
-  second_name: 'Florence',
-  display_name: 'Ryan Florence',
-  avatar: 'https://bit.ly/ryan-florence',
-  login: 'ryanryanryan'
-}
-
 const Message: FC<MessageComponentProps> = ({ messageData }) => {
-  const isMine = messageData.user.id === currentUser.id
-
+  const user = useSelector((state: IRootState) => state.app.user)
+  const isMine = messageData.user.id === user?.id
   const prettyTime = formatDate(messageData.time)
 
   const justifyValue = isMine ? 'flex-end' : 'flex-start'
