@@ -35,14 +35,14 @@ const Router = () => {
         element={<AppRoute element={<>LEADERBOARD</>} />}
       />
       <Route 
-      path={ERoutes.FORUM} 
-      element={
-        <AppRoute 
-          element={<Forum/>}
-          metaInfo={{ title: 'Форум'}} 
-        />
-      } 
-    />
+        path={ERoutes.FORUM} 
+        element={
+          <AppRoute 
+            element={<Forum/>}
+            metaInfo={{ title: 'Форум'}} 
+          />
+        } 
+      />
       <Route
         path={ERoutes.FORUM_TOPIC}
         element={<AppRoute element={<ForumTopic />} />}
@@ -50,22 +50,22 @@ const Router = () => {
       <Route
         path={ERoutes.PAGE_404}
         element={
-        <AppRoute 
-          element={<ErrorPage />} 
-          metaInfo={{ title: '404' }} 
-        />
-      }
+          <AppRoute 
+            element={<ErrorPage />} 
+            metaInfo={{ title: '404' }} 
+          />
+        }
       />
       <Route
         path={ERoutes.PAGE_500}
         element={
           <AppRoute
             element={
-            <ErrorPage 
-              status="500" 
-              message="Что-то пошло не так..." 
-            />
-          }
+              <ErrorPage 
+                status="500" 
+                message="Что-то пошло не так..." 
+              />
+            }
             metaInfo={{ title: '500' }}
           />
         }
