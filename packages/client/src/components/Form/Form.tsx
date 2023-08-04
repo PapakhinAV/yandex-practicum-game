@@ -5,11 +5,12 @@ import { CustomFormProps } from './types'
 const CustomForm: React.FC<CustomFormProps> = ({
   onSubmit,
   methods,
+  className,
   children,
 }) => {
   return (
     <FormProvider {...methods}>
-      <Form onSubmit={onSubmit}>{children}</Form>
+      <Form className={className} onSubmit={onSubmit}>{children}</Form>
     </FormProvider>
   )
 }

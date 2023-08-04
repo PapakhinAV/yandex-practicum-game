@@ -4,6 +4,8 @@ import {
   emailValidator,
   passwordValidator,
   phoneValidator,
+  topicTitleValidator,
+  messageValidator
 } from './validators'
 
 describe('Валидаторы полей', () => {
@@ -137,6 +139,37 @@ describe('Валидаторы полей', () => {
     it('Не возвращает ошибку для корректного телефона', () => {
       expect(phoneValidator('1234567890')).toBeUndefined()
       expect(phoneValidator('+1234567890')).toBeUndefined()
+    })
+  })
+
+  describe('topicTitleValidator', () => {
+    it('Возвращает ошибку если название темы пустое либо длиннее 80 символов', () => {
+      expect(topicTitleValidator('')).toEqual(
+        'Должно содержать от 1 до 80 символов'
+      )
+      expect(topicTitleValidator('1'.repeat(81))).toEqual(
+        'Должно содержать от 1 до 80 символов'
+      )
+    })
+    it('Возвращает кастомное сообщение об ошибке, если таковое передано', () => {
+      expect(topicTitleValidator('', customError)).toEqual(customError)
+    })
+    it('Не возвращает ошибку для корректного телефона', () => {
+      expect(topicTitleValidator('Пример корретного названия')).toBeUndefined()
+    })
+  })
+
+  describe('messageValidator', () => {
+    it('Возвращает ошибку если текст сообщения пустой', () => {
+      expect(messageValidator('')).toEqual(
+        'Не может быть пустым'
+      )
+    })
+    it('Возвращает кастомное сообщение об ошибке, если таковое передано', () => {
+      expect(messageValidator('', customError)).toEqual(customError)
+    })
+    it('Не возвращает ошибку для корректного телефона', () => {
+      expect(messageValidator('Пример корретного сообщения')).toBeUndefined()
     })
   })
 })

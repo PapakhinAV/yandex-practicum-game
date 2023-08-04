@@ -1,7 +1,7 @@
 import { FieldValues, RegisterOptions } from 'react-hook-form'
-import { CustomInputProps } from '../../fields'
+import { CustomTextareaProps } from '../../fields'
 
-export type FormInputProps = {
+export type FormTextareaProps = {
   name: keyof FieldValues,
   registerOptions?: RegisterOptions
-} & CustomInputProps
+} & CustomTextareaProps

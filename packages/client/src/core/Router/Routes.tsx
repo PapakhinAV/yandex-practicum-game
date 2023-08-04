@@ -1,6 +1,6 @@
 import React from 'react'
 import { Navigate, Route, Routes } from 'react-router-dom'
-import { Game, Home, ErrorPage, Profile } from '../../pages'
+import { Game, Home, ErrorPage, Profile, Forum, ForumTopic } from '../../pages'
 import { ERoutes } from './ERoutes'
 import AppRoute from './AppRoute'
 import { useGetUserQuery } from '../../reducers/auth'
@@ -30,25 +30,42 @@ const Router = () => {
           )
         }
       />
-      <Route path={ERoutes.GAME} element={<AppRoute element={<>GAME</>} />} />
-      <Route
+        <Route
         path={ERoutes.LEADERBOARD}
         element={<AppRoute element={<>LEADERBOARD</>} />}
       />
-      <Route path={ERoutes.FORUM} element={<AppRoute element={<>FORUM</>} />} />
+      <Route 
+        path={ERoutes.FORUM} 
+        element={
+          <AppRoute 
+            element={<Forum/>}
+            metaInfo={{ title: 'Форум'}} 
+          />
+        } 
+      />
       <Route
         path={ERoutes.FORUM_TOPIC}
-        element={<AppRoute element={<>FORUM_TOPIC</>} />}
+        element={<AppRoute element={<ForumTopic />} />}
       />
       <Route
         path={ERoutes.PAGE_404}
-        element={<AppRoute element={<ErrorPage />} metaInfo={{ title: '404' }} />}
+        element={
+          <AppRoute 
+            element={<ErrorPage />} 
+            metaInfo={{ title: '404' }} 
+          />
+        }
       />
       <Route
         path={ERoutes.PAGE_500}
         element={
           <AppRoute
-            element={<ErrorPage status="500" message="Что-то пошло не так..." />}
+            element={
+              <ErrorPage 
+                status="500" 
+                message="Что-то пошло не так..." 
+              />
+            }
             metaInfo={{ title: '500' }}
           />
         }

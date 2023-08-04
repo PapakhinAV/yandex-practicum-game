@@ -14,10 +14,11 @@ export const nameValidator: TValidatorParam = (
   if (!/^[A-ZА-ЯЁ]/.test(name)) {
     errors.push('Имя должно начинаться с заглавной буквы')
   }
-  if (errors.length > 0) {
-    return customErrorMessage || errors.join(', ')
+  if (!errors.length) {
+    return
   }
-  return undefined
+
+  return customErrorMessage || errors.join(', ')
 }
 
 export const loginValidator: TValidatorParam = (
@@ -37,10 +38,11 @@ export const loginValidator: TValidatorParam = (
   if (/\d+/g.test(login) && !/[a-zA-Z]/.test(login)) {
     errors.push('Логин не может состоять только из цифр')
   }
-  if (errors.length > 0) {
-    return customErrorMessage || errors.join(', ')
+  if (!errors.length) {
+    return
   }
-  return undefined
+
+  return customErrorMessage || errors.join(', ')
 }
 
 export const emailValidator: TValidatorParam = (
@@ -55,10 +57,11 @@ export const emailValidator: TValidatorParam = (
   if (!/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/.test(email)) {
     errors.push('Введите действительный адрес электронной почты')
   }
-  if (errors.length > 0) {
-    return customErrorMessage || errors.join(', ')
+  if (!errors.length) {
+    return
   }
-  return undefined
+
+  return customErrorMessage || errors.join(', ')
 }
 
 export const passwordValidator: TValidatorParam = (
@@ -76,10 +79,11 @@ export const passwordValidator: TValidatorParam = (
   if (!/[A-Z]/.test(password)) {
     errors.push('Пароль должен содержать хотя бы одну заглавную букву')
   }
-  if (errors.length > 0) {
-    return customErrorMessage || errors.join(', ')
+  if (!errors.length) {
+    return
   }
-  return undefined
+
+  return customErrorMessage || errors.join(', ')
 }
 
 export const phoneValidator: TValidatorParam = (
@@ -96,10 +100,43 @@ export const phoneValidator: TValidatorParam = (
       'Номер телефона должен содержать только цифры и может начинаться с \'+\'\''
     )
   }
-  if (errors.length > 0) {
-    return customErrorMessage || errors.join(', ')
+  if (!errors.length) {
+    return
   }
-  return undefined
+
+  return customErrorMessage || errors.join(', ')
+}
+
+export const topicTitleValidator: TValidatorParam = (
+  title = '', 
+  customErrorMessage
+) => {
+  const errors = []
+
+  if (title.length < 1 || title.length > 80) {
+    errors.push('Должно содержать от 1 до 80 символов')
+  }
+  if (!errors.length) {
+    return 
+  }
+
+  return customErrorMessage || errors.join(', ')
+}
+
+export const messageValidator: TValidatorParam = (
+  message = '', 
+  customErrorMessage
+) => {
+  const errors = []
+
+  if (message.length === 0) {
+    errors.push('Не может быть пустым')
+  }
+  if (!errors.length) {
+    return
+  }
+
+  return customErrorMessage || errors.join(', ')
 }
 
 export const twoPasswordValidator: TValidatorParam = (

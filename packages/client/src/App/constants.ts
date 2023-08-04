@@ -5,7 +5,9 @@ export enum EColors {
   RED = '#FF0000',
   GREEN = '#32CD32',
   ORANGE = '#FF4500',
-  WHITE = '#FFFFFF'
+  WHITE = '#FFFFFF',
+  LIME = '#9AFC1D',
+  BLACK_ALPHA = 'rgba(0, 0, 0, 0.4)'
 }
 
 export const theme = extendTheme({
