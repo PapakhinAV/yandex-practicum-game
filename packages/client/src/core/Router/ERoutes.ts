@@ -4,6 +4,7 @@ export enum ERoutes {
   REGISTER = '/register',
   PROFILE = '/profile',
   GAME = '/game',
+  START = '/start',
   LEADERBOARD = '/leaderboard',
   FORUM = '/forum',
   FORUM_TOPIC = '/forum/:topicId',
