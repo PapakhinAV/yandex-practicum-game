@@ -33,7 +33,7 @@ const Login = () => {
             <div>
               <label>Пароль</label>
 
-              <FormInput name="password" />
+              <FormInput type="password" name="password" />
             </div>
 
             <span className={styles.login__error}>
