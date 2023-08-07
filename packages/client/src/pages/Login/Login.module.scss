@@ -1,0 +1,75 @@
+@import '../../index';
+
+.login {
+  position: absolute;
+  max-width: 390px;
+  min-height: 550px;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+
+  &__wrapper {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 12px;
+    padding: 37px 61px;
+    background: rgba(0, 0, 0, 0.4);
+  }
+
+  &__title {
+    color: $base-text-color;
+    font-size: 22px;
+    margin-bottom: 41px;
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    label {
+      display: block;
+      color: $base-text-color;
+      font-size: 14px;
+    }
+  }
+
+  &__field {
+    margin-bottom: 22px;
+  }
+
+  &__error {
+    display: block;
+    color: $error-text-color;
+    font-size: 16px;
+    margin-top: 31px;
+  }
+
+  &__button {
+    width: 250px;
+    height: 40px;
+    border-radius: 10px;
+    border-bottom: 4px solid $blue-color;
+    background: $blue-color;
+    margin-top: 30px;
+  }
+
+  &__link--help {
+    color: $base-text-color;
+    font-size: 16px;
+    margin-top: 22px;
+  }
+
+  &__logo {
+    margin-top: 21px;
+  }
+
+  &__link--register {
+    color: $blue-color;
+    font-size: 16px;
+    margin-top: 22px;
+  }
+}

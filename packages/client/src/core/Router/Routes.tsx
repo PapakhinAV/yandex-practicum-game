@@ -1,6 +1,6 @@
 import React from 'react'
 import { Navigate, Route, Routes } from 'react-router-dom'
-import { Game, Home, ErrorPage, Profile, Forum, ForumTopic } from '../../pages'
+import { Game, Home, ErrorPage, Profile, Forum, ForumTopic, Login } from '../../pages'
 import { ERoutes } from './ERoutes'
 import AppRoute from './AppRoute'
 import { useGetUserQuery } from '../../reducers/auth'
@@ -15,7 +15,7 @@ const Router = () => {
     <Routes>
       <Route path={ERoutes.HOME} element={<AppRoute element={<Home />} />} />
       <Route path={ERoutes.GAME} element={<AppRoute element={<Game />} />} />
-      <Route path={ERoutes.LOGIN} element={<AppRoute element={<>LOGIN</>} />} />
+      <Route path={ERoutes.LOGIN} element={<AppRoute element={<Login />} />} />
       <Route
         path={ERoutes.REGISTER}
         element={<AppRoute element={<>REGISTER</>} />}
