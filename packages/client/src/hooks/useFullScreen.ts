@@ -1,28 +1,10 @@
 import { useState, useCallback, useEffect } from 'react'
-
-type FullScreen = {
-  isFullScreen: boolean,
-  enterFullScreen: () => void,
-  exitFullScreen: () => void,
-  toggleFullScreen: () => void,
-}
-
-type Nullable<T> = T | null
-
-interface DocumentWithFullscreen extends Document {
-  mozFullScreenElement?: Element
-  msFullscreenElement?: Element
-  webkitFullscreenElement?: Element
-  msExitFullscreen?: () => void
-  mozCancelFullScreen?: () => void
-  webkitExitFullscreen?: () => void
-}
-
-interface DocumentElementWithFullscreen extends Element {
-  msRequestFullscreen?: () => void
-  mozRequestFullScreen?: () => void
-  webkitRequestFullscreen?: () => void
-}
+import { 
+  FullScreen, 
+  Nullable, 
+  DocumentWithFullscreen, 
+  DocumentElementWithFullscreen 
+} from './types'
 
 const useFullScreen = (target: Nullable<DocumentElementWithFullscreen>): FullScreen => {
   
