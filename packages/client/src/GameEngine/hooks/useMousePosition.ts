@@ -10,6 +10,7 @@ const useMousePosition = (canvasRef: React.RefObject<HTMLCanvasElement>) => {
     const canvas = canvasRef.current
     if (!canvas) return
 
+    // Обработка движения мыши - обновление данных о координатах мыши над холстом.
     const updateMousePosition = (event: MouseEvent) => {
       const rect = canvas.getBoundingClientRect()
       const x = event.clientX - rect.left

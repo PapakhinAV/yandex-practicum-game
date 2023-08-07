@@ -1,16 +1,15 @@
 import { MutableRefObject, useEffect, useRef } from 'react'
 import {
   createEnemies,
-  animateCanvasWrapper,
   Building,
   useActiveTile,
   useMousePosition,
   usePlacementTiles,
   canvasHeight,
   canvasWidth,
-  Enemy,
+  Enemy, useAnimateCanvas, generateSimpleWaves
 } from '../index'
-import { ICreateEnemyOptions } from '../types'
+import { ICreateEnemyOptions, IPosition } from '../types'
 import { addCoins, addScore, setHearts } from '../../pages/Game/gameSlice'
 import { batch, useDispatch } from 'react-redux'
 
@@ -18,7 +17,8 @@ export interface IStartGameOptions {
   hearts: MutableRefObject<number>
   gameParams: {
     map: string
-    enemyWaves: ICreateEnemyOptions[]
+    enemyWaves?: ICreateEnemyOptions[]
+    levelWayPoints: IPosition[]
     levelPlacements: number[]
   }
 }
@@ -28,12 +28,12 @@ const useStartGame = (props: IStartGameOptions) => {
   const dispatch = useDispatch()
 
   const { hearts, gameParams } = props
-  const { map, enemyWaves, levelPlacements } = gameParams
+  const { map, enemyWaves, levelPlacements, levelWayPoints } = gameParams
 
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const buildingsRef = useRef<Building[]>([])
-  const waves = [...enemyWaves]
-  const wave = waves.shift()
+  const waves = enemyWaves ? [...enemyWaves] : generateSimpleWaves( 100, 3, levelWayPoints)
+  const wave =  waves.shift()
   const enemiesRef = useRef<Enemy[]>(wave ? createEnemies(wave) : [])
   const { placementTiles } = usePlacementTiles(levelPlacements)
   const { mouseRef } = useMousePosition(canvasRef)
@@ -64,7 +64,7 @@ const useStartGame = (props: IStartGameOptions) => {
     if (context) {
       background.src = map
       background.onload = () => {
-        animateCanvasWrapper({
+        useAnimateCanvas({
           context,
           background,
           placementTiles,

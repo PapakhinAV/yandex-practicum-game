@@ -1,6 +1,6 @@
 export { default as Layout } from './Layout/Layout'
 export * from './fields'
 export * from './formFields'
-export * from './Levels'
+export { default as Level } from './Level/Level'
 export { default as Form } from './Form/Form'
 export { default as Button } from './Button/Button'
