@@ -11,6 +11,9 @@ const Home: FC = () => {
           <Link to={ERoutes.LOGIN}>Login</Link>
         </li>
         <li>
+          <Link to={ERoutes.REGISTER}>Register</Link>
+        </li>
+        <li>
           <Link to="/404">404</Link>
         </li>
       </ul>
