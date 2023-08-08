@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 import styles from './Game.module.scss'
-import { Level } from '../../components'
+import { Level1 } from '../../components'
 import { Image } from '@chakra-ui/react'
 import heart from './img/heart.svg'
 import coinsImg from './img/coins.svg'
@@ -37,7 +37,7 @@ const Game: FC = () => {
           <div>{hearts}</div>
         </div>
       </div>
-      <Level />
+      <Level1 />
       {!hearts && (
         <div className={styles.game__endGame}>
           <p>Game Over</p>

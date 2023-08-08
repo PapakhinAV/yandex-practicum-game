@@ -15,8 +15,6 @@ const useActiveTile = (
       const y = mouseRef.current.y
 
       activeTile.current = null
-
-      // Обработка движения мышки и определение активной плитки (той, над которой сейчас мышка)
       for (let i = 0; i < placementTiles.length; i++) {
         const tile = placementTiles[i]
         if (
