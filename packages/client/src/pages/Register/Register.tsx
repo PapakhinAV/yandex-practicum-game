@@ -67,7 +67,7 @@ const Register = () => {
               </div>
             </div>
 
-            <span className={styles.register__error}>Form error message</span>
+            <span className={styles.register__error}>Сообщение об ошибке формы</span>
 
             <CustomButton className={styles.register__button} type="submit">
               Отправить
