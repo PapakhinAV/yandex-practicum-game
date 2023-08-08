@@ -10,6 +10,7 @@ const usePlacementTiles = (levelPlacements: number[]) => {
   )
   const placementTiles: Placement[] = []
 
+  // Формирования массива с плитками на основе массива цифр
   placementData2D.forEach((row, y) => {
     row.forEach((symbol, x) => {
       if (symbol === 14) {
