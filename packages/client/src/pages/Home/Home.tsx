@@ -57,7 +57,7 @@ const Home: FC = () => {
         width='250px'
         onClick={() => navigate(ERoutes.LEADERBOARD)}
       >
-        Лидерборд
+        Таблица лидеров
       </ButtonWithAuth>
       <ButtonWithoutAuth
         width='250px'
