@@ -2,11 +2,11 @@ export type TTopic = {
   id: string,
   title: string,
   replies: number,
-  userId: string,
+  userId: number,
 }
 
 export type TUser = {
-  id: string,
+  id: number,
   first_name: string,
   second_name: string,
   display_name: string,

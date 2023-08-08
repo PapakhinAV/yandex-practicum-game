@@ -8,7 +8,7 @@ interface ILeaderboardQuery {
 }
 
 interface ILeaderboard {
-  scope: number
+  score: number
   username: string
   difficulty: string
   id: number

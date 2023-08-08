@@ -21,7 +21,7 @@ import { IRootState } from '../../store/types'
 
 const Leaderboard: FC = () => {
   const [cursor, setCursor] = useState(0)
-  const [ ratingFieldName, setRatingFieldName ] = useState('scope')
+  const [ ratingFieldName, setRatingFieldName ] = useState('score')
   const user = useSelector((state: IRootState) => state.app.user!)
   const { data, isLoading } = useGetLeaderboardQuery({
     cursor,
@@ -62,7 +62,7 @@ const Leaderboard: FC = () => {
           size='sm'
           colorScheme='whiteAlpha'
           color="white"
-          fontFamily='Rubic'
+          fontFamily='Rubik'
         >
           <TableCaption placement="top">
             <Heading
@@ -79,7 +79,7 @@ const Leaderboard: FC = () => {
                 {getHeaderButton('Сложность', 'difficulty')}
               </Th>
               <Th>
-                {getHeaderButton('Счет', 'scope')}
+                {getHeaderButton('Счет', 'score')}
               </Th>
             </Tr>
           </Thead>
@@ -106,7 +106,7 @@ const Leaderboard: FC = () => {
                   <Td>{index + 1}</Td>
                   <Td>{item.data.username}</Td>
                   <Td>{item.data.difficulty}</Td>
-                  <Td>{item.data.scope}</Td>
+                  <Td>{item.data.score}</Td>
                 </Tr>
               ))}
             </Tbody>
