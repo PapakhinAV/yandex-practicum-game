@@ -23,7 +23,15 @@ const Router = () => {
   if (isLoading) return <>Загрузка</>
   return (
     <Routes>
-      <Route path={ERoutes.HOME} element={<AppRoute element={<Home />} />} />
+      <Route 
+        path={ERoutes.HOME} 
+        element={
+          <AppRoute 
+            element={<Home />} 
+            metaInfo={{ title: 'Меню' }} 
+          />
+        } 
+      />
       <Route path={ERoutes.GAME} element={<AppRoute element={<Game />} />} />
       <Route path={ERoutes.LOGIN} element={<AppRoute element={<Login />} />} />
       <Route
