@@ -21,14 +21,14 @@ import { IconSend } from './components'
 import styles from './ForumTopic.module.scss'
 
 const mockTopicData = { 
-  id: '1', 
+  id: '1',
   title: 'Не могу пройти первый уровень', 
   replies: 3, 
-  userId: '1' 
+  userId: 1
 }
 
 const mockUser1 = {
-  id: '1',
+  id: 1,
   first_name: 'Kent',
   second_name: 'Dodds',
   display_name: 'Kent Dodds',
@@ -37,7 +37,7 @@ const mockUser1 = {
 }
 
 const mockUser2 = {
-  id: '2',
+  id: 2,
   first_name: 'Ryan',
   second_name: 'Florence',
   display_name: 'Ryan Florence',

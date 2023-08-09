@@ -1,9 +1,19 @@
 import React from 'react'
 import { Navigate, Route, Routes } from 'react-router-dom'
-import { Game, Home, ErrorPage, Profile, Forum, ForumTopic, Login, Register } from '../../pages'
+import {
+  Game,
+  Home,
+  ErrorPage,
+  Profile,
+  Leaderboard,
+  Forum,
+  ForumTopic,
+  Login,
+  Register,
+} from '../../pages'
 import { ERoutes } from './ERoutes'
 import AppRoute from './AppRoute'
-import { useGetUserQuery } from '../../reducers/auth'
+import { useGetUserQuery } from '../../api/auth'
 import { useSelector } from 'react-redux'
 import { IRootState } from '../../store/types'
 
@@ -30,18 +40,24 @@ const Router = () => {
           )
         }
       />
-        <Route
+      <Route
         path={ERoutes.LEADERBOARD}
-        element={<AppRoute element={<>LEADERBOARD</>} />}
-      />
-      <Route 
-        path={ERoutes.FORUM} 
         element={
-          <AppRoute 
+          user ? (
+            <AppRoute element={<Leaderboard />} metaInfo={{ title: 'Таблица лидеров' }} />
+          ) : (
+            <Navigate replace to={ERoutes.LOGIN} />
+          )
+        }
+      />
+      <Route
+        path={ERoutes.FORUM}
+        element={
+          <AppRoute
             element={<Forum/>}
-            metaInfo={{ title: 'Форум'}} 
+            metaInfo={{ title: 'Форум'}}
           />
-        } 
+        }
       />
       <Route
         path={ERoutes.FORUM_TOPIC}
@@ -50,9 +66,9 @@ const Router = () => {
       <Route
         path={ERoutes.PAGE_404}
         element={
-          <AppRoute 
-            element={<ErrorPage />} 
-            metaInfo={{ title: '404' }} 
+          <AppRoute
+            element={<ErrorPage />}
+            metaInfo={{ title: '404' }}
           />
         }
       />
@@ -61,9 +77,9 @@ const Router = () => {
         element={
           <AppRoute
             element={
-              <ErrorPage 
-                status="500" 
-                message="Что-то пошло не так..." 
+              <ErrorPage
+                status="500"
+                message="Что-то пошло не так..."
               />
             }
             metaInfo={{ title: '500' }}

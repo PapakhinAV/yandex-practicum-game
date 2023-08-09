@@ -18,7 +18,7 @@ import {
 import FormInput from '../../components/formFields/FormInput/FormInput'
 import { useForm } from 'react-hook-form'
 import CustomForm from '../../components/Form/Form'
-import { useChangePasswordMutation } from '../../reducers/user'
+import { useChangePasswordMutation } from '../../api/user'
 
 interface ModalChangePasswordProps {
   onClose: () => void;
