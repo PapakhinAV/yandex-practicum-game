@@ -4,16 +4,26 @@ import { ERoutes } from '../../core/Router/ERoutes'
 import { Button } from '../../components'
 import { Box } from '@chakra-ui/react'
 import { useLogoutMutation } from '../../reducers/auth'
-import withAuth from './hocs/withAuth'
-import withoutAuth from './hocs/withoutAuth'
+import { useSelector } from 'react-redux'
+import { IRootState } from '../../store/types'
+
 import menu_ork from './assets/menu_ork.png'
 
 const Home: FC = () => {
   const [logout] = useLogoutMutation()
   const navigate = useNavigate()
 
-  const ButtonWithAuth = withAuth(Button)
-  const ButtonWithoutAuth = withoutAuth(Button)
+  const user = useSelector((state: IRootState) => state.app.user)
+  const isAuthenticated = !!user
+
+  const getMenuButton = (label: string, redirectTo: string) => (
+    <Button
+      width='250px'
+      onClick={() => navigate(redirectTo)}
+    >
+      {label}
+    </Button>
+  )
 
   return (
     <Box
@@ -41,50 +51,29 @@ const Home: FC = () => {
         width='200px'
         height='139px'
       />
-      <Button
-        width='250px'
-        onClick={() => navigate(ERoutes.GAME)}
-      >
-        Играть
-      </Button>
-      <ButtonWithAuth
-        width='250px'
-        onClick={() => navigate(ERoutes.PROFILE)}
-      >
-        Профиль
-      </ButtonWithAuth>
-      <ButtonWithAuth
-        width='250px'
-        onClick={() => navigate(ERoutes.LEADERBOARD)}
-      >
-        Таблица лидеров
-      </ButtonWithAuth>
-      <ButtonWithoutAuth
-        width='250px'
-        onClick={() => navigate(ERoutes.LOGIN)}
-      >
-        Авторизация
-      </ButtonWithoutAuth>
-      <ButtonWithoutAuth
-        width='250px'
-        onClick={() => navigate(ERoutes.REGISTER)}
-      >
-        Регистрация
-      </ButtonWithoutAuth>
-      <Button
-        width='250px'
-        onClick={() => navigate(ERoutes.FORUM)}
-      >
-        Форум
-      </Button>
-      <ButtonWithAuth
-        colorScheme='red'
-        width='250px'
-        onClick={() => logout().unwrap()}
-      >
-        Выйти
-      </ButtonWithAuth>
-
+      {getMenuButton('Играть', ERoutes.GAME)}
+      {getMenuButton('Форум', ERoutes.FORUM)}
+      {isAuthenticated 
+        ? (
+          <>
+            {getMenuButton('Профиль', ERoutes.PROFILE)}
+            {getMenuButton('Таблица лидеров', ERoutes.LEADERBOARD)}
+            <Button
+              colorScheme='red'
+              width='250px'
+              onClick={() => logout().unwrap()}
+            >
+              Выйти
+            </Button>
+          </>
+        ) 
+        : (
+          <>
+            {getMenuButton('Авторизация', ERoutes.LOGIN)}
+            {getMenuButton('Регистрация', ERoutes.REGISTER)}
+          </>
+        )
+      }
     </Box>
   )
 }
