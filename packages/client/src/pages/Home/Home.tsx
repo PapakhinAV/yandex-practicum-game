@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { ERoutes } from '../../core/Router/ERoutes'
 import { Button } from '../../components'
 import { Box } from '@chakra-ui/react'
-import { useLogoutMutation } from '../../reducers/auth'
+import { useLogoutMutation } from '../../api/auth'
 import { useSelector } from 'react-redux'
 import { IRootState } from '../../store/types'
 
