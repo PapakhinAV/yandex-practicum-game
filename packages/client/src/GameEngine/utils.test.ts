@@ -105,7 +105,7 @@ describe('Utils входящие в GameEngine', () => {
         })
       })
   describe('generateSimpleWaves', () => {
-    it('should generate correct wave configurations', () => {
+    it('Корректно генерируются стандартные волны', () => {
       const numberOfWaves = 3
       const enemiesStep = 5
       const wayPoints: IPosition[] = [
