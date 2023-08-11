@@ -1,36 +1,10 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { authApi } from '../api/auth'
 import { userApi } from '../api/user'
-
-// Пример-заготовка под стейт приложения.
-
-export interface IUserState {
-  id: number
-  first_name: string
-  second_name: string
-  display_name: string | null
-  login: string
-  avatar: string | null
-  email: string
-  phone: string
-}
-
-interface ISettingsState {
-  sound: boolean
-  difficulty: 'easy' | 'medium' | 'hard'
-}
-
-export interface IAppState {
-  user: IUserState | null
-  settings: ISettingsState
-}
+import { IAppState, IUserState } from './types'
 
 const initialState: IAppState = {
   user: null,
-  settings: {
-    sound: true,
-    difficulty: 'medium',
-  },
 }
 
 const appSlice = createSlice({
@@ -39,9 +13,6 @@ const appSlice = createSlice({
   reducers: {
     setUser: (state, action: PayloadAction<IUserState>) => {
       state.user = action.payload
-    },
-    setSettings: (state, action: PayloadAction<ISettingsState>) => {
-      state.settings = action.payload
     },
   },
   extraReducers: builder => {
@@ -69,6 +40,6 @@ const appSlice = createSlice({
   },
 })
 
-export const { setUser, setSettings } = appSlice.actions
+export const { setUser } = appSlice.actions
 
 export default appSlice.reducer

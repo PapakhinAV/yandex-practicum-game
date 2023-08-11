@@ -21,7 +21,7 @@ import {
   loginValidator,
 } from '../../utils/validators/validators'
 import { useChangeProfileMutation } from '../../api/user'
-import { IUserState } from '../../store/appReducer'
+import { IUserState } from '../../store/types'
 
 interface ModalEditProps {
   onClose: () => void
