@@ -32,7 +32,15 @@ const Router = () => {
           />
         } 
       />
-      <Route path={ERoutes.GAME} element={<AppRoute element={<Game />} />} />
+      <Route 
+        path={ERoutes.GAME} 
+        element={
+          <AppRoute 
+            element={<Game />} 
+            metaInfo={{ title: 'Игра' }}
+          />
+        } 
+      />
       <Route path={ERoutes.LOGIN} element={<AppRoute element={<Login />} />} />
       <Route
         path={ERoutes.REGISTER}
