@@ -9,12 +9,14 @@ import styles from './register.module.scss'
 import { NavButton } from '../../components'
 import { ENavButtonDirection } from '../../components/NavButton/types'
 import { Box } from '@chakra-ui/react'
+import { useSignupMutation } from '../../api/auth'
 
 const Register = () => {
   const methods = useForm()
+  const [signup, { isLoading, isError }] = useSignupMutation()
 
-  const onSubmit = (data: unknown) => {
-    console.log(data)
+  const onSubmit = async (data: any) => {
+    await signup(data)
   }
 
   return (
@@ -74,11 +76,15 @@ const Register = () => {
                 </div>
               </div>
 
-              <span className={styles.register__error}>Сообщение об ошибке формы</span>
+            <div className={styles.register__button_wrapper}>
+            { isError
+              && <span className={styles.register__error}>Сообщение об ошибке формы</span>
+            }
 
-              <CustomButton className={styles.register__button} type="submit">
-                Отправить
-              </CustomButton>
+            <CustomButton className={styles.register__button} type="submit" disabled={isLoading}>
+              Отправить
+            </CustomButton>
+            </div>
 
               <Link className={styles.register__link} to={ERoutes.LOGIN}>
                 Войти

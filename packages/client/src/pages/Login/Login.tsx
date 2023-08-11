@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { ERoutes } from '../../core/Router/ERoutes'
+import { useSigninMutation, useLogoutMutation } from '../../api/auth'
 import CustomForm from '../../components/Form/Form'
 import FormInput from '../../components/formFields/FormInput/FormInput'
 import CustomButton from '../../components/Button/Button'
@@ -12,9 +13,12 @@ import { Box } from '@chakra-ui/react'
 
 const Login = () => {
   const methods = useForm()
+  const [signin, { isLoading, isError }] = useSigninMutation()
+  const [logout] = useLogoutMutation()
 
-  const onSubmit = (data: unknown) => {
-    console.log(data)
+  const onSubmit = async (data: unknown) => {
+    await signin(data)
+    // await logout()
   }
 
   return (
@@ -43,15 +47,19 @@ const Login = () => {
                 <FormInput type="password" name="password" />
               </div>
 
-              <span className={styles.login__error}>
-              Логин или пароль неверный
-              </span>
+           <div className={styles.login__button_wrapper}>
+            { isError
+                && <span className={styles.login__error}>
+                Логин или пароль неверный
+                </span>
+              }
 
-              <CustomButton className={styles.login__button} type="submit">
+              <CustomButton className={styles.login__button}  disabled={isLoading} type="submit">
                 Авторизоваться
               </CustomButton>
-            </>
-          </CustomForm>
+           </div>
+          </>
+        </CustomForm>
 
           <Link className={styles['login__link--help']} to={'/'}>
             Войти с помощью

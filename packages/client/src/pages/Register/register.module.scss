@@ -58,9 +58,10 @@
   }
 
   &__error {
+    position: absolute;
     color: $error-text-color;
     font-size: 16px;
-    margin-top: 27px;
+    top: 10px;
   }
 
   &__button {
@@ -69,7 +70,14 @@
     border-radius: 10px;
     border-bottom: 4px solid $blue-color;
     background: #0085ff;
-    margin-top: 15px;
+    margin-top: 45px;
+
+    &_wrapper {
+      position: relative;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+    }
   }
 
   &__link {

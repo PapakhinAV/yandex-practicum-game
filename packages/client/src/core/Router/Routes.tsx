@@ -18,7 +18,7 @@ import { useSelector } from 'react-redux'
 import { IRootState } from '../../store/types'
 
 const Router = () => {
-  const user = useSelector((state: IRootState) => state.app.user)
+  const isAuth = useSelector((state: IRootState) => state.app.isAuth)
   const { isLoading } = useGetUserQuery()
   if (isLoading) return <>Загрузка</>
   return (
@@ -44,12 +44,18 @@ const Router = () => {
       <Route path={ERoutes.LOGIN} element={<AppRoute element={<Login />} />} />
       <Route
         path={ERoutes.REGISTER}
-        element={<AppRoute element={<Register />} />}
+        element={
+          !isAuth ? (
+            <AppRoute element={<Register />} metaInfo={{ title: 'Регистрация' }} />
+          ) : (
+            <Navigate replace to={ERoutes.HOME} />
+          )
+        }
       />
       <Route
         path={ERoutes.PROFILE}
         element={
-          user ? (
+          isAuth ? (
             <AppRoute element={<Profile />} metaInfo={{ title: 'Профиль' }} />
           ) : (
             <Navigate replace to={ERoutes.LOGIN} />
@@ -59,7 +65,7 @@ const Router = () => {
       <Route
         path={ERoutes.LEADERBOARD}
         element={
-          user ? (
+          isAuth ? (
             <AppRoute element={<Leaderboard />} metaInfo={{ title: 'Таблица лидеров' }} />
           ) : (
             <Navigate replace to={ERoutes.LOGIN} />

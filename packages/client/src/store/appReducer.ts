@@ -5,6 +5,7 @@ import { IAppState, IUserState } from './types'
 
 const initialState: IAppState = {
   user: null,
+  isAuth: false,
 }
 
 const appSlice = createSlice({
@@ -20,6 +21,23 @@ const appSlice = createSlice({
       authApi.endpoints.getUser.matchFulfilled,
       (state, { payload }) => {
         state.user = payload
+      }
+    )
+    builder.addMatcher(
+      authApi.endpoints.signup.matchFulfilled,
+      (state, { payload }) => {
+
+        state.isAuth = true
+        console.log(state, payload)
+      }
+    )
+    builder.addMatcher(
+      authApi.endpoints.signin.matchFulfilled,
+      (state, { payload }) => {
+        console.log(state, payload)
+        state.isAuth = true
+        // redirect(ERoutes.HOME)
+        console.log(state)
       }
     )
     builder.addMatcher(authApi.endpoints.logout.matchFulfilled, state => {
