@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import { IUserState } from '../store/appReducer'
+import { IUserState } from '../store/types'
 
 export const authApi = createApi({
   reducerPath: 'authApi',
