@@ -14,6 +14,7 @@ export interface IUserState {
 
 export interface IAppState {
   user: IUserState | null
+  isAuth: boolean
 }
 
 export interface IRootState {
