@@ -142,10 +142,30 @@ export const messageValidator: TValidatorParam = (
 export const twoPasswordValidator: TValidatorParam = (
   password = '',
   customErrorMessage,
-  formValues
+  formValues,
+  passwordKey
 ) => {
-  if (password !== formValues?.newPassword) {
+  const twoPassword = passwordKey && formValues ? formValues[passwordKey] : formValues?.newPassword
+  if (password !== twoPassword) {
     return customErrorMessage || 'Пароли не совпадают'
   }
   return undefined
+}
+
+
+export const lastNameValidator: TValidatorParam = (
+  name = '',
+  customErrorMessage
+) => {
+  const errors = []
+
+  if (!/^[A-ZА-ЯЁ][a-zA-Zа-яёЁ-]*$/.test(name)) {
+    errors.push('Первая буква должна быть заглавной без цифр и спецСимволов')
+  }
+
+  if (!errors.length) {
+    return
+  }
+
+  return customErrorMessage || errors.join(', ')
 }

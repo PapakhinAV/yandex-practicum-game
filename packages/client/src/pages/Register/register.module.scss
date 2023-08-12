@@ -6,12 +6,14 @@
   left: 50%;
   transform: translate(-50%, -50%);
   width: 600px;
-  min-height: 600px;
+  height: 600px;
+  overflow: hidden;
+  overflow-y: auto;
 
   &__wrapper {
     width: 100%;
-    height: 100%;
     border-radius: 12px;
+
     background: rgba(0, 0, 0, 0.4);
     display: flex;
     flex-direction: column;
@@ -55,6 +57,10 @@
     input {
       width: 250px;
     }
+  }
+
+  &__item {
+    max-width: 250px;
   }
 
   &__error {

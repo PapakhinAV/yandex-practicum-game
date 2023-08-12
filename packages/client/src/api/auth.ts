@@ -16,9 +16,7 @@ export const authApi = createApi({
         url: 'signin',
         method: 'POST',
         body,
-        responseHandler: async (response) => {
-          return response.text()
-        },
+        responseHandler: 'text',
       }),
     }),
     signup: builder.mutation({

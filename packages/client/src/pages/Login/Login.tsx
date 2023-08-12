@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form'
 import { ERoutes } from '../../core/Router/ERoutes'
 import { useSigninMutation, useLogoutMutation } from '../../api/auth'
 import CustomForm from '../../components/Form/Form'
+import { passwordValidator, loginValidator } from '../../utils/validators/validators'
 import FormInput from '../../components/formFields/FormInput/FormInput'
 import CustomButton from '../../components/Button/Button'
 import styles from './Login.module.scss'
@@ -14,11 +15,9 @@ import { Box } from '@chakra-ui/react'
 const Login = () => {
   const methods = useForm()
   const [signin, { isLoading, isError }] = useSigninMutation()
-  const [logout] = useLogoutMutation()
 
   const onSubmit = async (data: unknown) => {
-    await signin(data)
-    // await logout()
+    await signin(data).unwrap()
   }
 
   return (
@@ -38,14 +37,25 @@ const Login = () => {
               <div className={styles.login__field}>
                 <label>Логин</label>
 
-                <FormInput name="login" />
-              </div>
+              <FormInput
+                name="login"
+                registerOptions={{
+                validate: value => loginValidator(value),
+                }}
+              />
+            </div>
 
               <div>
                 <label>Пароль</label>
 
-                <FormInput type="password" name="password" />
-              </div>
+              <FormInput
+                type="password"
+                name="password"
+                registerOptions={{
+                validate: value => passwordValidator(value),
+                }}
+              />
+            </div>
 
            <div className={styles.login__button_wrapper}>
             { isError

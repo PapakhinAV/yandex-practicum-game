@@ -20,27 +20,18 @@ const appSlice = createSlice({
     builder.addMatcher(
       authApi.endpoints.getUser.matchFulfilled,
       (state, { payload }) => {
+        state.isAuth = true
         state.user = payload
       }
     )
-    builder.addMatcher(
-      authApi.endpoints.signup.matchFulfilled,
-      (state, { payload }) => {
-
-        state.isAuth = true
-        console.log(state, payload)
-      }
-    )
-    builder.addMatcher(
-      authApi.endpoints.signin.matchFulfilled,
-      (state, { payload }) => {
-        console.log(state, payload)
-        state.isAuth = true
-        // redirect(ERoutes.HOME)
-        console.log(state)
-      }
-    )
+    builder.addMatcher(authApi.endpoints.signup.matchFulfilled, state => {
+      state.isAuth = true
+    })
+    builder.addMatcher(authApi.endpoints.signin.matchFulfilled, state => {
+      state.isAuth = true
+    })
     builder.addMatcher(authApi.endpoints.logout.matchFulfilled, state => {
+      state.isAuth = false
       state.user = null
     })
     builder.addMatcher(

@@ -2,6 +2,15 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { ERoutes } from '../../core/Router/ERoutes'
+import {
+  emailValidator,
+  nameValidator,
+  lastNameValidator,
+  passwordValidator,
+  twoPasswordValidator,
+  phoneValidator,
+  loginValidator,
+} from '../../utils/validators/validators'
 import CustomForm from '../../components/Form/Form'
 import FormInput from '../../components/formFields/FormInput/FormInput'
 import CustomButton from '../../components/Button/Button'
@@ -15,8 +24,8 @@ const Register = () => {
   const methods = useForm()
   const [signup, { isLoading, isError }] = useSignupMutation()
 
-  const onSubmit = async (data: any) => {
-    await signup(data)
+  const onSubmit = async (data: unknown) => {
+  await signup(data).unwrap()
   }
 
   return (
@@ -35,46 +44,83 @@ const Register = () => {
               <div>
                 <label>Почта</label>
 
-                <FormInput name="email" />
+              <FormInput
+                name="email"
+                registerOptions={{
+                  validate: value => emailValidator(value),
+                }}
+              />
+            </div>
+            <div className={styles.register__field}>
+              <div className={styles.register__item}>
+                <label>Логин</label>
+
+                <FormInput
+                  name="login"
+                  registerOptions={{
+                    validate: value => loginValidator(value),
+                  }}
+                />
               </div>
-              <div className={styles.register__field}>
-                <div>
-                  <label>Логин</label>
+              <div className={styles.register__item}>
+                <label>Телефон</label>
 
-                  <FormInput name="login" />
-                </div>
-                <div>
-                  <label>Телефон</label>
-
-                  <FormInput name="phone" />
-                </div>
+                <FormInput
+                  name="phone"
+                  registerOptions={{
+                    validate: value => phoneValidator(value),
+                  }}
+                />
               </div>
+            </div>
 
-              <div className={styles.register__field}>
-                <div>
-                  <label>Имя</label>
+            <div className={styles.register__field}>
+              <div className={styles.register__item}>
+                <label>Имя</label>
 
-                  <FormInput name="first_name" />
-                </div>
-                <div>
-                  <label>Фамилия</label>
-
-                  <FormInput name="second_name" />
-                </div>
+                <FormInput
+                  name="first_name"
+                  registerOptions={{
+                    validate: value => nameValidator(value),
+                  }}
+                />
               </div>
+              <div className={styles.register__item}>
+                <label>Фамилия</label>
 
-              <div className={styles.register__field}>
-                <div>
-                  <label>Пароль</label>
-
-                  <FormInput name="password" />
-                </div>
-                <div>
-                  <label>Пароль (еще раз)</label>
-
-                  <FormInput name="repeat_pasword" />
-                </div>
+                <FormInput
+                  name="second_name"
+                  registerOptions={{
+                    validate: value => lastNameValidator(value),
+                  }}
+                />
               </div>
+            </div>
+
+            <div className={styles.register__field}>
+              <div className={styles.register__item}>
+                <label>Пароль</label>
+
+                <FormInput
+                  name="password"
+                  registerOptions={{
+                    validate: value => passwordValidator(value),
+                  }}
+                
+                />
+              </div>
+              <div className={styles.register__item}>
+                <label>Пароль (еще раз)</label>
+
+                <FormInput
+                  name="repeat_password"
+                  registerOptions={{
+                    validate: (value, formValues) =>
+                      twoPasswordValidator(value, undefined, formValues, 'password'),
+                  }}
+                />
+              </div>
+            </div>
 
             <div className={styles.register__button_wrapper}>
             { isError
