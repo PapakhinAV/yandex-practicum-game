@@ -10,7 +10,13 @@ import {
   Enemy, useAnimateCanvas, generateSimpleWaves
 } from '../index'
 import { ICreateEnemyOptions, IPosition } from '../types'
-import { addCoins, addScore, setHearts } from '../../pages/Game/gameSlice'
+import { 
+  addCoins, 
+  addScore, 
+  setHearts, 
+  updateStatus,
+  EGameStatus
+} from '../../pages/Game/gameSlice'
 import { batch, useDispatch } from 'react-redux'
 
 export interface IStartGameOptions {
@@ -42,7 +48,14 @@ const useStartGame = (props: IStartGameOptions) => {
 
   const onHeartsChange = (newValue: number): void => {
     hearts.current = newValue
-    dispatch(setHearts(newValue))
+    if (newValue <= 0) {
+      batch(() => {
+        dispatch(setHearts(newValue))
+        dispatch(updateStatus(EGameStatus.GAME_OVER))
+      })
+    } else {
+      dispatch(setHearts(newValue))
+    }
   }
 
   const onEnemyDefeated = (coins: number, scorePoints: number): void => {

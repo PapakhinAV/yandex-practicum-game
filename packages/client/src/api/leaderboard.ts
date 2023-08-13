@@ -10,7 +10,6 @@ interface ILeaderboardQuery {
 interface ILeaderboard {
   score: number
   username: string
-  difficulty: string
   id: number
 
 }
@@ -32,9 +31,19 @@ export const leaderboardApi = createApi({
         return currentArg !== previousArg
       },
     }),
+    addScore: builder.mutation({
+      query: body => ({
+        url: '',
+        method: 'POST',
+        body,
+      }),
+    }),
   }),
 })
 
 // Export hooks for usage in functional components, which are
 // auto-generated based on the defined endpoints
-export const { useGetLeaderboardQuery } = leaderboardApi
+export const { 
+  useGetLeaderboardQuery, 
+  useAddScoreMutation 
+} = leaderboardApi

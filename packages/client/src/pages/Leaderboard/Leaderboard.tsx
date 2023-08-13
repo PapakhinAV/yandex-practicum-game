@@ -76,9 +76,6 @@ const Leaderboard: FC = () => {
                 {getHeaderButton('Имя пользователя', 'username')}
               </Th>
               <Th>
-                {getHeaderButton('Сложность', 'difficulty')}
-              </Th>
-              <Th>
                 {getHeaderButton('Счет', 'score')}
               </Th>
             </Tr>
@@ -105,7 +102,6 @@ const Leaderboard: FC = () => {
                 >
                   <Td>{index + 1}</Td>
                   <Td>{item.data.username}</Td>
-                  <Td>{item.data.difficulty}</Td>
                   <Td>{item.data.score}</Td>
                 </Tr>
               ))}
