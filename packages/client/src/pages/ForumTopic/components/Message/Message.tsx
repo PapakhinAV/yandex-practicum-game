@@ -53,7 +53,7 @@ const Message: FC<MessageComponentProps> = ({ messageData }) => {
         >
           {!isMine && <Text color={EColors.LIME}>{messageData.user.display_name}</Text>}
           <Text>{messageData.content}</Text>
-          <Text alignSelf='flex-end' fontSize='10px'>{prettyTime}</Text>
+          <Text alignSelf='flex-end' fontSize='10px' m={0}>{prettyTime}</Text>
         </VStack>
       </Box>
     </HStack>
