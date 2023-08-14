@@ -41,7 +41,16 @@ const Router = () => {
           />
         } 
       />
-      <Route path={ERoutes.LOGIN} element={<AppRoute element={<Login />} />} />
+      <Route
+        path={ERoutes.LOGIN}
+        element={
+          !isAuth ? (
+            <AppRoute element={<Login />} metaInfo={{ title: 'Авторизация' }} />
+          ) : (
+            <Navigate replace to={ERoutes.HOME} />
+          )
+        }
+      />
       <Route
         path={ERoutes.REGISTER}
         element={
