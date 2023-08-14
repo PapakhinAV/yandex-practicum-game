@@ -26,7 +26,7 @@ const Profile: FC = () => {
   const [changeAvatarProfile] = useChangeAvatarProfileMutation()
   const [logout] = useLogoutMutation()
 
-  if (!isAuth) return <></>
+  if (!isAuth || !user) return <></>
 
   return (
     <>
