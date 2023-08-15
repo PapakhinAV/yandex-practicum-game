@@ -29,7 +29,7 @@ const Game: FC = () => {
   const [initGame, setInitGame] = useState(false)
   const { hearts, coins, score, status } = useSelector(getTotalHeartsAndCoins)
   const user = useSelector((state: IRootState) => state.app.user)
-  const isAuth = useSelector((state: IRootState) => state.app.isAuth)
+  const isAuthenticated = !!user
   const [addScore, { isError, isLoading }] = useAddScoreMutation()
 
   const startGame = () => {
@@ -37,16 +37,16 @@ const Game: FC = () => {
   }
 
   useEffect(() => {
-    if (status === EGameStatus.GAME_OVER && isAuth) {
+    if (status === EGameStatus.GAME_OVER && isAuthenticated) {
       const scoreData = {
         score: score,
-        username: user?.login,
-        id: user?.id,
+        username: user.login,
+        id: user.id,
       }
 
       addScore(scoreData)
     }
-  }, [status, isAuth, addScore])
+  }, [status, isAuthenticated, addScore])
 
   return (
     <div className={styles.game__wrapper}>

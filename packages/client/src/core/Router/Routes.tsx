@@ -1,5 +1,6 @@
 import React from 'react'
-import { Navigate, Route, Routes } from 'react-router-dom'
+import { Route, Routes } from 'react-router-dom'
+import { ProtectedRoute } from './ProtectedRoute'
 import {
   Game,
   Home,
@@ -44,41 +45,33 @@ const Router = () => {
       <Route
         path={ERoutes.LOGIN}
         element={
-          !isAuth ? (
+          <ProtectedRoute isAuth={!isAuth} redirectPath={ERoutes.HOME}>
             <AppRoute element={<Login />} metaInfo={{ title: 'Авторизация' }} />
-          ) : (
-            <Navigate replace to={ERoutes.HOME} />
-          )
+          </ProtectedRoute>
         }
       />
       <Route
         path={ERoutes.REGISTER}
         element={
-          !isAuth ? (
+          <ProtectedRoute isAuth={!isAuth} redirectPath={ERoutes.HOME}>
             <AppRoute element={<Register />} metaInfo={{ title: 'Регистрация' }} />
-          ) : (
-            <Navigate replace to={ERoutes.HOME} />
-          )
+          </ProtectedRoute>
         }
       />
       <Route
         path={ERoutes.PROFILE}
         element={
-          isAuth ? (
+          <ProtectedRoute isAuth={isAuth}>
             <AppRoute element={<Profile />} metaInfo={{ title: 'Профиль' }} />
-          ) : (
-            <Navigate replace to={ERoutes.LOGIN} />
-          )
+          </ProtectedRoute>
         }
       />
       <Route
         path={ERoutes.LEADERBOARD}
         element={
-          isAuth ? (
+          <ProtectedRoute isAuth={isAuth}>
             <AppRoute element={<Leaderboard />} metaInfo={{ title: 'Таблица лидеров' }} />
-          ) : (
-            <Navigate replace to={ERoutes.LOGIN} />
-          )
+          </ProtectedRoute>
         }
       />
       <Route

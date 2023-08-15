@@ -24,8 +24,16 @@ const Register = () => {
   const methods = useForm()
   const [signup, { isLoading, isError }] = useSignupMutation()
 
-  const onSubmit = async (data: unknown) => {
-  await signup(data).unwrap()
+  const onSubmit = async (data: Record<string, string>) => {
+    await signup({
+      email: data.email,
+      first_name: data.first_name,
+      login: data.login,
+      password: data.password,
+      phone: data.phone,
+      repeat_password: data.repeat_password,
+      second_name: data.second_name
+  }).unwrap()
   }
 
   return (

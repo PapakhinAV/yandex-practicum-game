@@ -9,3 +9,9 @@ export type AppRouteProps = {
   metaInfo?: MetaInfo
   element: ReactElement
 }
+
+export type ProtectedRouteProps = {
+  isAuth: boolean
+  children: ReactElement
+  redirectPath?: string 
+}

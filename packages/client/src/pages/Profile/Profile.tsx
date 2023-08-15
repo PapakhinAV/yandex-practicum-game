@@ -11,7 +11,6 @@ import { NavButton } from '../../components'
 import { ENavButtonDirection } from '../../components/NavButton/types'
 
 const Profile: FC = () => {
-  const isAuth = useSelector((state: IRootState) => state.app.isAuth)
   const user = useSelector((state: IRootState) => state.app.user)
   const {
     isOpen: isOpenEdit,
@@ -26,7 +25,7 @@ const Profile: FC = () => {
   const [changeAvatarProfile] = useChangeAvatarProfileMutation()
   const [logout] = useLogoutMutation()
 
-  if (!isAuth || !user) return <></>
+  if (!user) return <></>
 
   return (
     <>
