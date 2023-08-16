@@ -1,10 +1,10 @@
-import { 
-  Center, 
+import {
+  Center,
   Heading,
   Box,
   HStack,
-  Grid, 
-  Container, 
+  Grid,
+  Container,
   Spinner,
 } from '@chakra-ui/react'
 import { FC, useEffect, useState } from 'react'
@@ -13,17 +13,18 @@ import { TTopic, TMessage } from './types'
 import { Helmet } from 'react-helmet-async'
 import { useForm } from 'react-hook-form'
 import { EColors } from '../../App/constants'
-import { Form } from '../../components'
+import { Form, NavButton } from '../../components'
 import { FormTextarea } from '../../components'
 import { Button } from '../../components'
 import { Message } from './components'
 import { IconSend } from './components'
 import styles from './ForumTopic.module.scss'
+import { ENavButtonDirection } from '../../components/NavButton/types'
 
-const mockTopicData = { 
+const mockTopicData = {
   id: '1',
-  title: 'Не могу пройти первый уровень', 
-  replies: 3, 
+  title: 'Не могу пройти первый уровень',
+  replies: 3,
   userId: 1
 }
 
@@ -61,8 +62,8 @@ const ForumTopic: FC = () => {
   const [messagesLoading, setMessagesLoading] = useState(true)
 
   const { topicId } = useParams<'topicId'>()
-  
-  useEffect(() => {    
+
+  useEffect(() => {
     /** Запрос данных по топику (на текущем этапе мок)  */
     const topicTimeoutId = setTimeout(() => {
       setTopicData(mockTopicData)
@@ -75,7 +76,7 @@ const ForumTopic: FC = () => {
       setMessagesLoading(false)
     }, 1000)
 
-    return () => { 
+    return () => {
       clearTimeout(topicTimeoutId)
       clearTimeout(messagesTimeoutId)
     }
@@ -93,32 +94,35 @@ const ForumTopic: FC = () => {
       <title>{title}</title>
     </Helmet>
     <Container maxW='700px' p={0}>
-      <Grid 
-        h='100vh' 
-        w='full' 
-        templateRows='auto 1fr auto' 
+      <Box position={'absolute'} left={4} top={4} >
+        <NavButton direction={ENavButtonDirection.BACK}/>
+      </Box>
+      <Grid
+        h='100vh'
+        w='full'
+        templateRows='auto 1fr auto'
         gap={4}
       >
         <Center pt={8} h={68}>
-          {topicLoading 
+          {topicLoading
             ? <Spinner/>
-            : <Heading size='md' color={EColors.WHITE}>{title}</Heading>}
+            : <Heading size='md' margin={0} color={EColors.WHITE}>{title}</Heading>}
         </Center>
-        <Box 
-          overflowY="auto" 
+        <Box
+          overflowY="auto"
           maxHeight="auto"
         >
           { messagesLoading
             ? <Center><Spinner/></Center>
-            : messagesData.map(message => 
+            : messagesData.map(message =>
                 <Message key={`msg-${message.id}`} messageData={message}></Message>
-              ) 
+              )
           }
         </Box>
-        <HStack 
-          p='15px' 
-          pb='10px' 
-          bg={EColors.BLACK_ALPHA} 
+        <HStack
+          p='15px'
+          pb='10px'
+          bg={EColors.BLACK_ALPHA}
           borderRadius='10px 10px 0 0'
         >
           <Form
@@ -127,10 +131,10 @@ const ForumTopic: FC = () => {
             className={styles.full}
           >
             <HStack>
-              <FormTextarea 
-                name='message' 
-                bg={EColors.WHITE} 
-                rows={1} 
+              <FormTextarea
+                name='message'
+                bg={EColors.WHITE}
+                rows={1}
                 resize='none'
                 autoFocus
               />
