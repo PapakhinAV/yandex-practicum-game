@@ -10,10 +10,10 @@ import {
   Enemy, useAnimateCanvas, generateSimpleWaves
 } from '../index'
 import { ICreateEnemyOptions, IPosition } from '../types'
-import { 
-  addCoins, 
-  addScore, 
-  setHearts, 
+import {
+  addCoins,
+  addScore,
+  setHearts,
   updateStatus,
   EGameStatus
 } from '../../pages/Game/gameSlice'
@@ -45,7 +45,6 @@ const useStartGame = (props: IStartGameOptions) => {
   const { mouseRef } = useMousePosition(canvasRef)
   const { activeTileRef } = useActiveTile(mouseRef, placementTiles)
   const background = new Image()
-
   const onHeartsChange = (newValue: number): void => {
     hearts.current = newValue
     if (newValue <= 0) {

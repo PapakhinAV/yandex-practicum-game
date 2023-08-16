@@ -1,11 +1,11 @@
-import { 
-  Center, 
+import {
+  Center,
   Heading,
   Box,
   Grid,
-  Container, 
+  Container,
   Spinner,
-  Modal, 
+  Modal,
   useDisclosure
 } from '@chakra-ui/react'
 import { FC, useEffect, useState } from 'react'
@@ -14,6 +14,8 @@ import { EColors } from '../../App/constants'
 import ModalCreateTopic from './ModalCreateTopic'
 import { ForumTable } from './components'
 import type { Topic } from './types'
+import { NavButton } from '../../components'
+import { ENavButtonDirection } from '../../components/NavButton/types'
 
 const mockData = [
   { id: '1', title: 'Не могу пройти первый уровень ', replies: 4 },
@@ -37,7 +39,7 @@ const Forum: FC = () => {
     onOpen: onOpenCreate,
     onClose: onCloseCreate,
   } = useDisclosure()
-  
+
   useEffect(() => {
     const timeoutId = setTimeout(() => {
       setTopics(mockData)
@@ -48,15 +50,18 @@ const Forum: FC = () => {
   }, [])
 
   return (
-    <Container 
-      maxW='700px' 
+    <Container
+      maxW='700px'
       p={0}
       color={EColors.WHITE}
     >
-      <Grid 
-      h='100vh' 
-      w='full' 
-      templateRows='auto 1fr auto' 
+      <Box position={'absolute'} left={4} top={4} >
+        <NavButton direction={ENavButtonDirection.HOME}/>
+      </Box>
+      <Grid
+      h='100vh'
+      w='full'
+      templateRows='auto 1fr auto'
       gap={4}
       >
         <Center pt={20} pb={12}>
@@ -64,17 +69,17 @@ const Forum: FC = () => {
             Форум
           </Heading>
         </Center>
-        <Box 
-          overflowY="auto" 
+        <Box
+          overflowY="auto"
           maxHeight="auto"
         >
-          {loading 
+          {loading
           ? <Center><Spinner/></Center>
           : <ForumTable topicsData={topics}/>
           }
         </Box>
         <Center pb={20} pt={12}>
-          <CustomButton 
+          <CustomButton
             width='250px'
             onClick={onOpenCreate}
           >
@@ -82,8 +87,8 @@ const Forum: FC = () => {
           </CustomButton>
         </Center>
       </Grid>
-      <Modal 
-        isOpen={isOpenCreate} 
+      <Modal
+        isOpen={isOpenCreate}
         onClose={onCloseCreate}
       >
         <ModalCreateTopic onClose={onCloseCreate} />

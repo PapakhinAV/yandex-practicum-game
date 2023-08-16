@@ -28,8 +28,8 @@ const useCanvasClickBuilder = (
       if (isBuildingAvalible) {
         buildingsRef.current.push(newTower)
         dispatch(removeCoins(newTower.price))
+        tile.occupied = true
       }
-      tile.occupied = true
     }
   }
 

@@ -8,6 +8,12 @@
     position: relative;
   }
 
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+  }
   &__overlay {
     width: 100%;
     height: 100vh;
@@ -46,10 +52,8 @@
 
   &__infoBar {
     display: flex;
-    flex-direction: row;
     column-gap: 16px;
-    justify-content: end;
-    margin-bottom: 8px;
+    align-items: center;
   }
 
   &__infoItem {

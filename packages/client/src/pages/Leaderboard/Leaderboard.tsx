@@ -18,6 +18,8 @@ import { TriangleDownIcon } from '@chakra-ui/icons'
 import ReactPaginate from 'react-paginate'
 import { useSelector } from 'react-redux'
 import { IRootState } from '../../store/types'
+import { NavButton } from '../../components'
+import { ENavButtonDirection } from '../../components/NavButton/types'
 
 const Leaderboard: FC = () => {
   const [cursor, setCursor] = useState(0)
@@ -42,92 +44,97 @@ const Leaderboard: FC = () => {
     </Button>
   )
   return (
-    <Box
-      display="grid"
-      border="12px"
-      width={700}
-      background="blackAlpha.400"
-      gap={30}
-      position="absolute"
-      top="50%"
-      left="50%"
-      marginRight="-50%"
-      transform="translate(-50%, -50%)"
-      borderRadius="4px"
-      justifyContent="center"
-      padding="20px"
-    >
-      <TableContainer>
-        <Table
-          size='sm'
-          colorScheme='whiteAlpha'
-          color="white"
-          fontFamily='Rubik'
-        >
-          <TableCaption placement="top">
-            <Heading
-              color="white"
-            >Таблица лидеров</Heading>
-          </TableCaption>
-          <Thead>
-            <Tr>
-              <Th color="white"></Th>
-              <Th>
-                {getHeaderButton('Имя пользователя', 'username')}
-              </Th>
-              <Th>
-                {getHeaderButton('Счет', 'score')}
-              </Th>
-            </Tr>
-          </Thead>
-          {isLoading && (
-            <TableCaption>
-              <Spinner
-                thickness='4px'
-                speed='0.65s'
-                emptyColor='gray.200'
-                color='blue.500'
-                size='xl'
-                alignItems="center"
+    <>
+      <Box position={'absolute'} left={4} top={4} >
+        <NavButton direction={ENavButtonDirection.HOME}/>
+      </Box>
+      <Box
+        display="grid"
+        border="12px"
+        width={700}
+        background="blackAlpha.400"
+        gap={30}
+        position="absolute"
+        top="50%"
+        left="50%"
+        marginRight="-50%"
+        transform="translate(-50%, -50%)"
+        borderRadius="4px"
+        justifyContent="center"
+        padding="20px"
+      >
+        <TableContainer>
+          <Table
+            size='sm'
+            colorScheme='whiteAlpha'
+            color="white"
+            fontFamily='Rubik'
+          >
+            <TableCaption placement="top">
+              <Heading
+                color="white"
+              >Таблица лидеров</Heading>
+            </TableCaption>
+            <Thead>
+              <Tr>
+                <Th color="white"></Th>
+                <Th>
+                  {getHeaderButton('Имя пользователя', 'username')}
+                </Th>
+                <Th>
+                  {getHeaderButton('Счет', 'score')}
+                </Th>
+              </Tr>
+            </Thead>
+            {isLoading && (
+              <TableCaption>
+                <Spinner
+                  thickness='4px'
+                  speed='0.65s'
+                  emptyColor='gray.200'
+                  color='blue.500'
+                  size='xl'
+                  alignItems="center"
+                />
+              </TableCaption>
+            )}
+            {data && (
+              <Tbody>
+                {data.map((item, index) => (
+                  <Tr
+                    key={index}
+                    backgroundColor={user.id === item.data.id ? 'blue.100' : undefined}
+                    color={user.id === item.data.id ? 'black' : undefined}
+                  >
+                    <Td>{index + 1}</Td>
+                    <Td>{item.data.username}</Td>
+                    <Td>{item.data.score}</Td>
+                  </Tr>
+                ))}
+              </Tbody>
+            )}
+            <TableCaption placement="bottom">
+              <ReactPaginate
+                pageClassName="page-item"
+                pageLinkClassName="page-link"
+                previousClassName="page-item"
+                previousLinkClassName="page-link"
+                nextClassName="page-item"
+                nextLinkClassName="page-link"
+                breakClassName="page-item"
+                breakLinkClassName="page-link"
+                activeClassName="active"
+                containerClassName="pagination justify-content-center"
+                pageCount={10} // Мы не знаем сколько записей, а лишний раз дергать сервис лень
+                nextLabel=">"
+                previousLabel="<"
+                onPageChange={event => setCursor(event.selected)}
               />
             </TableCaption>
-          )}
-          {data && (
-            <Tbody>
-              {data.map((item, index) => (
-                <Tr
-                  key={index}
-                  backgroundColor={user.id === item.data.id ? 'blue.100' : undefined}
-                  color={user.id === item.data.id ? 'black' : undefined}
-                >
-                  <Td>{index + 1}</Td>
-                  <Td>{item.data.username}</Td>
-                  <Td>{item.data.score}</Td>
-                </Tr>
-              ))}
-            </Tbody>
-          )}
-          <TableCaption placement="bottom">
-            <ReactPaginate
-              pageClassName="page-item"
-              pageLinkClassName="page-link"
-              previousClassName="page-item"
-              previousLinkClassName="page-link"
-              nextClassName="page-item"
-              nextLinkClassName="page-link"
-              breakClassName="page-item"
-              breakLinkClassName="page-link"
-              activeClassName="active"
-              containerClassName="pagination justify-content-center"
-              pageCount={10} // Мы не знаем сколько записей, а лишний раз дергать сервис лень
-              nextLabel=">"
-              previousLabel="<"
-              onPageChange={event => setCursor(event.selected)}
-            />
-          </TableCaption>
-        </Table>
-      </TableContainer>
-    </Box>
+          </Table>
+        </TableContainer>
+      </Box>
+    </>
   )
 }
 
