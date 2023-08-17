@@ -10,4 +10,6 @@ const store = configureStore({
     getDefaultMiddleware().concat(authApi.middleware, userApi.middleware, leaderboardApi.middleware),
 })
 
+export type AppDispatch = typeof store.dispatch;
+
 export default store

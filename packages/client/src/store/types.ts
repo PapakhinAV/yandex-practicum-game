@@ -14,7 +14,8 @@ export interface IUserState {
 
 export interface IAppState {
   user: IUserState | null
-  isAuth: boolean
+  loginError: boolean
+  registerError: boolean
 }
 
 export interface IRootState {

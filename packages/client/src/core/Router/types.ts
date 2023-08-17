@@ -1,4 +1,5 @@
 import { ReactElement } from 'react'
+import { IUserState } from '../../store/types'
 
 export type MetaInfo = {
   title: string
@@ -11,7 +12,7 @@ export type AppRouteProps = {
 }
 
 export type ProtectedRouteProps = {
-  isAuth: boolean
+  user: IUserState | null | boolean
   children: ReactElement
   redirectPath?: string 
 }

@@ -5,7 +5,8 @@ import { IAppState, IUserState } from './types'
 
 const initialState: IAppState = {
   user: null,
-  isAuth: false,
+  loginError: false,
+  registerError: false,
 }
 
 const appSlice = createSlice({
@@ -15,23 +16,21 @@ const appSlice = createSlice({
     setUser: (state, action: PayloadAction<IUserState>) => {
       state.user = action.payload
     },
+    setLoginError: state => {
+      state.loginError = true
+    },
+    setRegisterError: state => {
+      state.registerError = true
+    }
   },
   extraReducers: builder => {
     builder.addMatcher(
       authApi.endpoints.getUser.matchFulfilled,
       (state, { payload }) => {
-        state.isAuth = true
         state.user = payload
       }
     )
-    builder.addMatcher(authApi.endpoints.signup.matchFulfilled, state => {
-      state.isAuth = true
-    })
-    builder.addMatcher(authApi.endpoints.signin.matchFulfilled, state => {
-      state.isAuth = true
-    })
     builder.addMatcher(authApi.endpoints.logout.matchFulfilled, state => {
-      state.isAuth = false
       state.user = null
     })
     builder.addMatcher(
@@ -49,6 +48,6 @@ const appSlice = createSlice({
   },
 })
 
-export const { setUser } = appSlice.actions
+export const { setUser, setLoginError, setRegisterError } = appSlice.actions
 
 export default appSlice.reducer

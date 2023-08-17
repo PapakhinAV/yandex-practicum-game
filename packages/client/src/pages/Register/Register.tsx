@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
+import { useDispatch, useSelector } from 'react-redux'
 import { ERoutes } from '../../core/Router/ERoutes'
 import {
   emailValidator,
@@ -11,6 +12,7 @@ import {
   phoneValidator,
   loginValidator,
 } from '../../utils/validators/validators'
+import { signupAndFetchUser } from '../../store/Chunk'
 import CustomForm from '../../components/Form/Form'
 import FormInput from '../../components/formFields/FormInput/FormInput'
 import CustomButton from '../../components/Button/Button'
@@ -18,14 +20,16 @@ import styles from './register.module.scss'
 import { NavButton } from '../../components'
 import { ENavButtonDirection } from '../../components/NavButton/types'
 import { Box } from '@chakra-ui/react'
-import { useSignupMutation } from '../../api/auth'
+import { AppDispatch } from '../../store/store'
+import { IRootState } from '../../store/types'
 
 const Register = () => {
+  const dispatch = useDispatch<AppDispatch>()
   const methods = useForm()
-  const [signup, { isLoading, isError }] = useSignupMutation()
+  const registerError = useSelector((state: IRootState) => state.app.registerError)
 
   const onSubmit = async (data: Record<string, string>) => {
-    await signup({
+    dispatch(signupAndFetchUser({
       email: data.email,
       first_name: data.first_name,
       login: data.login,
@@ -33,7 +37,7 @@ const Register = () => {
       phone: data.phone,
       repeat_password: data.repeat_password,
       second_name: data.second_name
-  }).unwrap()
+  }))
   }
 
   return (
@@ -131,11 +135,11 @@ const Register = () => {
             </div>
 
             <div className={styles.register__button_wrapper}>
-            { isError
+            { registerError
               && <span className={styles.register__error}>Сообщение об ошибке формы</span>
             }
 
-            <CustomButton className={styles.register__button} type="submit" disabled={isLoading}>
+            <CustomButton className={styles.register__button} type="submit">
               Отправить
             </CustomButton>
             </div>

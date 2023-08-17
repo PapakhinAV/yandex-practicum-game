@@ -1,7 +1,8 @@
 import { Link } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
+import { useDispatch, useSelector } from 'react-redux'
 import { ERoutes } from '../../core/Router/ERoutes'
-import { useSigninMutation, useLogoutMutation } from '../../api/auth'
+import { signinAndFetchUser } from '../../store/Chunk'
 import CustomForm from '../../components/Form/Form'
 import { passwordValidator, loginValidator } from '../../utils/validators/validators'
 import FormInput from '../../components/formFields/FormInput/FormInput'
@@ -11,13 +12,20 @@ import Logo from '../../../public/logo'
 import { NavButton } from '../../components'
 import { ENavButtonDirection } from '../../components/NavButton/types'
 import { Box } from '@chakra-ui/react'
+import { AppDispatch } from '../../store/store'
+import { IRootState } from '../../store/types'
+
 
 const Login = () => {
+  const dispatch = useDispatch<AppDispatch>()
   const methods = useForm()
-  const [signin, { isLoading, isError }] = useSigninMutation()
+  const isError = useSelector((state: IRootState) => state.app.loginError)
 
-  const onSubmit = async (data: unknown) => {
-    await signin(data).unwrap()
+  const onSubmit = async (data: Record<string, string>) => {
+    dispatch(signinAndFetchUser({
+      login: data.login,
+      password: data.password,
+  }))
   }
 
   return (
@@ -64,7 +72,7 @@ const Login = () => {
                 </span>
               }
 
-              <CustomButton className={styles.login__button}  disabled={isLoading} type="submit">
+              <CustomButton className={styles.login__button} type="submit">
                 Авторизоваться
               </CustomButton>
            </div>

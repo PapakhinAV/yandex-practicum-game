@@ -19,7 +19,7 @@ import { useSelector } from 'react-redux'
 import { IRootState } from '../../store/types'
 
 const Router = () => {
-  const isAuth = useSelector((state: IRootState) => state.app.isAuth)
+  const user = useSelector((state: IRootState) => state.app.user)
   const { isLoading } = useGetUserQuery()
   if (isLoading) return <>Загрузка</>
   return (
@@ -45,7 +45,7 @@ const Router = () => {
       <Route
         path={ERoutes.LOGIN}
         element={
-          <ProtectedRoute isAuth={!isAuth} redirectPath={ERoutes.HOME}>
+          <ProtectedRoute user={!user} redirectPath={ERoutes.HOME}>
             <AppRoute element={<Login />} metaInfo={{ title: 'Авторизация' }} />
           </ProtectedRoute>
         }
@@ -53,7 +53,7 @@ const Router = () => {
       <Route
         path={ERoutes.REGISTER}
         element={
-          <ProtectedRoute isAuth={!isAuth} redirectPath={ERoutes.HOME}>
+          <ProtectedRoute user={!user} redirectPath={ERoutes.HOME}>
             <AppRoute element={<Register />} metaInfo={{ title: 'Регистрация' }} />
           </ProtectedRoute>
         }
@@ -61,7 +61,7 @@ const Router = () => {
       <Route
         path={ERoutes.PROFILE}
         element={
-          <ProtectedRoute isAuth={isAuth}>
+          <ProtectedRoute user={user}>
             <AppRoute element={<Profile />} metaInfo={{ title: 'Профиль' }} />
           </ProtectedRoute>
         }
@@ -69,7 +69,7 @@ const Router = () => {
       <Route
         path={ERoutes.LEADERBOARD}
         element={
-          <ProtectedRoute isAuth={isAuth}>
+          <ProtectedRoute user={user}>
             <AppRoute element={<Leaderboard />} metaInfo={{ title: 'Таблица лидеров' }} />
           </ProtectedRoute>
         }
