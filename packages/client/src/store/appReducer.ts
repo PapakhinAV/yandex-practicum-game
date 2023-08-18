@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { authApi } from '../api/auth'
 import { userApi } from '../api/user'
 import { IAppState, IUserState } from './types'
+import { signinAndFetchUser, signupAndFetchUser } from './Chunk'
 
 const initialState: IAppState = {
   user: null,
@@ -24,6 +25,12 @@ const appSlice = createSlice({
     }
   },
   extraReducers: builder => {
+    builder.addCase(signinAndFetchUser.fulfilled, (state, action) => {
+      state.user = action.payload?.data ? action.payload.data : null
+    })
+    builder.addCase(signupAndFetchUser.fulfilled, (state, action) => {
+      state.user = action.payload?.data ? action.payload.data : null
+    })
     builder.addMatcher(
       authApi.endpoints.getUser.matchFulfilled,
       (state, { payload }) => {
