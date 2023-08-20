@@ -45,7 +45,7 @@ const Router = () => {
       <Route
         path={ERoutes.LOGIN}
         element={
-          <ProtectedRoute user={!user} redirectPath={ERoutes.HOME}>
+          <ProtectedRoute user={user} redirectPath={ERoutes.HOME} path={ERoutes.LOGIN}>
             <AppRoute element={<Login />} metaInfo={{ title: 'Авторизация' }} />
           </ProtectedRoute>
         }
@@ -53,7 +53,7 @@ const Router = () => {
       <Route
         path={ERoutes.REGISTER}
         element={
-          <ProtectedRoute user={!user} redirectPath={ERoutes.HOME}>
+          <ProtectedRoute user={user} redirectPath={ERoutes.HOME} path={ERoutes.REGISTER}>
             <AppRoute element={<Register />} metaInfo={{ title: 'Регистрация' }} />
           </ProtectedRoute>
         }

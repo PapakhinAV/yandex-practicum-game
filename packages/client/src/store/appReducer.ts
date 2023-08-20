@@ -2,12 +2,11 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { authApi } from '../api/auth'
 import { userApi } from '../api/user'
 import { IAppState, IUserState } from './types'
-import { signinAndFetchUser, signupAndFetchUser } from './Chunk'
+import { signinAndFetchUser, signupAndFetchUser } from './Thunk'
 
 const initialState: IAppState = {
   user: null,
-  loginError: false,
-  registerError: false,
+  errorMessage: '',
 }
 
 const appSlice = createSlice({
@@ -17,12 +16,12 @@ const appSlice = createSlice({
     setUser: (state, action: PayloadAction<IUserState>) => {
       state.user = action.payload
     },
-    setLoginError: state => {
-      state.loginError = true
+    setErrorMessage: (state, action) => {
+      state.errorMessage = action.payload
     },
-    setRegisterError: state => {
-      state.registerError = true
-    }
+    resetErrorMessage: state => {
+      state.errorMessage = null
+    },
   },
   extraReducers: builder => {
     builder.addCase(signinAndFetchUser.fulfilled, (state, action) => {
@@ -55,6 +54,6 @@ const appSlice = createSlice({
   },
 })
 
-export const { setUser, setLoginError, setRegisterError } = appSlice.actions
+export const { setUser, setErrorMessage, resetErrorMessage } = appSlice.actions
 
 export default appSlice.reducer

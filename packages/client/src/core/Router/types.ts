@@ -12,7 +12,8 @@ export type AppRouteProps = {
 }
 
 export type ProtectedRouteProps = {
-  user: IUserState | null | boolean
+  user: IUserState | null
   children: ReactElement
   redirectPath?: string 
+  path?: string
 }

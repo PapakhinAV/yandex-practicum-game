@@ -2,10 +2,10 @@ import { Navigate } from 'react-router-dom'
 import { ERoutes } from './ERoutes'
 import { ProtectedRouteProps } from './types'
 
-export const ProtectedRoute = ({ user, children, redirectPath = ERoutes.LOGIN }: ProtectedRouteProps) => {
-  if (!user) {
-    return <Navigate to={redirectPath} replace />
+export const ProtectedRoute = ({ user, children, redirectPath = ERoutes.LOGIN, path }: ProtectedRouteProps) => {
+  if (path === ERoutes.LOGIN || path === ERoutes.REGISTER) {
+    return user ?  <Navigate to={redirectPath} replace /> : children
   }
 
-  return children
+  return !user ?  <Navigate to={redirectPath} replace /> : children
 }

@@ -1,18 +1,17 @@
-import React from 'react'
 import { Link } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
+import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { ERoutes } from '../../core/Router/ERoutes'
 import {
   emailValidator,
   nameValidator,
-  lastNameValidator,
   passwordValidator,
   twoPasswordValidator,
   phoneValidator,
   loginValidator,
 } from '../../utils/validators/validators'
-import { signupAndFetchUser } from '../../store/Chunk'
+import { signupAndFetchUser } from '../../store/Thunk'
 import CustomForm from '../../components/Form/Form'
 import FormInput from '../../components/formFields/FormInput/FormInput'
 import CustomButton from '../../components/Button/Button'
@@ -22,23 +21,20 @@ import { ENavButtonDirection } from '../../components/NavButton/types'
 import { Box } from '@chakra-ui/react'
 import { AppDispatch } from '../../store/store'
 import { IRootState } from '../../store/types'
+import { resetErrorMessage } from '../../store/appReducer'
 
 const Register = () => {
   const dispatch = useDispatch<AppDispatch>()
   const methods = useForm()
-  const registerError = useSelector((state: IRootState) => state.app.registerError)
+  const errorMessage = useSelector((state: IRootState) => state.app.errorMessage)
 
   const onSubmit = async (data: Record<string, string>) => {
-    dispatch(signupAndFetchUser({
-      email: data.email,
-      first_name: data.first_name,
-      login: data.login,
-      password: data.password,
-      phone: data.phone,
-      repeat_password: data.repeat_password,
-      second_name: data.second_name
-  }))
+    dispatch(signupAndFetchUser({...data}))
   }
+
+  useEffect(() => {
+    dispatch(resetErrorMessage())
+  }, [])
 
   return (
     <>
@@ -103,7 +99,7 @@ const Register = () => {
                 <FormInput
                   name="second_name"
                   registerOptions={{
-                    validate: value => lastNameValidator(value),
+                    validate: value => nameValidator(value),
                   }}
                 />
               </div>
@@ -135,8 +131,8 @@ const Register = () => {
             </div>
 
             <div className={styles.register__button_wrapper}>
-            { registerError
-              && <span className={styles.register__error}>Сообщение об ошибке формы</span>
+            { errorMessage
+              && <span className={styles.register__error}>{errorMessage}</span>
             }
 
             <CustomButton className={styles.register__button} type="submit">

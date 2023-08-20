@@ -1,8 +1,9 @@
 import { Link } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
+import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { ERoutes } from '../../core/Router/ERoutes'
-import { signinAndFetchUser } from '../../store/Chunk'
+import { signinAndFetchUser } from '../../store/Thunk'
 import CustomForm from '../../components/Form/Form'
 import { passwordValidator, loginValidator } from '../../utils/validators/validators'
 import FormInput from '../../components/formFields/FormInput/FormInput'
@@ -14,19 +15,23 @@ import { ENavButtonDirection } from '../../components/NavButton/types'
 import { Box } from '@chakra-ui/react'
 import { AppDispatch } from '../../store/store'
 import { IRootState } from '../../store/types'
-
+import { resetErrorMessage } from '../../store/appReducer'
 
 const Login = () => {
   const dispatch = useDispatch<AppDispatch>()
   const methods = useForm()
-  const isError = useSelector((state: IRootState) => state.app.loginError)
+  const errorMessage = useSelector((state: IRootState) => state.app.errorMessage)
 
   const onSubmit = async (data: Record<string, string>) => {
     dispatch(signinAndFetchUser({
       login: data.login,
       password: data.password,
-  }))
+    }))
   }
+
+  useEffect(() => {
+    dispatch(resetErrorMessage())
+  }, [])
 
   return (
     <>
@@ -66,9 +71,9 @@ const Login = () => {
             </div>
 
            <div className={styles.login__button_wrapper}>
-            { isError
+            { errorMessage
                 && <span className={styles.login__error}>
-                Логин или пароль неверный
+                {errorMessage}
                 </span>
               }
 

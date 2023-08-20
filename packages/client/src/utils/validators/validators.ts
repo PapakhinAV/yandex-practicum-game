@@ -151,21 +151,3 @@ export const twoPasswordValidator: TValidatorParam = (
   }
   return undefined
 }
-
-
-export const lastNameValidator: TValidatorParam = (
-  name = '',
-  customErrorMessage
-) => {
-  const errors = []
-
-  if (!/^[A-ZА-ЯЁ][a-zA-Zа-яёЁ-]*$/.test(name)) {
-    errors.push('Первая буква должна быть заглавной без цифр и спецСимволов')
-  }
-
-  if (!errors.length) {
-    return
-  }
-
-  return customErrorMessage || errors.join(', ')
-}
