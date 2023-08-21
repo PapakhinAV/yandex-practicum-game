@@ -14,6 +14,7 @@ export interface IUserState {
 
 export interface IAppState {
   user: IUserState | null
+  errorMessage: string | null
 }
 
 export interface IRootState {
@@ -22,4 +23,14 @@ export interface IRootState {
   authApi: ReturnType<Reducer>
   userApi: ReturnType<Reducer>
   leaderboardApi: ReturnType<Reducer>
+}
+
+export interface IResponse {
+  data?: string
+  error?: {
+    data: {
+      status: number
+      reason: string
+    }
+  }
 }

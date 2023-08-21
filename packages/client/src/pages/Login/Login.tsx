@@ -1,7 +1,11 @@
 import { Link } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
+import { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { ERoutes } from '../../core/Router/ERoutes'
+import { signinAndFetchUser } from '../../store/Thunk'
 import CustomForm from '../../components/Form/Form'
+import { passwordValidator, loginValidator } from '../../utils/validators/validators'
 import FormInput from '../../components/formFields/FormInput/FormInput'
 import CustomButton from '../../components/Button/Button'
 import styles from './Login.module.scss'
@@ -9,13 +13,25 @@ import Logo from '../../../public/logo'
 import { NavButton } from '../../components'
 import { ENavButtonDirection } from '../../components/NavButton/types'
 import { Box } from '@chakra-ui/react'
+import { AppDispatch } from '../../store/store'
+import { IRootState } from '../../store/types'
+import { resetErrorMessage } from '../../store/appReducer'
 
 const Login = () => {
+  const dispatch = useDispatch<AppDispatch>()
   const methods = useForm()
+  const errorMessage = useSelector((state: IRootState) => state.app.errorMessage)
 
-  const onSubmit = (data: unknown) => {
-    console.log(data)
+  const onSubmit = async (data: Record<string, string>) => {
+    dispatch(signinAndFetchUser({
+      login: data.login,
+      password: data.password,
+    }))
   }
+
+  useEffect(() => {
+    dispatch(resetErrorMessage())
+  }, [])
 
   return (
     <>
@@ -34,24 +50,39 @@ const Login = () => {
               <div className={styles.login__field}>
                 <label>Логин</label>
 
-                <FormInput name="login" />
-              </div>
+              <FormInput
+                name="login"
+                registerOptions={{
+                validate: value => loginValidator(value),
+                }}
+              />
+            </div>
 
               <div>
                 <label>Пароль</label>
 
-                <FormInput type="password" name="password" />
-              </div>
+              <FormInput
+                type="password"
+                name="password"
+                registerOptions={{
+                validate: value => passwordValidator(value),
+                }}
+              />
+            </div>
 
-              <span className={styles.login__error}>
-              Логин или пароль неверный
-              </span>
+           <div className={styles.login__button_wrapper}>
+            { errorMessage
+                && <span className={styles.login__error}>
+                {errorMessage}
+                </span>
+              }
 
               <CustomButton className={styles.login__button} type="submit">
                 Авторизоваться
               </CustomButton>
-            </>
-          </CustomForm>
+           </div>
+          </>
+        </CustomForm>
 
           <Link className={styles['login__link--help']} to={'/'}>
             Войти с помощью

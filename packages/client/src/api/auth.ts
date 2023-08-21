@@ -11,6 +11,21 @@ export const authApi = createApi({
     getUser: builder.query<IUserState, void>({
       query: () => 'user',
     }),
+    signin: builder.mutation({
+      query: body => ({
+        url: 'signin',
+        method: 'POST',
+        body,
+        responseHandler: 'text',
+      }),
+    }),
+    signup: builder.mutation({
+      query: body => ({
+        url: 'signup',
+        method: 'POST',
+        body,
+      }),
+    }),
     logout: builder.mutation<string, void>({
       query: () => ({
         url: 'logout',
@@ -23,4 +38,4 @@ export const authApi = createApi({
 
 // Export hooks for usage in functional components, which are
 // auto-generated based on the defined endpoints
-export const { useGetUserQuery, useLogoutMutation } = authApi
+export const { useGetUserQuery, useSigninMutation, useSignupMutation, useLogoutMutation } = authApi

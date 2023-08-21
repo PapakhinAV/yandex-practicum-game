@@ -1,5 +1,6 @@
 import React from 'react'
-import { Navigate, Route, Routes } from 'react-router-dom'
+import { Route, Routes } from 'react-router-dom'
+import { ProtectedRoute } from './ProtectedRoute'
 import {
   Game,
   Home,
@@ -41,29 +42,36 @@ const Router = () => {
           />
         } 
       />
-      <Route path={ERoutes.LOGIN} element={<AppRoute element={<Login />} />} />
+      <Route
+        path={ERoutes.LOGIN}
+        element={
+          <ProtectedRoute user={user} redirectPath={ERoutes.HOME} path={ERoutes.LOGIN}>
+            <AppRoute element={<Login />} metaInfo={{ title: 'Авторизация' }} />
+          </ProtectedRoute>
+        }
+      />
       <Route
         path={ERoutes.REGISTER}
-        element={<AppRoute element={<Register />} />}
+        element={
+          <ProtectedRoute user={user} redirectPath={ERoutes.HOME} path={ERoutes.REGISTER}>
+            <AppRoute element={<Register />} metaInfo={{ title: 'Регистрация' }} />
+          </ProtectedRoute>
+        }
       />
       <Route
         path={ERoutes.PROFILE}
         element={
-          user ? (
+          <ProtectedRoute user={user}>
             <AppRoute element={<Profile />} metaInfo={{ title: 'Профиль' }} />
-          ) : (
-            <Navigate replace to={ERoutes.LOGIN} />
-          )
+          </ProtectedRoute>
         }
       />
       <Route
         path={ERoutes.LEADERBOARD}
         element={
-          user ? (
+          <ProtectedRoute user={user}>
             <AppRoute element={<Leaderboard />} metaInfo={{ title: 'Таблица лидеров' }} />
-          ) : (
-            <Navigate replace to={ERoutes.LOGIN} />
-          )
+          </ProtectedRoute>
         }
       />
       <Route

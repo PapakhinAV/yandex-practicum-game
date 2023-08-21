@@ -142,9 +142,11 @@ export const messageValidator: TValidatorParam = (
 export const twoPasswordValidator: TValidatorParam = (
   password = '',
   customErrorMessage,
-  formValues
+  formValues,
+  passwordKey
 ) => {
-  if (password !== formValues?.newPassword) {
+  const twoPassword = passwordKey && formValues ? formValues[passwordKey] : formValues?.newPassword
+  if (password !== twoPassword) {
     return customErrorMessage || 'Пароли не совпадают'
   }
   return undefined
