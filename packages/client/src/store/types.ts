@@ -31,6 +31,6 @@ export interface IResponse {
     data: {
       status: number
       reason: string
-    }
+    } | string
   }
 }

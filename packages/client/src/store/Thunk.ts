@@ -13,8 +13,8 @@ export const signinAndFetchUser = createAsyncThunk(
     if (signinResult.data) {
       return await thunkAPI.dispatch(authApi.endpoints.getUser.initiate())
     } else if (signinResult.error?.data) {
-      const error = JSON.parse(signinResult.error.data.reason)
-      thunkAPI.dispatch(setErrorMessage(error))
+      const error = typeof signinResult.error.data === 'string' ?  JSON.parse(signinResult.error.data) : ''
+      thunkAPI.dispatch(setErrorMessage(error.reason))
     }
   }
 )
@@ -28,7 +28,7 @@ export const signupAndFetchUser = createAsyncThunk(
     if (signupResult?.data) {
       return await thunkAPI.dispatch(authApi.endpoints.getUser.initiate())
     } else if (signupResult.error?.data) {
-      const error = signupResult.error.data.reason 
+      const error = typeof signupResult.error.data === 'string' ? signupResult.error.data : signupResult.error.data.reason 
       thunkAPI.dispatch(setErrorMessage(error))
     }
   }
