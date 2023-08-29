@@ -40,8 +40,7 @@ const Game: FC = () => {
     if (status === EGameStatus.GAME_OVER && isAuthenticated) {
       const scoreData = {
         score: score,
-        username: user.login,
-        id: user.id,
+        username: user.display_name || user.login,
       }
 
       addScore(scoreData)
