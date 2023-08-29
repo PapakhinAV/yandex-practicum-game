@@ -24,6 +24,11 @@
     "paths": {
       "*": ["types/*"]
     },
-    "outDir": "dist"
-  }
+    "outDir": "./dist",
+    "allowJs": false,
+  },
+  "exclude": [
+    "dist/**/*",
+    "node_modules",
+  ]
 }
