@@ -22,6 +22,7 @@ module.exports = {
     'operator-linebreak': ['error', 'before'],
     'quotes': ['error', 'single'],
     'arrow-parens': ['error', 'as-needed'],
-    'brace-style': ['error', '1tbs']
+    'brace-style': ['error', '1tbs'],
+    '@typescript-eslint/no-var-requires': 0
   },
 }
