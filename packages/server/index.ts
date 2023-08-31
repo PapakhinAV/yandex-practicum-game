@@ -4,7 +4,6 @@ import express from 'express'
 import * as fs from 'fs'
 import * as path from 'path'
 import { createServer as createViteServer } from 'vite'
-import type { ViteDevServer } from 'vite'
 
 dotenv.config()
 
@@ -19,21 +18,17 @@ async function startServer (){
   app.use(cors())
 
   const port = Number(process.env.SERVER_PORT) || 3001
-  let vite: ViteDevServer | undefined
   const distPath = path.dirname(require.resolve('client/dist/index.html'))
   const srcPath = path.dirname(require.resolve('client'))
-  const ssrClientPath = require.resolve('client/dist-ssr/client.cjs')
   const storeHelpersPath = require.resolve('client/src/store/helpers.ts')
 
-  if (isDev()) {
-    vite = await createViteServer({
+   const vite = await createViteServer({
       server: { middlewareMode: true },
       root: srcPath,
       appType: 'custom'
     })
 
     app.use(vite.middlewares)
-  }
 
 
   app.get('/api', (_, res) => {
@@ -49,33 +44,13 @@ async function startServer (){
 
     try {
       let template: string
-      let createStore: any
 
-      if (!isDev()) {
-        template = fs.readFileSync(
-          path.resolve(distPath, 'index.html'),
-          'utf-8',
-        )
+      template = fs.readFileSync(path.resolve(srcPath, 'index.html'), 'utf-8',)
+      template = await vite!.transformIndexHtml(url, template)
 
-        createStore = (await import(storeHelpersPath)).createStore
+      const render = (await vite!.ssrLoadModule(path.resolve(srcPath, 'ssr.tsx'))).render
 
-      } else {
-        template = fs.readFileSync(
-          path.resolve(srcPath, 'index.html'),
-          'utf-8',
-        )
-
-        template = await vite!.transformIndexHtml(url, template)
-        createStore = (await vite!.ssrLoadModule(storeHelpersPath)).createStore
-      }
-
-      let render: (store: any, url: string) => Promise<string>
-
-      if (!isDev()) {
-        render = (await import(ssrClientPath)).render
-      } else {
-        render = (await vite!.ssrLoadModule(path.resolve(srcPath, 'ssr.tsx'))).render
-      }
+      const createStore = (await vite!.ssrLoadModule(storeHelpersPath)).createStore
 
       const configureStore = await createStore({}) // Инициируется initialStore
 
