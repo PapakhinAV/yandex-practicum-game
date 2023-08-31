@@ -49,14 +49,15 @@ async function startServer (){
 
     try {
       let template: string
-      let configureStore: any
+      let createStore: any
 
       if (!isDev()) {
         template = fs.readFileSync(
           path.resolve(distPath, 'index.html'),
           'utf-8',
         )
-        configureStore = require(storeHelpersPath).createStore({})
+
+        createStore = (await import(storeHelpersPath)).createStore
 
       } else {
         template = fs.readFileSync(
@@ -65,7 +66,7 @@ async function startServer (){
         )
 
         template = await vite!.transformIndexHtml(url, template)
-        configureStore = (await vite!.ssrLoadModule(storeHelpersPath)).createStore({}) // Инициируется стандартный initialStore
+        createStore = (await vite!.ssrLoadModule(storeHelpersPath)).createStore
       }
 
       let render: (store: any, url: string) => Promise<string>
@@ -75,6 +76,8 @@ async function startServer (){
       } else {
         render = (await vite!.ssrLoadModule(path.resolve(srcPath, 'ssr.tsx'))).render
       }
+
+      const configureStore = await createStore({}) // Инициируется initialStore
 
       const appHtml = await render(configureStore, url)
 

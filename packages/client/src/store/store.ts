@@ -4,11 +4,8 @@ import { authApi } from '../api/auth'
 import { userApi } from '../api/user'
 import { leaderboardApi } from '../api/leaderboard'
 
-const preloadedStateRaw = window?.___REDUX_STATE___ || {}
+const preloadedState = window?.___REDUX_STATE___ || {}
 delete window.___REDUX_STATE___
-
-const preloadedState = typeof preloadedStateRaw === 'string' ? JSON.parse(preloadedStateRaw) : undefined
-
 
 const store = configureStore({
   reducer: rootReducer,
