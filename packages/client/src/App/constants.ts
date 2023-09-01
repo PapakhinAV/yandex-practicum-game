@@ -43,6 +43,9 @@ export const theme = extendTheme({
       a: {
         color: EColors.BLUE,
       },
+      input: {
+        color: EColors.BLACK
+      }
     },
   },
   components: { Modal: modalTheme },
