@@ -32,10 +32,14 @@ export const leaderboardApi = createApi({
       },
     }),
     addScore: builder.mutation({
-      query: body => ({
+      query: data => ({
         url: '',
         method: 'POST',
-        body,
+        body: {
+          data,
+          teamName: TEAM_NAME,
+          ratingFieldName: 'score'
+        },
       }),
     }),
   }),
