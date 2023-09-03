@@ -12,6 +12,8 @@
     "test": "jest ."
   },
   "dependencies": {
+    "@emotion/css": "^11.11.2",
+    "@emotion/server": "^11.11.0",
     "cors": "^2.8.5",
     "cross-env": "^7.0.3",
     "dotenv": "^16.0.2",
