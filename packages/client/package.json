@@ -4,17 +4,20 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "rm -rf dist && tsc && vite build --config vite.config.ts",
+    "build:ssr": "rm -rf dist-ssr && tsc && vite build --config ssr.config.ts",
     "preview": "vite preview",
-    "lint": "eslint .",
-    "lint:fix": "eslint . --fix",
+    "lint": "eslint './**/*.{js,jsx,ts,tsx}'",
+    "lint:fix": "eslint './**/*.{js,jsx,ts,tsx}' --fix",
     "format": "prettier --write .",
     "test": "jest ./"
   },
   "dependencies": {
     "@chakra-ui/icons": "^2.1.0",
     "@chakra-ui/react": "^2.8.0",
+    "@emotion/css": "^11.11.2",
     "@emotion/react": "^11.11.1",
+    "@emotion/server": "^11.11.0",
     "@emotion/styled": "^11.11.0",
     "@reduxjs/toolkit": "^1.9.5",
     "classnames": "^2.3.2",

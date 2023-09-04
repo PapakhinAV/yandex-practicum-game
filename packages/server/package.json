@@ -3,14 +3,17 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "build": "tsc --p ./tsconfig.prod.json",
+    "build": "rm -rf dist && tsc --p ./tsconfig.prod.json",
     "preview": "node ./dist/index.js",
     "dev": "cross-env NODE_ENV=development nodemon index.ts",
-    "lint": "eslint .",
+    "lint": "eslint './**/*.{js,jsx,ts,tsx}'",
+    "lint:fix": "eslint './**/*.{js,jsx,ts,tsx}' --fix",
     "format": "prettier --write .",
     "test": "jest ."
   },
   "dependencies": {
+    "@emotion/css": "^11.11.2",
+    "@emotion/server": "^11.11.0",
     "cors": "^2.8.5",
     "cross-env": "^7.0.3",
     "dotenv": "^16.0.2",

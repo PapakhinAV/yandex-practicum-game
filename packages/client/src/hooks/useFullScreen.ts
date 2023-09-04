@@ -1,26 +1,29 @@
 import { useState, useCallback, useEffect } from 'react'
-import { 
-  FullScreen, 
-  Nullable, 
-  DocumentWithFullscreen, 
-  DocumentElementWithFullscreen 
+import {
+  FullScreen,
+  Nullable,
+  DocumentWithFullscreen,
+  DocumentElementWithFullscreen
 } from './types'
 
 const useFullScreen = (target: Nullable<DocumentElementWithFullscreen>): FullScreen => {
-  
+  const isClient = typeof document !== 'undefined'
+
   const isFullScreenElement = (target: Nullable<Element>): boolean => {
+    if (!isClient) return false
+
     const doc = document as DocumentWithFullscreen
 
     if (target) {
-      return !!(doc.fullscreenElement === target 
-        || doc.mozFullScreenElement === target 
-        || doc.webkitFullscreenElement === target 
+      return !!(doc.fullscreenElement === target
+        || doc.mozFullScreenElement === target
+        || doc.webkitFullscreenElement === target
         || doc.msFullscreenElement === target)
     }
 
-    return !!(doc.fullscreenElement 
-      || doc.mozFullScreenElement 
-      || doc.webkitFullscreenElement 
+    return !!(doc.fullscreenElement
+      || doc.mozFullScreenElement
+      || doc.webkitFullscreenElement
       || doc.msFullscreenElement)
   }
 
@@ -29,6 +32,8 @@ const useFullScreen = (target: Nullable<DocumentElementWithFullscreen>): FullScr
   )
 
   const enterFullScreen = useCallback(() => {
+    if (!isClient) return
+
     const element = target || document.documentElement as DocumentElementWithFullscreen
 
     if (element.requestFullscreen) {
@@ -40,9 +45,11 @@ const useFullScreen = (target: Nullable<DocumentElementWithFullscreen>): FullScr
     } else if (element.mozRequestFullScreen){
       element.mozRequestFullScreen()
     }
-  }, [target])
+  }, [target, isClient])
 
   const exitFullScreen = useCallback(() => {
+    if (!isClient) return
+
     const doc = document as DocumentWithFullscreen
 
     if (doc.exitFullscreen) {
@@ -54,19 +61,21 @@ const useFullScreen = (target: Nullable<DocumentElementWithFullscreen>): FullScr
     } else if(doc.mozCancelFullScreen) {
         doc.mozCancelFullScreen()
     }
-  }, [target])
+  }, [target, isClient])
 
   const handleChange = useCallback(() => {
     setFullScreen(isFullScreenElement(target))
   }, [target])
 
   useEffect(() => {
+    if (!isClient) return
+
     document.addEventListener('fullscreenchange', handleChange)
     document.addEventListener('webkitfullscreenchange', handleChange)
     document.addEventListener('mozfullscreenchange', handleChange)
     document.addEventListener('msfullscreenchange', handleChange)
     document.addEventListener('MSFullscreenChange', handleChange)
-    
+
     return () => {
       document.removeEventListener('fullscreenchange', handleChange)
       document.removeEventListener('webkitfullscreenchange', handleChange)

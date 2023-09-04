@@ -9,7 +9,7 @@ import Router from '../core/Router/Routes'
 const App: FC = () => {
   useEffect(() => {
     const fetchServerData = async () => {
-      const url = `http://localhost:${__SERVER_PORT__}`
+      const url = `http://localhost:${__SERVER_PORT__}/api`
       const response = await fetch(url)
       const data = await response.json()
       console.log(data)

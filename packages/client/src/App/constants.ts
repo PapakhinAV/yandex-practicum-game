@@ -1,4 +1,6 @@
 import { extendTheme } from '@chakra-ui/react'
+import { modalAnatomy as parts } from '@chakra-ui/anatomy'
+import { createMultiStyleConfigHelpers } from '@chakra-ui/styled-system'
 
 export enum EColors {
   BLUE = '#0085ff',
@@ -7,8 +9,25 @@ export enum EColors {
   ORANGE = '#FF4500',
   WHITE = '#FFFFFF',
   LIME = '#9AFC1D',
-  BLACK_ALPHA = 'rgba(0, 0, 0, 0.4)'
+  BLACK_ALPHA = 'rgba(0, 0, 0, 0.4)',
+  BLACK = 'rgba(0, 0, 0)'
 }
+
+
+
+const { definePartsStyle, defineMultiStyleConfig } = createMultiStyleConfigHelpers(parts.keys)
+
+const baseStyle = definePartsStyle({
+  overlay: {},
+  dialog: {
+    color: EColors.BLACK
+
+  },
+})
+
+export const modalTheme = defineMultiStyleConfig({
+  baseStyle,
+})
 
 export const theme = extendTheme({
   fonts: {
@@ -24,8 +43,12 @@ export const theme = extendTheme({
       a: {
         color: EColors.BLUE,
       },
+      input: {
+        color: EColors.BLACK
+      }
     },
   },
+  components: { Modal: modalTheme },
 })
 
 export const TEAM_NAME = '4tunas'
