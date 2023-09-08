@@ -46,24 +46,18 @@ const Game: FC = () => {
       addScore(scoreData)
     }
     if (status === EGameStatus.GAME_OVER && ('Notification' in window)) {
-      const head = 'Ура'
-      const body = 'Поздравляем, вы проиграли, код можно посмотреть тут'
-      let notification
-      if (Notification.permission === 'granted') {
-        notification = new Notification(head, { body })
-      } else if (Notification.permission !== 'denied') {
-        Notification.requestPermission()
-          .then(permission => {
-            if (permission === 'granted') {
-              notification = new Notification(head, { body })
-            }
-          })
-      }
-      if (notification) {
+      const showNotification = () => {
+        const notification = new Notification('Ура', { body: 'Поздравляем, вы проиграли, код можно посмотреть тут' })
         notification.onclick = (event: Event) => {
           event.preventDefault()
           window.open('https://github.com/PapakhinAV/yandex-practicum-game')
         }
+      }
+      if (Notification.permission === 'granted') {
+        showNotification()
+      } else if (Notification.permission !== 'denied') {
+        Notification.requestPermission()
+          .then(permission => permission === 'granted' && showNotification())
       }
     }
   }, [status, isAuthenticated, addScore])
