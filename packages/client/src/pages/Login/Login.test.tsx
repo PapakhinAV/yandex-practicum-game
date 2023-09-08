@@ -25,7 +25,6 @@ describe('Компонент Login', () => {
         </MemoryRouter>
       </Provider>
     )
-    // screen.debug()
 
     const loginPageTitle = screen.getByText(title)
     expect(loginPageTitle).toBeInTheDocument()
