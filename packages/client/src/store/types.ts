@@ -23,6 +23,7 @@ export interface IRootState {
   app: IAppState
   game: IGameState
   authApi: ReturnType<Reducer>
+  oauthApi: ReturnType<Reducer>
   userApi: ReturnType<Reducer>
   leaderboardApi: ReturnType<Reducer>
   forumApi: ReturnType<Reducer>
