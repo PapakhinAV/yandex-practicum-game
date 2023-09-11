@@ -4,7 +4,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 export const oauthApi = createApi({
   reducerPath: 'oauthApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'https://ya-praktikum.tech/api/v2',
+    baseUrl: 'https://ya-praktikum.tech/api/v2/oauth',
     credentials: 'include',
     prepareHeaders(headers) {
       return headers
@@ -13,7 +13,7 @@ export const oauthApi = createApi({
   endpoints: builder => ({
     oauthSignin: builder.mutation<void, OauthSignInRequest>({
       query: body => ({
-        url: '/oauth/yandex',
+        url: 'yandex',
         method: 'POST',
         body,
         responseHandler: 'text',
@@ -21,7 +21,7 @@ export const oauthApi = createApi({
     }),
     getServiceId: builder.query<GetServiceIdResponse, string>({
       query: redirect_url => ({
-        url: '/oauth/yandex/service-id',
+        url: 'yandex/service-id',
         params: {
           redirect_url,
         },

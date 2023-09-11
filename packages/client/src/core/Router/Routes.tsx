@@ -14,16 +14,18 @@ import {
 } from '../../pages'
 import { ERoutes } from './ERoutes'
 import AppRoute from './AppRoute'
-import { useGetUserQuery } from '../../api/auth'
-import { useSelector } from 'react-redux'
+import { authApi, useGetUserQuery } from '../../api/auth'
+import { useDispatch, useSelector } from 'react-redux'
+import { AppDispatch } from '../../store/store'
 import { IRootState } from '../../store/types'
 import { Box, Spinner } from '@chakra-ui/react'
 import { useOauthSigninMutation } from '../../api/oauth'
 import { OAUTH_REDIRECT_URL } from '../../api/constants'
 
 const Router = () => {
+  const dispatch = useDispatch<AppDispatch>()
   const user = useSelector((state: IRootState) => state.app.user)
-  const { refetch: refetchUser, isLoading } = useGetUserQuery(undefined, { skip: !!user })
+  const { isLoading } = useGetUserQuery(undefined, { skip: !!user })
 
   const navigate = useNavigate()
   const [searchParams] = useSearchParams()
@@ -34,7 +36,7 @@ const Router = () => {
     if (code) {
       const oauth = async () => {
         await oauthSignin({ code, redirect_uri: OAUTH_REDIRECT_URL })
-        await refetchUser()
+        await dispatch(authApi.endpoints.getUser.initiate())
       }
       
       oauth()

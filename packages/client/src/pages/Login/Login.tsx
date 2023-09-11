@@ -16,14 +16,13 @@ import { Box, Button } from '@chakra-ui/react'
 import { AppDispatch } from '../../store/store'
 import { IRootState } from '../../store/types'
 import { resetErrorMessage } from '../../store/appReducer'
-import { useGetServiceIdQuery } from '../../api/oauth'
+import { oauthApi } from '../../api/oauth'
 import { OAUTH_REDIRECT_URL } from '../../api/constants'
 
 const Login = () => {
   const dispatch = useDispatch<AppDispatch>()
   const methods = useForm()
   const errorMessage = useSelector((state: IRootState) => state.app.errorMessage)
-  const { refetch: refetchServiceId } = useGetServiceIdQuery(OAUTH_REDIRECT_URL)
 
   const onSubmit = async (data: Record<string, string>) => {
     dispatch(signinAndFetchUser({
@@ -95,7 +94,7 @@ const Login = () => {
             className={styles.login__logo}
             variant="link"
             onClick={async () => {
-              const { data, isError } =  await refetchServiceId()
+              const { data, isError } =  await dispatch(oauthApi.endpoints.getServiceId.initiate(OAUTH_REDIRECT_URL))
               
               if (!isError) {
                 window.location.href = `https://oauth.yandex.ru/authorize?response_type=code&client_id=${data?.service_id}&redirect_uri=${OAUTH_REDIRECT_URL}`
