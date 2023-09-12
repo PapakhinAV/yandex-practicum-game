@@ -4,7 +4,7 @@ import { IUserState } from '../store/types'
 export const authApi = createApi({
   reducerPath: 'authApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'https://ya-praktikum.tech/api/v2/auth',
+    baseUrl: '/api/v2/auth',
     credentials: 'include',
   }),
   endpoints: builder => ({

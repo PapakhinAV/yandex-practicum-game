@@ -15,8 +15,8 @@ export type TUser = {
 }
 
 export type TMessage = {
-  id: string,
-  time: string,
-  user: TUser,
+  id: number,
+  createdAt: string,
+  user: string,
   content: string,
 }

@@ -17,7 +17,7 @@ interface ILeaderboard {
 export const leaderboardApi = createApi({
   reducerPath: 'leaderboardApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'https://ya-praktikum.tech/api/v2/leaderboard',
+    baseUrl: '/api/v2/leaderboard',
     credentials: 'include',
     method: 'Post',
   }),
