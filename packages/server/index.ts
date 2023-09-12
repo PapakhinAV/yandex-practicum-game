@@ -11,6 +11,7 @@ import createCache from '@emotion/cache'
 import { createClientAndConnect } from './db'
 import { apiRoute } from './routes/api'
 import { createProxyMiddleware } from 'http-proxy-middleware'
+import * as process from 'process'
 
 dotenv.config()
 

@@ -1,10 +1,11 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { IUserState } from '../store/types'
+import * as process from 'process'
 
 export const authApi = createApi({
   reducerPath: 'authApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: '/api/v2/auth',
+    baseUrl: `${__SERVER_API__}/api/v2/auth`,
     credentials: 'include',
   }),
   endpoints: builder => ({

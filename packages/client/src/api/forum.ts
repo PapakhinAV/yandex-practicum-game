@@ -13,7 +13,7 @@ export const forumApi = createApi({
   reducerPath: 'forumApi',
   refetchOnMountOrArgChange: true,
   baseQuery: fetchBaseQuery({
-    baseUrl: '/api/forum',
+    baseUrl: `${__SERVER_API__}/api/forum`,
     credentials: 'include',
   }),
   endpoints: builder => ({

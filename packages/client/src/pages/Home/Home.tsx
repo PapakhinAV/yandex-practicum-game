@@ -52,10 +52,10 @@ const Home: FC = () => {
         height='139px'
       />
       {getMenuButton('Играть', ERoutes.GAME)}
-      {getMenuButton('Форум', ERoutes.FORUM)}
-      {isAuthenticated 
+      {isAuthenticated
         ? (
           <>
+            {getMenuButton('Форум', ERoutes.FORUM)}
             {getMenuButton('Профиль', ERoutes.PROFILE)}
             {getMenuButton('Таблица лидеров', ERoutes.LEADERBOARD)}
             <Button
