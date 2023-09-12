@@ -1,4 +1,7 @@
 import dotenv from 'dotenv'
+
+dotenv.config()
+
 import cors from 'cors'
 import express from 'express'
 import * as fs from 'fs'
@@ -9,7 +12,7 @@ import type { EmotionCache } from '@emotion/css'
 import createEmotionServer from '@emotion/server/create-instance'
 import createCache from '@emotion/cache'
 
-dotenv.config()
+import { dbConnect } from './src/init'
 
 const isDev = () => process.env.NODE_ENV === 'development'
 
@@ -21,9 +24,9 @@ async function startServer (){
 
   let vite: ViteDevServer | undefined
   const port = Number(process.env.SERVER_PORT) || 3001
-  const distPath = path.dirname(require.resolve('client/dist/index.html'))
-  const srcPath = path.dirname(require.resolve('client'))
-  const ssrClientPath = require.resolve('client/dist-ssr/client.cjs')
+  const distPath = path.dirname(require.resolve('../client/dist/index.html'))
+  const srcPath = path.dirname(require.resolve('../client'))
+  const ssrClientPath = require.resolve('../client/dist-ssr/client.cjs')
 
 
   if (isDev()) {
@@ -44,6 +47,8 @@ async function startServer (){
   if (!isDev()) {
     app.use('/assets', express.static(path.resolve(distPath, 'assets')))
   }
+
+  await dbConnect()
 
   app.get('*', async (req, res, next) => {
     const url = req.originalUrl
