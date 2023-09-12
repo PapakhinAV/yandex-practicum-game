@@ -30,12 +30,12 @@ const ForumTable: FC<ForumTableComponentProps> = ({ topicsData }) => {
       >
         <Tr>
           <Th minW='90%'>Тема</Th>
-          <Th isNumeric>Ответы</Th>
+          <Th isNumeric>Дата</Th>
         </Tr>
       </Thead>
       <Tbody>
         {topicsData.map(topic => {
-          const { id, title, replies } = topic
+          const { id, name, createdAt } = topic
           return (
             <Tr 
               key={`topic-${id}`} 
@@ -45,10 +45,10 @@ const ForumTable: FC<ForumTableComponentProps> = ({ topicsData }) => {
                   maxW="lg" 
                   noOfLines={1}
                 >
-                  {title}
+                  {name}
                 </Text>
               </Td>
-              <Td isNumeric>{replies}</Td>
+              <Td isNumeric>{createdAt.slice(0,10)}</Td>
             </Tr>
           )
         })}

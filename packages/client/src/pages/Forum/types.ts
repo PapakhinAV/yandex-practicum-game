@@ -1,5 +1,5 @@
 export type Topic = {
-  id: string,
-  title: string,
-  replies: number
+  id: string
+  name: string
+  createdAt: string
 }

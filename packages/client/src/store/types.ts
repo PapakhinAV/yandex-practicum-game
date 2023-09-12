@@ -23,6 +23,7 @@ export interface IRootState {
   authApi: ReturnType<Reducer>
   userApi: ReturnType<Reducer>
   leaderboardApi: ReturnType<Reducer>
+  forumApi: ReturnType<Reducer>
 }
 
 export interface IResponse {

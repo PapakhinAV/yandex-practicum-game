@@ -8,46 +8,24 @@ import {
   Modal,
   useDisclosure
 } from '@chakra-ui/react'
-import { FC, useEffect, useState } from 'react'
+import { FC } from 'react'
 import CustomButton from '../../components/Button/Button'
 import { EColors } from '../../App/constants'
 import ModalCreateTopic from './ModalCreateTopic'
 import { ForumTable } from './components'
-import type { Topic } from './types'
 import { NavButton } from '../../components'
 import { ENavButtonDirection } from '../../components/NavButton/types'
+import { useGetTopicsQuery } from '../../api/forum'
 
-const mockData = [
-  { id: '1', title: 'Не могу пройти первый уровень ', replies: 4 },
-  { id: '2', title: 'Есть проблема с 7 уровнем... HELP!', replies: 0 },
-  { id: '3', title: 'А что если написать очень длинное название темы на форуме, то как оно будте отображаться в табличке?', replies: 0 },
-  { id: '4', title: 'Название темы', replies: 4 },
-  { id: '5', title: 'Еще оодна тема', replies: 1 },
-  { id: '6', title: 'Тема форума', replies: 2 },
-  { id: '7', title: 'Тема', replies: 8 },
-  { id: '8', title: 'Как это работает?', replies: 3 },
-  { id: '9', title: 'Кто это все делал?', replies: 7 },
-  { id: '10', title: 'Тема форума', replies: 12 },
-]
 
 const Forum: FC = () => {
+  const topics = useGetTopicsQuery()
 
-  const [topics, setTopics] = useState<Topic[]>([])
-  const [loading, setLoading] = useState(true)
   const {
     isOpen: isOpenCreate,
     onOpen: onOpenCreate,
     onClose: onCloseCreate,
   } = useDisclosure()
-
-  useEffect(() => {
-    const timeoutId = setTimeout(() => {
-      setTopics(mockData)
-      setLoading(false)
-    }, 1000)
-
-    return () => clearTimeout(timeoutId)
-  }, [])
 
   return (
     <Container
@@ -73,9 +51,9 @@ const Forum: FC = () => {
           overflowY="auto"
           maxHeight="auto"
         >
-          {loading
+          {topics.isFetching
           ? <Center><Spinner/></Center>
-          : <ForumTable topicsData={topics}/>
+          : <ForumTable topicsData={topics.data}/>
           }
         </Box>
         <Center pb={20} pt={12}>
@@ -91,7 +69,10 @@ const Forum: FC = () => {
         isOpen={isOpenCreate}
         onClose={onCloseCreate}
       >
-        <ModalCreateTopic onClose={onCloseCreate} />
+        <ModalCreateTopic onClose={() => {
+          onCloseCreate()
+          topics.refetch()
+        }} />
       </Modal>
     </Container>
   )
