@@ -12,7 +12,7 @@ import type { EmotionCache } from '@emotion/css'
 import createEmotionServer from '@emotion/server/create-instance'
 import createCache from '@emotion/cache'
 
-import { dbConnect } from './src/init'
+import { dbConnect } from './db'
 
 const isDev = () => process.env.NODE_ENV === 'development'
 
