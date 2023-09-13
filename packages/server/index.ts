@@ -28,7 +28,10 @@ async function startServer (){
 
   app.use('/', cors({
     credentials: true,
-    origin: [`http://127.0.0.1:${process.env.CLIENT_PORT}`, `http://localhost:${process.env.CLIENT_PORT}`,],
+    origin: [
+      `http://127.0.0.1:${process.env.CLIENT_PORT}`, `http://localhost:${process.env.CLIENT_PORT}`,
+      `http://127.0.0.1:${process.env.SERVER_PORT}`, `http://localhost:${process.env.SERVER_PORT}`
+    ],
     optionsSuccessStatus: 200,
   }))
   app.use('/api', apiRoute)
