@@ -23,7 +23,12 @@ async function startServer (){
 
   const app = express()
 
-  app.use(cors())
+  app.use('/', cors({
+    credentials: true,
+    origin: [`http://127.0.0.1:${process.env.CLIENT_PORT}`, `http://localhost:${process.env.CLIENT_PORT}`,],
+    optionsSuccessStatus: 200,
+  }))
+  app.use('/api', apiRoute)
   app.use(
     '/api/v2',
     createProxyMiddleware({
@@ -49,8 +54,6 @@ async function startServer (){
 
     app.use(vite.middlewares)
   }
-
-  app.use('/api', apiRoute)
 
   if (!isDev()) {
     app.use('/assets', express.static(path.resolve(distPath, 'assets')))
