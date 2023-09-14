@@ -10,7 +10,7 @@ import {
 import { FC, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { Helmet } from 'react-helmet-async'
-import { FieldValues, SubmitHandler, useForm } from 'react-hook-form'
+import { useForm } from 'react-hook-form'
 import { EColors } from '../../App/constants'
 import { Form, NavButton } from '../../components'
 import { FormTextarea } from '../../components'
@@ -20,6 +20,9 @@ import { IconSend } from './components'
 import styles from './ForumTopic.module.scss'
 import { ENavButtonDirection } from '../../components/NavButton/types'
 import { useCreateMessageMutation, useGetTopicQuery } from '../../api/forum'
+import { useSelector } from 'react-redux'
+import { IRootState } from '../../store/types'
+import { getThemeColors } from '../../App/constants'
 
 const ForumTopic: FC = () => {
   const { topicId } = useParams<'topicId'>()
@@ -27,9 +30,12 @@ const ForumTopic: FC = () => {
   const [handleCreate, createMessage] = useCreateMessageMutation()
   const methods = useForm()
   const onSubmit = (data: Record<string, string>): void => {
-    methods.setValue('message', '')
+    methods.setValue('content', '')
     handleCreate({ ...data, topicId: Number(topicId) })
   }
+
+  const currentTheme = useSelector((state: IRootState) => state.app.theme)
+  const themeColors = getThemeColors(currentTheme)
 
   useEffect(() => {
     if (!createMessage.isLoading && createMessage.isSuccess) topic.refetch()
@@ -40,7 +46,10 @@ const ForumTopic: FC = () => {
     <Helmet>
       <title>{topic.data?.name || 'Загрузка'}</title>
     </Helmet>
-    <Container maxW='700px' p={0}>
+    <Container 
+      maxW='700px'
+      p={0}
+    >
       <Box position={'absolute'} left={4} top={4} >
         <NavButton direction={ENavButtonDirection.BACK}/>
       </Box>
@@ -49,15 +58,19 @@ const ForumTopic: FC = () => {
         w='full'
         templateRows='auto 1fr auto'
         gap={4}
+        background={`${themeColors.BACKGROUND}`}
+        backdropFilter='auto'
+        backdropBlur='15px'
       >
-        <Center pt={8} h={68}>
+        <Center h='55px' borderBottom="1px solid #FFF">
           {topic.isLoading
             ? <Spinner/>
-            : <Heading size='md' margin={0}>{topic.data?.name}</Heading>}
+            : <Heading size='md' margin={0} width='full' textAlign='center'>{topic.data?.name}</Heading>}
         </Center>
         <Box
-          overflowY="auto"
-          maxHeight="auto"
+          overflowY='auto'
+          maxHeight='auto'
+          padding='0px 30px'
         >
           {topic.data && (
             <Message message={{ content: topic.data.body, createdAt: topic.data.createdAt, user: topic.data.user, id: 0 }} />
@@ -72,8 +85,7 @@ const ForumTopic: FC = () => {
         <HStack
           p='15px'
           pb='10px'
-          bg={EColors.BLACK_ALPHA}
-          borderRadius='10px 10px 0 0'
+          borderTop='1px solid #FFF'
         >
           <Form
             onSubmit={methods.handleSubmit(onSubmit)}
@@ -88,7 +100,7 @@ const ForumTopic: FC = () => {
                 resize='none'
                 autoFocus
               />
-              <Button w='40px' p={0} type="submit">
+              <Button w='40px' p={0} type='submit'>
                 <IconSend width='20' height='20' fill={EColors.WHITE}/>
               </Button>
             </HStack>

@@ -8,10 +8,12 @@ import { useSelector } from 'react-redux'
 import { IRootState } from '../../store/types'
 
 import menu_ork from './assets/menu_ork.png'
+import { getThemeColors } from '../../App/constants'
 
 const Home: FC = () => {
   const [logout] = useLogoutMutation()
   const navigate = useNavigate()
+  const currentTheme = useSelector((state: IRootState) => state.app.theme)
 
   const user = useSelector((state: IRootState) => state.app.user)
   const isAuthenticated = !!user
@@ -25,12 +27,17 @@ const Home: FC = () => {
     </Button>
   )
 
+  const themeColors = getThemeColors(currentTheme)
+
   return (
     <Box
       display='grid'
       maxW={600}
-      border='12px'
-      background='blackAlpha.400'
+      borderTop='2px solid #ffffff85'
+      borderBottom='2px solid #00000085'
+      background={`${themeColors.BACKGROUND}`}
+      backdropFilter="auto"
+      backdropBlur='10px'
       gap='25px'
       position='absolute'
       top='50%'

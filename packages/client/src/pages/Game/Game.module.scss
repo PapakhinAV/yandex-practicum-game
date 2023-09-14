@@ -10,15 +10,15 @@
 
   &__header {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 8px;
+    justify-content: center;
+    position: absolute;
+    width: 100%;
   }
+
   &__overlay {
     width: 100%;
     height: 100vh;
     position: absolute;
-    background: $overlay-color;
     position: absolute;
     display: flex;
     align-items: center;
@@ -34,6 +34,9 @@
     align-items: center;
     gap: 25px;
     padding: 40px;
+    backdrop-filter: blur(15px);
+    border-top: 2px solid #ffffff85;
+    border-bottom: 2px solid #00000085;
   }
 
   &__startGameText {
@@ -59,15 +62,31 @@
     display: flex;
     column-gap: 16px;
     align-items: center;
+    padding: 0px 50px;
+    background: #000;
+    border-radius: 0 0 40px 40px;
+    backdrop-filter: blur(15px);
+    border-bottom: 2px solid #00000085;
+  }
+
+  &__dayTheme {
+    background: rgba(256, 256, 256, 0.2);
+  }
+
+  &__nightTheme {
+    background: rgba(0, 0, 0, 0.5);
   }
 
   &__infoItem {
     display: flex;
     flex-direction: row;
     column-gap: 4px;
-    background-color: rgba(255, 255, 255, 0.2);
-    padding: 4px;
+    padding: 5px;
     align-items: center;
     border-radius: 8px;
+  }
+
+  &__infoDigits {
+    min-width: 30px;
   }
 }

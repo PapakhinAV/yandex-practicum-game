@@ -98,7 +98,7 @@ export class Building {
         }
       }
     } else {
-      context.fillStyle = EColors.BLUE
+      context.fillStyle = EColors.BUILDING_FILL
       context.fillRect(this.position.x, this.position.y, this.width, tileSize)
     }
     context.beginPath()

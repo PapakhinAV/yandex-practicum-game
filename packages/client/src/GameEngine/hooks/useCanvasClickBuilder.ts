@@ -1,5 +1,5 @@
 import { RefObject } from 'react'
-import { Building, Placement } from '../index'
+import { Building, Placement, compareBuildings } from '../index'
 import { useDispatch, useSelector } from 'react-redux'
 import { getCoins, removeCoins } from '../../pages/Game/gameSlice'
 
@@ -27,6 +27,7 @@ const useCanvasClickBuilder = (
       const isBuildingAvalible = coins >= newTower.price
       if (isBuildingAvalible) {
         buildingsRef.current.push(newTower)
+        buildingsRef.current.sort(compareBuildings)
         dispatch(removeCoins(newTower.price))
         tile.occupied = true
       }

@@ -2,6 +2,7 @@ import { useMemo } from 'react'
 import { Placement } from '../BaseClasses/Placement'
 import { transformPlacementTo2D } from '../utils'
 import { tileSize } from '../baseConstants'
+import { DefaultPlacement } from '../GameElements/Placements/DefaultPlacement'
 
 const usePlacementTiles = (levelPlacements: number[]) => {
   const placementData2D = useMemo(
@@ -15,7 +16,7 @@ const usePlacementTiles = (levelPlacements: number[]) => {
       row.forEach((symbol, x) => {
         if (symbol === 14) {
           tiles.push(
-            new Placement({
+            new DefaultPlacement({
               position: { x: x * tileSize, y: y * tileSize },
             })
           )

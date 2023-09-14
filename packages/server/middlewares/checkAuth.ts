@@ -1,4 +1,5 @@
 import type { RequestHandler } from 'express'
+import fetch from 'cross-fetch'
 
 
 export const checkAuth: RequestHandler = async (req, res, next) => {

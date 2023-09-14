@@ -9,9 +9,11 @@ import { useChangeAvatarProfileMutation } from '../../api/user'
 import { useLogoutMutation } from '../../api/auth'
 import { NavButton } from '../../components'
 import { ENavButtonDirection } from '../../components/NavButton/types'
+import { getThemeColors } from '../../App/constants'
 
 const Profile: FC = () => {
   const user = useSelector((state: IRootState) => state.app.user)
+  const currentTheme = useSelector((state: IRootState) => state.app.theme)
   const {
     isOpen: isOpenEdit,
     onOpen: onOpenEdit,
@@ -25,6 +27,8 @@ const Profile: FC = () => {
   const [changeAvatarProfile] = useChangeAvatarProfileMutation()
   const [logout] = useLogoutMutation()
 
+  const themeColors = getThemeColors(currentTheme)
+
   if (!user) return <></>
 
   return (
@@ -36,17 +40,20 @@ const Profile: FC = () => {
         display="grid"
         minW={400}
         maxW={600}
-        border="12px"
-        background="blackAlpha.400"
+        borderTop='2px solid #ffffff85'
+        borderBottom='2px solid #00000085'
+        background={`${themeColors.BACKGROUND}`}
+        backdropFilter="auto"
+        backdropBlur='15px'
         gap={30}
         position="absolute"
         top="50%"
         left="50%"
         marginRight="-50%"
         transform="translate(-50%, -50%)"
-        borderRadius="4px"
+        borderRadius="12px"
         justifyContent="center"
-        padding="20px"
+        padding='60px 70px'
       >
         <Avatar
           name={`${user.first_name || ''} ${user.second_name || ''}`}

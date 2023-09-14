@@ -5,7 +5,7 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 600px;
+  width: 680px;
   height: 600px;
   overflow: hidden;
   overflow-y: auto;
@@ -13,12 +13,22 @@
   &__wrapper {
     width: 100%;
     border-radius: 12px;
-
-    background: rgba(0, 0, 0, 0.4);
+    background: rgba(0, 0, 0, 0.48);
+    backdrop-filter: blur(15px);
+    border-top: 2px solid #ffffff85;
+    border-bottom: 2px solid #00000085;
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 40px 39px 20px 39px;
+    padding: 40px 70px;
+  }
+
+  &__dayTheme {
+    background: rgba(256, 256, 256, 0.1);
+  }
+
+  &__nightTheme {
+    background: rgba(0, 0, 0, 0.48);
   }
 
   &__title {
@@ -74,7 +84,6 @@
     width: 250px;
     height: 40px;
     border-radius: 10px;
-    border-bottom: 4px solid $blue-color;
     background: #0085ff;
     margin-top: 45px;
 

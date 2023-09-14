@@ -3,4 +3,12 @@
 .timer {
   font-size: 35px;
   color: $blue-color;
+
+  &__dayTheme {
+    color: $inverted-text-color;
+  }
+
+  &__nightTheme {
+    color: $base-text-color;
+  }
 }

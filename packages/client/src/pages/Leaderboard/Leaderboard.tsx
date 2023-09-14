@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react'
+import { FC, useState } from 'react'
 import { useGetLeaderboardQuery } from '../../api/leaderboard'
 import {
   Box,
@@ -20,6 +20,7 @@ import { useSelector } from 'react-redux'
 import { IRootState } from '../../store/types'
 import { NavButton } from '../../components'
 import { ENavButtonDirection } from '../../components/NavButton/types'
+import { getThemeColors } from '../../App/constants'
 
 const Leaderboard: FC = () => {
   const [cursor, setCursor] = useState(0)
@@ -32,17 +33,23 @@ const Leaderboard: FC = () => {
   })
   const getHeaderButton = (text: string, field: string) => (
     <Button
-      variant="ghost"
-      colorScheme={ratingFieldName === field ? 'blue' : 'whiteAlpha'}
+      variant='unstyled'
+      background={'none'}
+      color={ratingFieldName === field ? `${themeColors.INVERTED_TEXT}` : `${themeColors.INVERTED_TEXT}`}
       pl={0}
       onClick={() => setRatingFieldName(field)}
     >
       {text}
-      {ratingFieldName === field && (
-        <TriangleDownIcon color='blue' />
-      )}
+      {ratingFieldName === field 
+        ? <TriangleDownIcon color={`${themeColors.INVERTED_TEXT}`} />
+        : <TriangleDownIcon color={`${themeColors.INVERTED_BACKGROUND}`} />
+      }
     </Button>
   )
+
+  const currentTheme = useSelector((state: IRootState) => state.app.theme)
+  const themeColors = getThemeColors(currentTheme)
+
   return (
     <>
       <Box position={'absolute'} left={4} top={4} >
@@ -50,38 +57,40 @@ const Leaderboard: FC = () => {
       </Box>
       <Box
         display="grid"
-        border="12px"
+        borderTop='2px solid #ffffff85'
+        borderBottom='2px solid #00000085'
+        background={`${themeColors.BACKGROUND}`}
+        backdropFilter="auto"
+        backdropBlur='15px'
         width={700}
-        background="blackAlpha.400"
         gap={30}
         position="absolute"
         top="50%"
         left="50%"
         marginRight="-50%"
         transform="translate(-50%, -50%)"
-        borderRadius="4px"
+        borderRadius="12px"
         justifyContent="center"
-        padding="20px"
+        padding='60px 70px'
       >
         <TableContainer>
           <Table
             size='sm'
-            colorScheme='whiteAlpha'
-            color="white"
+            color={`${themeColors.TEXT}`}
             fontFamily='Rubik'
           >
             <TableCaption placement="top">
               <Heading
-                color="white"
+                color={`${themeColors.TEXT}`}
               >Таблица лидеров</Heading>
             </TableCaption>
-            <Thead>
+            <Thead background={`${themeColors.INVERTED_BACKGROUND}`}>
               <Tr>
-                <Th color="white"></Th>
-                <Th>
+                <Th borderBottomColor={`${themeColors.INVERTED_BACKGROUND}`}></Th>
+                <Th borderBottomColor={`${themeColors.INVERTED_BACKGROUND}`}>
                   {getHeaderButton('Имя пользователя', 'username')}
                 </Th>
-                <Th>
+                <Th borderBottomColor={`${themeColors.INVERTED_BACKGROUND}`}>
                   {getHeaderButton('Счет', 'score')}
                 </Th>
               </Tr>
@@ -106,9 +115,9 @@ const Leaderboard: FC = () => {
                     backgroundColor={user.id === item.data.id ? 'blue.100' : undefined}
                     color={user.id === item.data.id ? 'black' : undefined}
                   >
-                    <Td>{index + 1}</Td>
-                    <Td>{item.data.username}</Td>
-                    <Td>{item.data.score}</Td>
+                    <Td borderBottomColor={`${themeColors.INVERTED_BACKGROUND}`}>{index + 1}</Td>
+                    <Td borderBottomColor={`${themeColors.INVERTED_BACKGROUND}`}>{item.data.username}</Td>
+                    <Td borderBottomColor={`${themeColors.INVERTED_BACKGROUND}`}>{item.data.score}</Td>
                   </Tr>
                 ))}
               </Tbody>
