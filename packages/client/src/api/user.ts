@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 export const userApi = createApi({
   reducerPath: 'userApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'https://ya-praktikum.tech/api/v2/user',
+    baseUrl: `${__SERVER_API__}/api/v2/user`,
     method: 'PUT',
     credentials: 'include',
   }),

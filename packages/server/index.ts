@@ -11,6 +11,9 @@ import type { ViteDevServer } from 'vite'
 import type { EmotionCache } from '@emotion/css'
 import createEmotionServer from '@emotion/server/create-instance'
 import createCache from '@emotion/cache'
+import { apiRoute } from './routes/api'
+import { createProxyMiddleware } from 'http-proxy-middleware'
+import * as process from 'process'
 
 import { dbConnect } from './db'
 
@@ -20,7 +23,23 @@ async function startServer (){
 
   const app = express()
 
-  app.use(cors())
+  app.use('/', cors({
+    credentials: true,
+    origin: [
+      `http://127.0.0.1:${process.env.CLIENT_PORT}`, `http://localhost:${process.env.CLIENT_PORT}`,
+      `http://127.0.0.1:${process.env.SERVER_PORT}`, `http://localhost:${process.env.SERVER_PORT}`
+    ],
+    optionsSuccessStatus: 200,
+  }))
+  app.use('/api', apiRoute)
+  app.use(
+    '/api/v2',
+    createProxyMiddleware({
+      changeOrigin: true,
+      cookieDomainRewrite: { '*': '' },
+      target: 'https://ya-praktikum.tech',
+    })
+  )
 
   let vite: ViteDevServer | undefined
   const port = Number(process.env.SERVER_PORT) || 3001
@@ -38,11 +57,6 @@ async function startServer (){
 
     app.use(vite.middlewares)
   }
-
-
-  app.get('/api', (_, res) => {
-    res.json('👋 Howdy from the server :)')
-  })
 
   if (!isDev()) {
     app.use('/assets', express.static(path.resolve(distPath, 'assets')))

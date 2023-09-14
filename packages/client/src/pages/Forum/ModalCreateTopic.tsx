@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, useEffect } from 'react'
 import CustomButton from '../../components/Button/Button'
 import {
   ModalOverlay,
@@ -21,6 +21,7 @@ import {
   topicTitleValidator,
   messageValidator
 } from '../../utils/validators/validators'
+import { useCreateTopicMutation } from '../../api/forum'
 
 interface ModalCreateTopicProps {
   onClose: () => void;
@@ -28,13 +29,14 @@ interface ModalCreateTopicProps {
 
 const ModalCreateTopic: FC<ModalCreateTopicProps> = ({ onClose }) => {
   const methods = useForm()
-  const onSubmit = (data: unknown) => {
-    console.log(data)
-  }
-  const isError = true
+  const [handleCreate, createTopic] = useCreateTopicMutation()
+
+  useEffect(() => {
+    if (createTopic.isSuccess) onClose()
+  }, [createTopic.isSuccess])
 
   return (
-    <CustomForm onSubmit={methods.handleSubmit(onSubmit)} methods={methods}>
+    <CustomForm onSubmit={methods.handleSubmit(handleCreate)} methods={methods}>
       <ModalOverlay />
       <ModalContent>
         <ModalCloseButton onClick={onClose} />
@@ -43,7 +45,7 @@ const ModalCreateTopic: FC<ModalCreateTopicProps> = ({ onClose }) => {
           <FormControl mb={5}>
             <FormLabel>Название</FormLabel>
             <FormInput 
-              name="title"
+              name="name"
               registerOptions={{
                 validate: value => topicTitleValidator(value),
               }}
@@ -52,7 +54,7 @@ const ModalCreateTopic: FC<ModalCreateTopicProps> = ({ onClose }) => {
           <FormControl mb={5}>
             <FormLabel>Сообщение</FormLabel>
             <FormTextarea 
-              name="message" 
+              name="body"
               rows={3} 
               resize='none' 
               registerOptions={{
@@ -69,7 +71,7 @@ const ModalCreateTopic: FC<ModalCreateTopicProps> = ({ onClose }) => {
             w="full"
           >
             <GridItem colSpan={2}>
-              {isError && (
+              {createTopic.isError && (
                 <Text 
                   color="red" 
                   textAlign='center'
@@ -91,7 +93,8 @@ const ModalCreateTopic: FC<ModalCreateTopicProps> = ({ onClose }) => {
             <GridItem colSpan={1}>
               <CustomButton 
                 w='full' 
-                type="submit" 
+                type="submit"
+                isLoading={createTopic.isLoading}
               >
                 Создать
               </CustomButton>

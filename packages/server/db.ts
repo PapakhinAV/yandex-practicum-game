@@ -1,14 +1,17 @@
 import { Sequelize, SequelizeOptions } from 'sequelize-typescript'
+import { Topic } from './models/forum/topic'
+import { Message } from './models/forum/message'
 
-const { 
-  POSTGRES_USER, 
-  POSTGRES_PASSWORD, 
-  POSTGRES_DB, 
-  POSTGRES_PORT, 
-  POSTGRES_HOST 
+const {
+  POSTGRES_USER,
+  POSTGRES_PASSWORD,
+  POSTGRES_DB,
+  POSTGRES_PORT,
+  POSTGRES_HOST
 } = process.env
 
 const host = process.env.NODE_ENV === 'development' ? 'localhost' : POSTGRES_HOST
+
 
 const sequelizeOptions: SequelizeOptions = {
   host: host,
@@ -17,7 +20,7 @@ const sequelizeOptions: SequelizeOptions = {
   password: POSTGRES_PASSWORD,
   database: POSTGRES_DB,
   dialect: 'postgres',
-  models: []
+  models: [Topic, Message]
 }
 
 export const sequelize = new Sequelize(sequelizeOptions)
