@@ -14,13 +14,13 @@ import {
 } from '../../pages'
 import { ERoutes } from './ERoutes'
 import AppRoute from './AppRoute'
-import { authApi, useGetUserQuery } from '../../api/auth'
+import { useGetUserQuery } from '../../api/auth'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch } from '../../store/store'
 import { IRootState } from '../../store/types'
 import { Box, Spinner } from '@chakra-ui/react'
-import { useOauthSigninMutation } from '../../api/oauth'
 import { OAUTH_REDIRECT_URL } from '../../api/constants'
+import { oauthSigninAndFetchUser } from '../../store/Thunk'
 
 const Router = () => {
   const dispatch = useDispatch<AppDispatch>()
@@ -30,17 +30,15 @@ const Router = () => {
   const navigate = useNavigate()
   const [searchParams] = useSearchParams()
   const code = searchParams.get('code')
-  const [oauthSignin] = useOauthSigninMutation()
 
   useEffect(() => {
     if (code) {
-      const oauth = async () => {
-        await oauthSignin({ code, redirect_uri: OAUTH_REDIRECT_URL })
-        await dispatch(authApi.endpoints.getUser.initiate())
-      }
-      
-      oauth()
-      navigate(ERoutes.HOME)
+      dispatch(oauthSigninAndFetchUser({
+        code,
+        redirect_uri: OAUTH_REDIRECT_URL
+      })).then(() => {
+        navigate(ERoutes.HOME)
+      })
     }
   }, [code])
 
