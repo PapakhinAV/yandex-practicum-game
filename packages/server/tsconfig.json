@@ -28,8 +28,6 @@
     },
     "outDir": "./dist",
     "allowJs": false,
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true
   },
   "exclude": [
     "dist/**/*",

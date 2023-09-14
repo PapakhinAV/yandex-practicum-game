@@ -1,4 +1,4 @@
-import { Sequelize } from 'sequelize-typescript'
+import { Sequelize, SequelizeOptions } from 'sequelize-typescript'
 import { Topic } from './models/forum/topic'
 import { Message } from './models/forum/message'
 
@@ -13,24 +13,24 @@ const {
 const host = process.env.NODE_ENV === 'development' ? 'localhost' : POSTGRES_HOST
 
 
-export const createClientAndConnect = async (): Promise<Sequelize | null> => {
+const sequelizeOptions: SequelizeOptions = {
+  host: host,
+  port: Number(POSTGRES_PORT),
+  username: POSTGRES_USER,
+  password: POSTGRES_PASSWORD,
+  database: POSTGRES_DB,
+  dialect: 'postgres',
+  models: [Topic, Message]
+}
+
+export const sequelize = new Sequelize(sequelizeOptions)
+
+export async function dbConnect() {
   try {
-    const client = new Sequelize({
-      username: POSTGRES_USER,
-      host,
-      database: POSTGRES_DB,
-      password: POSTGRES_PASSWORD,
-      port: Number(POSTGRES_PORT),
-      dialect: 'postgres',
-      models: [Topic, Message]
-    })
-
-    await client.sync({ alter: true })
+    await sequelize.authenticate()
+    await sequelize.sync()
     console.log('👍 Соединение с БД успешно установлено')
-    return client
-  } catch (e) {
-    console.error('🚨 Ошибка при подключении в БД', e)
+  } catch (error) {
+    console.error('🚨 Ошибка при подключении в БД', error)
   }
-
-  return null
 }

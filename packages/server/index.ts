@@ -11,7 +11,6 @@ import type { ViteDevServer } from 'vite'
 import type { EmotionCache } from '@emotion/css'
 import createEmotionServer from '@emotion/server/create-instance'
 import createCache from '@emotion/cache'
-import { createClientAndConnect } from './db'
 import { apiRoute } from './routes/api'
 import { createProxyMiddleware } from 'http-proxy-middleware'
 import * as process from 'process'
@@ -19,8 +18,6 @@ import * as process from 'process'
 import { dbConnect } from './db'
 
 const isDev = () => process.env.NODE_ENV === 'development'
-
-createClientAndConnect()
 
 async function startServer (){
 
