@@ -18,7 +18,6 @@ import { useGetUserQuery } from '../../api/auth'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch } from '../../store/store'
 import { IRootState } from '../../store/types'
-import { OAUTH_REDIRECT_URL } from '../../api/constants'
 import { oauthSigninAndFetchUser } from '../../store/Thunk'
 import { Loader } from '../../components'
 
@@ -35,7 +34,7 @@ const Router = () => {
     if (code) {
       dispatch(oauthSigninAndFetchUser({
         code,
-        redirect_uri: OAUTH_REDIRECT_URL
+        redirect_uri: __SERVER_API__
       })).then(() => {
         navigate(ERoutes.HOME)
       })

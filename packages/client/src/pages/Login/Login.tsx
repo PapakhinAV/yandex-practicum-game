@@ -17,7 +17,6 @@ import { AppDispatch } from '../../store/store'
 import { IRootState } from '../../store/types'
 import { resetErrorMessage } from '../../store/appReducer'
 import { oauthApi } from '../../api/oauth'
-import { OAUTH_REDIRECT_URL } from '../../api/constants'
 
 const Login = () => {
   const dispatch = useDispatch<AppDispatch>()
@@ -32,10 +31,10 @@ const Login = () => {
   }
 
   const onOauthButtonClick = async () => {
-    const { data, isError } =  await dispatch(oauthApi.endpoints.getServiceId.initiate(OAUTH_REDIRECT_URL))
+    const { data, isError } =  await dispatch(oauthApi.endpoints.getServiceId.initiate(__SERVER_API__))
               
     if (!isError) {
-      window.location.href = `https://oauth.yandex.ru/authorize?response_type=code&client_id=${data?.service_id}&redirect_uri=${OAUTH_REDIRECT_URL}`
+      window.location.href = `https://oauth.yandex.ru/authorize?response_type=code&client_id=${data?.service_id}&redirect_uri=${__SERVER_API__}`
     }
   }
 
