@@ -12,10 +12,11 @@ import styles from './Login.module.scss'
 import Logo from '../../../public/logo'
 import { NavButton } from '../../components'
 import { ENavButtonDirection } from '../../components/NavButton/types'
-import { Box } from '@chakra-ui/react'
+import { Box, Button } from '@chakra-ui/react'
 import { AppDispatch } from '../../store/store'
 import { IRootState } from '../../store/types'
 import { resetErrorMessage } from '../../store/appReducer'
+import { oauthApi } from '../../api/oauth'
 
 const Login = () => {
   const dispatch = useDispatch<AppDispatch>()
@@ -27,6 +28,14 @@ const Login = () => {
       login: data.login,
       password: data.password,
     }))
+  }
+
+  const onOauthButtonClick = async () => {
+    const { data, isError } =  await dispatch(oauthApi.endpoints.getServiceId.initiate(__SERVER_API__))
+              
+    if (!isError) {
+      window.location.href = `https://oauth.yandex.ru/authorize?response_type=code&client_id=${data?.service_id}&redirect_uri=${__SERVER_API__}`
+    }
   }
 
   useEffect(() => {
@@ -84,13 +93,13 @@ const Login = () => {
           </>
         </CustomForm>
 
-          <Link className={styles['login__link--help']} to={'/'}>
+          <Box className={styles['login__link--title']}>
             Войти с помощью
-          </Link>
+          </Box>
 
-          <div className={styles.login__logo}>
-            <Logo></Logo>
-          </div>
+          <Button className={styles.login__logo} variant="link" onClick={onOauthButtonClick}>
+            <Logo />
+          </Button>
 
           <Link className={styles['login__link--register']} to={ERoutes.REGISTER}>
             Нет аккаунта?

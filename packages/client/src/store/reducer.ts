@@ -3,6 +3,7 @@ import appReducer from './appReducer'
 import gameSlice from '../pages/Game/gameSlice'
 import { IRootState } from './types'
 import { authApi } from '../api/auth'
+import { oauthApi } from '../api/oauth'
 import { userApi } from '../api/user'
 import { leaderboardApi } from '../api/leaderboard'
 import { forumApi } from '../api/forum'
@@ -12,6 +13,7 @@ const rootReducer = combineReducers<IRootState>({
   app: appReducer,
   game: gameSlice,
   [authApi.reducerPath]: authApi.reducer,
+  [oauthApi.reducerPath]: oauthApi.reducer,
   [userApi.reducerPath]: userApi.reducer,
   [leaderboardApi.reducerPath]: leaderboardApi.reducer,
   [forumApi.reducerPath]: forumApi.reducer,

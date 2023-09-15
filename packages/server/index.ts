@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import dotenv from 'dotenv'
 
 dotenv.config()
@@ -11,6 +13,8 @@ import type { ViteDevServer } from 'vite'
 import type { EmotionCache } from '@emotion/css'
 import createEmotionServer from '@emotion/server/create-instance'
 import createCache from '@emotion/cache'
+import cookieParser from 'cookie-parser'
+import { getUser } from './services/user/user'
 import { apiRoute } from './routes/api'
 import { createProxyMiddleware } from 'http-proxy-middleware'
 import * as process from 'process'
@@ -40,6 +44,7 @@ async function startServer (){
       target: 'https://ya-praktikum.tech',
     })
   )
+  app.use(cookieParser())
 
   let vite: ViteDevServer | undefined
   const port = Number(process.env.SERVER_PORT) || 3001
@@ -99,8 +104,15 @@ async function startServer (){
         createStore = client.createStore
       }
 
+      let initialStore = {}
 
-      const storeInstance = await createStore({}) // Инициируется initialStore
+      const user = await getUser(req.headers.cookie)
+
+      if (user) {
+        initialStore = { ...initialStore, app: { user } }
+      }
+
+      const storeInstance = await createStore(initialStore) // Инициируется initialStore
 
       const cacheKey = 'custom'
       const cache = createCache({ key: cacheKey })

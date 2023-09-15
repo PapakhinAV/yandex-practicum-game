@@ -1,5 +1,5 @@
-import React from 'react'
-import { Route, Routes } from 'react-router-dom'
+import React, { useEffect } from 'react'
+import { Route, Routes, useNavigate, useSearchParams } from 'react-router-dom'
 import { ProtectedRoute } from './ProtectedRoute'
 import {
   Game,
@@ -15,13 +15,36 @@ import {
 import { ERoutes } from './ERoutes'
 import AppRoute from './AppRoute'
 import { useGetUserQuery } from '../../api/auth'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { AppDispatch } from '../../store/store'
 import { IRootState } from '../../store/types'
+import { oauthSigninAndFetchUser } from '../../store/Thunk'
+import { Loader } from '../../components'
 
 const Router = () => {
+  const dispatch = useDispatch<AppDispatch>()
   const user = useSelector((state: IRootState) => state.app.user)
-  const { isLoading } = useGetUserQuery()
-  if (isLoading) return <>Загрузка</>
+  const { isLoading } = useGetUserQuery(undefined, { skip: !!user })
+
+  const navigate = useNavigate()
+  const [searchParams] = useSearchParams()
+  const code = searchParams.get('code')
+
+  useEffect(() => {
+    if (code) {
+      dispatch(oauthSigninAndFetchUser({
+        code,
+        redirect_uri: __SERVER_API__
+      })).then(() => {
+        navigate(ERoutes.HOME)
+      })
+    }
+  }, [code])
+
+  if (isLoading) return (
+    <Loader isLoading={isLoading} />
+  )
+
   return (
     <Routes>
       <Route 
