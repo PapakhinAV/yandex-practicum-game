@@ -18,9 +18,9 @@ import { useGetUserQuery } from '../../api/auth'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch } from '../../store/store'
 import { IRootState } from '../../store/types'
-import { Box, Spinner } from '@chakra-ui/react'
 import { OAUTH_REDIRECT_URL } from '../../api/constants'
 import { oauthSigninAndFetchUser } from '../../store/Thunk'
+import { Loader } from '../../components'
 
 const Router = () => {
   const dispatch = useDispatch<AppDispatch>()
@@ -43,23 +43,7 @@ const Router = () => {
   }, [code])
 
   if (isLoading) return (
-    <Box
-      display="flex" 
-      flexDirection="column" 
-      alignItems="center" 
-      justifyContent="center" 
-      height="100vh" 
-      width="100vw"
-    >
-      <Spinner
-        thickness="4px"
-        speed="0.65s"
-        emptyColor="gray.200"
-        color="blue.500"
-        size="xl"
-        label="Загрузка"
-      />
-    </Box>
+    <Loader isLoading={isLoading} />
   )
 
   return (

@@ -106,8 +106,6 @@ async function startServer (){
 
       let initialStore = {}
 
-      // В данный момент user равен null, так как не передаются куки
-      // (HttpOnly; Secure; SameSite=None), и используется протокол http
       const user = await getUser(req.headers.cookie)
 
       if (user) {

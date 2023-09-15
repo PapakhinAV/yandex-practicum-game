@@ -31,6 +31,14 @@ const Login = () => {
     }))
   }
 
+  const onOauthButtonClick = async () => {
+    const { data, isError } =  await dispatch(oauthApi.endpoints.getServiceId.initiate(OAUTH_REDIRECT_URL))
+              
+    if (!isError) {
+      window.location.href = `https://oauth.yandex.ru/authorize?response_type=code&client_id=${data?.service_id}&redirect_uri=${OAUTH_REDIRECT_URL}`
+    }
+  }
+
   useEffect(() => {
     dispatch(resetErrorMessage())
   }, [])
@@ -90,17 +98,7 @@ const Login = () => {
             Войти с помощью
           </Box>
 
-          <Button
-            className={styles.login__logo}
-            variant="link"
-            onClick={async () => {
-              const { data, isError } =  await dispatch(oauthApi.endpoints.getServiceId.initiate(OAUTH_REDIRECT_URL))
-              
-              if (!isError) {
-                window.location.href = `https://oauth.yandex.ru/authorize?response_type=code&client_id=${data?.service_id}&redirect_uri=${OAUTH_REDIRECT_URL}`
-              }
-            }}
-          >
+          <Button className={styles.login__logo} variant="link" onClick={onOauthButtonClick}>
             <Logo />
           </Button>
 

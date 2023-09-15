@@ -2,14 +2,13 @@ import axios from 'axios'
 
 type TUser = {
   id: number
-  avatar?: string
-  display_name?: string
-  login: string
   first_name: string
   second_name: string
+  display_name: string | null
+  login: string
+  avatar: string | null
   email: string
   phone: string
-  role?: string
 }
 
 export async function getUser(cookie?: string): Promise<TUser | null> {
