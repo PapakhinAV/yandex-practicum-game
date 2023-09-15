@@ -4,7 +4,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 export const oauthApi = createApi({
   reducerPath: 'oauthApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'https://ya-praktikum.tech/api/v2/oauth',
+    baseUrl: `${__SERVER_API__}/api/v2/oauth`,
     credentials: 'include',
     prepareHeaders(headers) {
       return headers
