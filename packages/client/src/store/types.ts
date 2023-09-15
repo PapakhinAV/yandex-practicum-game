@@ -1,5 +1,6 @@
 import { IGameState } from '../pages/Game/gameSlice'
 import { Reducer } from '@reduxjs/toolkit'
+import { EThemes } from '../types/EThemes'
 
 export interface IUserState {
   id: number
@@ -15,6 +16,7 @@ export interface IUserState {
 export interface IAppState {
   user: IUserState | null
   errorMessage: string | null
+  theme: EThemes
 }
 
 export interface IRootState {
@@ -24,6 +26,7 @@ export interface IRootState {
   userApi: ReturnType<Reducer>
   leaderboardApi: ReturnType<Reducer>
   forumApi: ReturnType<Reducer>
+  themeApi: ReturnType<Reducer>
 }
 
 export interface IResponse {

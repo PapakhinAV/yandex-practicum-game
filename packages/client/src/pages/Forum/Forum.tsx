@@ -31,7 +31,6 @@ const Forum: FC = () => {
     <Container
       maxW='700px'
       p={0}
-      color={EColors.WHITE}
     >
       <Box position={'absolute'} left={4} top={4} >
         <NavButton direction={ENavButtonDirection.HOME}/>

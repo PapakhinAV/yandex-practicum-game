@@ -53,7 +53,7 @@ const ForumTopic: FC = () => {
         <Center pt={8} h={68}>
           {topic.isLoading
             ? <Spinner/>
-            : <Heading size='md' margin={0} color={EColors.WHITE}>{topic.data?.name}</Heading>}
+            : <Heading size='md' margin={0}>{topic.data?.name}</Heading>}
         </Center>
         <Box
           overflowY="auto"
