@@ -3,10 +3,13 @@ import { authApi } from '../api/auth'
 import { userApi } from '../api/user'
 import { IAppState, IUserState } from './types'
 import { signinAndFetchUser, signupAndFetchUser } from './Thunk'
+import { EThemes } from '../types/EThemes'
+import { themeApi } from '../api/theme'
 
 const initialState: IAppState = {
   user: null,
   errorMessage: '',
+  theme: EThemes.DAY
 }
 
 const appSlice = createSlice({
@@ -49,6 +52,12 @@ const appSlice = createSlice({
       userApi.endpoints.changeAvatarProfile.matchFulfilled,
       (state, { payload }) => {
         state.user = payload
+      }
+    )
+    builder.addMatcher(
+      themeApi.endpoints.getUserTheme.matchFulfilled,
+      (state, { payload }) => {
+        state.theme = payload.theme
       }
     )
   },

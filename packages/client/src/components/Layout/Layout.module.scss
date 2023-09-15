@@ -1,7 +1,18 @@
+@import '../../index';
+
 .layout {
   &__wrapper {
-    background: linear-gradient(180deg, #7059fd 0%, #a242c5 100%);
     min-height: 100vh;
     min-width: 1200px;
+  }
+
+  &__dayTheme {
+    background: linear-gradient(180deg, #cfc7fa 0%, #b489c4 100%);
+    color: $inverted-text-color;
+  }
+
+  &__nightTheme {
+    color: $base-text-color;
+    background: linear-gradient(180deg, #7059fd 0%, #a242c5 100%);
   }
 }

@@ -3,15 +3,18 @@ import rootReducer from './reducer'
 import { authApi } from '../api/auth'
 import { userApi } from '../api/user'
 import { leaderboardApi } from '../api/leaderboard'
+import { themeApi } from '../api/theme'
 import { forumApi } from '../api/forum'
 
 const preloadedState = window?.___REDUX_STATE___ || {}
 delete window.___REDUX_STATE___
 
+const middlewares = [authApi.middleware, userApi.middleware, leaderboardApi.middleware, forumApi.middleware, themeApi.middleware]
+
 const store = configureStore({
   reducer: rootReducer,
   middleware: getDefaultMiddleware =>
-    getDefaultMiddleware().concat(authApi.middleware, userApi.middleware, leaderboardApi.middleware, forumApi.middleware),
+    getDefaultMiddleware().concat(...middlewares),
   preloadedState: preloadedState
 })
 
