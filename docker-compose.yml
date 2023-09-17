@@ -21,6 +21,9 @@ services:
       dockerfile: Dockerfile.server
       args:
         SERVER_PORT: ${SERVER_PORT}
+        SERVER_API: ${SERVER_API}
+    env_file:
+      - .env
     restart: always
     ports:
       - "${SERVER_PORT}:${SERVER_PORT}"
