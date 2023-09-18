@@ -58,7 +58,7 @@ const ForumTopic: FC = () => {
         w='full'
         templateRows='auto 1fr auto'
         gap={4}
-        background={`${themeColors.BACKGROUND}`}
+        background={themeColors.BACKGROUND}
         backdropFilter='auto'
         backdropBlur='15px'
       >

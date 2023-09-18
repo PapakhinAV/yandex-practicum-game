@@ -22,11 +22,11 @@
   }
 
   &__dayTheme {
-    background: rgba(256, 256, 256, 0.1);
+    background: $background-day-color;
   }
 
   &__nightTheme {
-    background: rgba(0, 0, 0, 0.48);
+    background: $background-night-color;
   }
 
   &__title {

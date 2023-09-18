@@ -35,7 +35,7 @@ const Home: FC = () => {
       maxW={600}
       borderTop='2px solid #ffffff85'
       borderBottom='2px solid #00000085'
-      background={`${themeColors.BACKGROUND}`}
+      background={themeColors.BACKGROUND}
       backdropFilter="auto"
       backdropBlur='10px'
       gap='25px'

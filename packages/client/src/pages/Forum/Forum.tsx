@@ -43,7 +43,7 @@ const Forum: FC = () => {
         display="grid"
         borderTop='2px solid #ffffff85'
         borderBottom='2px solid #00000085'
-        background={`${themeColors.BACKGROUND}`}
+        background={themeColors.BACKGROUND}
         backdropFilter="auto"
         backdropBlur='15px'
         gap={30}

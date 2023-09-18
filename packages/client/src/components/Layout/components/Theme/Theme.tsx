@@ -29,12 +29,12 @@ const Theme: FC<IThemeProps> = ()=>{
         value={currentTheme}
         size='sm'
         height='40px'
-        background={`${themeColors.BACKGROUND}`}
+        background={themeColors.BACKGROUND}
         backdropFilter='auto'
         backdropBlur='10px'
         onChange={onChange}
         borderRadius='6px'
-        borderColor={`${themeColors.CONTRAST_BACKGROUND}`}
+        borderColor={themeColors.CONTRAST_BACKGROUND}
       >
         {allThemes.map(el=><option key={el.description} value={el.theme}>{el.description}</option>)}
       </Select>

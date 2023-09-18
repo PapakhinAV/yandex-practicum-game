@@ -37,10 +37,9 @@ const NightColors: TThemeStyles = {
 
 export const getThemeColors = (themeName: string): TThemeStyles => {
   switch(themeName) {
-    case EThemes.DAY:
-      return DayColors
     case EThemes.NIGHT:
       return NightColors
+    case EThemes.DAY:
     default:
       return DayColors
   }

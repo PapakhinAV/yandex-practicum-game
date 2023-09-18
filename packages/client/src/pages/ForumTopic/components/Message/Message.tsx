@@ -28,15 +28,15 @@ const Message: FC<MessageComponentProps> = ({ message }) => {
       <Box>
         <VStack 
           align='flex-start' 
-          background={`${themeColors.CONTRAST_BACKGROUND}`}
+          background={themeColors.CONTRAST_BACKGROUND}
           px={3}
           py={2}
           spacing={0.5} 
           borderRadius='0 10px 10px 10px'
-          color={`${themeColors.TEXT}`}
+          color={themeColors.TEXT}
           maxW='550px'
         >
-          <Text color={`${themeColors.USERNAME}`} m={0}>{message.user}</Text>
+          <Text color={themeColors.USERNAME} m={0}>{message.user}</Text>
           <Text m={0}>{message.content}</Text>
           <Text alignSelf='flex-end' fontSize='10px' m={0}>{formatDate(message.createdAt)}</Text>
         </VStack>

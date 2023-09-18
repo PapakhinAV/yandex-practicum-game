@@ -70,11 +70,11 @@
   }
 
   &__dayTheme {
-    background: rgba(256, 256, 256, 0.2);
+    background: $background-day-color;
   }
 
   &__nightTheme {
-    background: rgba(0, 0, 0, 0.5);
+    background: $background-night-color;
   }
 
   &__infoItem {

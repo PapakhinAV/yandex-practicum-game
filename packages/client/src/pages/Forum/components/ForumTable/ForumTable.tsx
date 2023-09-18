@@ -31,18 +31,18 @@ const ForumTable: FC<ForumTableComponentProps> = ({ topicsData }) => {
       <Thead 
         position="sticky" 
         top={0} 
-        bgColor={`${themeColors.INVERTED_BACKGROUND}`}
+        bgColor={themeColors.INVERTED_BACKGROUND}
       >
         <Tr>
           <Th 
             minW='90%' 
-            color={`${themeColors.INVERTED_TEXT}`}
-            borderBottomColor={`${themeColors.INVERTED_BACKGROUND}`}
+            color={themeColors.INVERTED_TEXT}
+            borderBottomColor={themeColors.INVERTED_BACKGROUND}
           > Тема</Th>
           <Th 
             isNumeric
-            color={`${themeColors.INVERTED_TEXT}`}
-            borderBottomColor={`${themeColors.INVERTED_BACKGROUND}`}
+            color={themeColors.INVERTED_TEXT}
+            borderBottomColor={themeColors.INVERTED_BACKGROUND}
           > Дата</Th>
         </Tr>
       </Thead>
@@ -53,7 +53,7 @@ const ForumTable: FC<ForumTableComponentProps> = ({ topicsData }) => {
             <Tr 
               key={`topic-${id}`} 
               onClick={() => navigate(`${ERoutes.FORUM}/${id}`)}>
-              <Td borderBottomColor={`${themeColors.INVERTED_BACKGROUND}`}>
+              <Td borderBottomColor={themeColors.INVERTED_BACKGROUND}>
                 <Text 
                   maxW="lg" 
                   noOfLines={1}
@@ -62,7 +62,7 @@ const ForumTable: FC<ForumTableComponentProps> = ({ topicsData }) => {
                   {name}
                 </Text>
               </Td>
-              <Td isNumeric borderBottomColor={`${themeColors.INVERTED_BACKGROUND}`}>{createdAt.slice(0,10)}</Td>
+              <Td isNumeric borderBottomColor={themeColors.INVERTED_BACKGROUND}>{createdAt.slice(0,10)}</Td>
             </Tr>
           )
         })}

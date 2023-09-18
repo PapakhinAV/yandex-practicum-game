@@ -35,15 +35,12 @@ const Leaderboard: FC = () => {
     <Button
       variant='unstyled'
       background={'none'}
-      color={ratingFieldName === field ? `${themeColors.INVERTED_TEXT}` : `${themeColors.INVERTED_TEXT}`}
+      color={ratingFieldName === field ? themeColors.INVERTED_TEXT : themeColors.INVERTED_TEXT}
       pl={0}
       onClick={() => setRatingFieldName(field)}
     >
       {text}
-      {ratingFieldName === field 
-        ? <TriangleDownIcon color={`${themeColors.INVERTED_TEXT}`} />
-        : <TriangleDownIcon color={`${themeColors.INVERTED_BACKGROUND}`} />
-      }
+      {<TriangleDownIcon color={ratingFieldName === field ? themeColors.INVERTED_TEXT : themeColors.INVERTED_BACKGROUND} />}
     </Button>
   )
 
@@ -59,7 +56,7 @@ const Leaderboard: FC = () => {
         display="grid"
         borderTop='2px solid #ffffff85'
         borderBottom='2px solid #00000085'
-        background={`${themeColors.BACKGROUND}`}
+        background={themeColors.BACKGROUND}
         backdropFilter="auto"
         backdropBlur='15px'
         width={700}
@@ -76,21 +73,21 @@ const Leaderboard: FC = () => {
         <TableContainer>
           <Table
             size='sm'
-            color={`${themeColors.TEXT}`}
+            color={themeColors.TEXT}
             fontFamily='Rubik'
           >
             <TableCaption placement="top">
               <Heading
-                color={`${themeColors.TEXT}`}
+                color={themeColors.TEXT}
               >Таблица лидеров</Heading>
             </TableCaption>
-            <Thead background={`${themeColors.INVERTED_BACKGROUND}`}>
+            <Thead background={themeColors.INVERTED_BACKGROUND}>
               <Tr>
-                <Th borderBottomColor={`${themeColors.INVERTED_BACKGROUND}`}></Th>
-                <Th borderBottomColor={`${themeColors.INVERTED_BACKGROUND}`}>
+                <Th borderBottomColor={themeColors.INVERTED_BACKGROUND}></Th>
+                <Th borderBottomColor={themeColors.INVERTED_BACKGROUND}>
                   {getHeaderButton('Имя пользователя', 'username')}
                 </Th>
-                <Th borderBottomColor={`${themeColors.INVERTED_BACKGROUND}`}>
+                <Th borderBottomColor={themeColors.INVERTED_BACKGROUND}>
                   {getHeaderButton('Счет', 'score')}
                 </Th>
               </Tr>
@@ -115,9 +112,9 @@ const Leaderboard: FC = () => {
                     backgroundColor={user.id === item.data.id ? 'blue.100' : undefined}
                     color={user.id === item.data.id ? 'black' : undefined}
                   >
-                    <Td borderBottomColor={`${themeColors.INVERTED_BACKGROUND}`}>{index + 1}</Td>
-                    <Td borderBottomColor={`${themeColors.INVERTED_BACKGROUND}`}>{item.data.username}</Td>
-                    <Td borderBottomColor={`${themeColors.INVERTED_BACKGROUND}`}>{item.data.score}</Td>
+                    <Td borderBottomColor={themeColors.INVERTED_BACKGROUND}>{index + 1}</Td>
+                    <Td borderBottomColor={themeColors.INVERTED_BACKGROUND}>{item.data.username}</Td>
+                    <Td borderBottomColor={themeColors.INVERTED_BACKGROUND}>{item.data.score}</Td>
                   </Tr>
                 ))}
               </Tbody>
