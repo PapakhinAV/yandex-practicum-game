@@ -22,6 +22,7 @@ export const forumApi = createApi({
     baseUrl: `${__SERVER_API__}/api/forum`,
     credentials: 'include',
   }),
+  tagTypes: ['Reactions'],
   endpoints: builder => ({
     getTopics: builder.query<any, void>({
       query: () => 'topics/all',
@@ -45,6 +46,7 @@ export const forumApi = createApi({
     }),
     getReactions: builder.query<IReaction[], number>({
       query: topicId => `reactions/${topicId}`,
+      providesTags: (result, error, topicId) => [{ type: 'Reactions', id: topicId }],
     }),
     addReaction: builder.mutation({
       query: body => ({
@@ -52,6 +54,7 @@ export const forumApi = createApi({
         url: 'reactions',
         body,
       }),
+      invalidatesTags: (result, error, body) => [{ type: 'Reactions', id: body.topicId }],
     }),
     deleteReaction: builder.mutation({
       query: body => ({
@@ -59,6 +62,7 @@ export const forumApi = createApi({
         url: 'reactions',
         body,
       }),
+      invalidatesTags: (result, error, body) => [{ type: 'Reactions', id: body.topicId }],
     }),
   }),
 })

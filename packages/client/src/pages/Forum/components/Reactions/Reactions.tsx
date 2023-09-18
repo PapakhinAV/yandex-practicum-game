@@ -30,13 +30,11 @@ const Reactions: FC<ReactionsComponentProps> = ({ topicId }) => {
 
   const handleReactionAdd = async ({ unified }: EmojiClickData) => {
     await addReaction({ unified, topicId, userId: user?.id })
-    reactions.refetch()
     onClose()
   }
 
   const handleReactionDelete = async (unified: string) => {
     await deleteReaction({ unified, topicId, userId: user?.id })
-    reactions.refetch()
   }
 
   return (
