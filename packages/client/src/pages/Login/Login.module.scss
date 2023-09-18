@@ -15,8 +15,18 @@
     flex-direction: column;
     align-items: center;
     border-radius: 12px;
-    padding: 37px 61px;
-    background: rgba(0, 0, 0, 0.4);
+    padding: 40px 70px;
+    backdrop-filter: blur(15px);
+    border-top: 2px solid #ffffff85;
+    border-bottom: 2px solid #00000085;
+  }
+
+  &__dayTheme {
+    background: $background-day-color;
+  }
+
+  &__nightTheme {
+    background: $background-night-color;
   }
 
   &__title {
@@ -39,6 +49,7 @@
 
   &__field {
     margin-bottom: 22px;
+    width: 250px;
   }
 
   &__error {
@@ -52,9 +63,8 @@
     width: 250px;
     height: 40px;
     border-radius: 10px;
-    border-bottom: 4px solid $blue-color;
     background: $blue-color;
-    margin-top: 40px;
+    margin-top: 15px;
 
     &_wrapper {
       position: relative;

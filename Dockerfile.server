@@ -1,5 +1,6 @@
 ARG NODE_VERSION=16
-ARG SERVER_PORT=3001
+ARG SERVER_PORT=3000
+ARG SERVER_API=http://localhost:3000
 
 FROM node:$NODE_VERSION-buster as base
 
@@ -16,6 +17,9 @@ RUN yarn lerna bootstrap && yarn build:client && yarn build:server
 
 FROM node:$NODE_VERSION-buster-slim as production
 WORKDIR /app
+
+ENV SERVER_PORT=$SERVER_PORT
+ENV SERVER_API=$SERVER_API
 
 COPY --from=builder /app/packages/client/ /client/
 COPY --from=builder /app/packages/server/dist/ /app/

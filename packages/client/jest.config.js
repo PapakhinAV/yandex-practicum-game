@@ -6,8 +6,8 @@ export default {
   testEnvironment: 'jsdom',
   testMatch: ['<rootDir>/src/**/*.test.{ts,tsx}'],
   globals: {
-    __SERVER_PORT__: process.env.SERVER_PORT || 3001,
-    __SERVER_API__: 3001,
+    __SERVER_PORT__: process.env.SERVER_PORT || 3000,
+    __SERVER_API__: 3000,
   },
   moduleNameMapper: {
     '\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$':

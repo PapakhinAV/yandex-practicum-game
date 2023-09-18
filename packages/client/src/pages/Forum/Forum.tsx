@@ -2,7 +2,6 @@ import {
   Center,
   Heading,
   Box,
-  Grid,
   Container,
   Spinner,
   Modal,
@@ -10,12 +9,14 @@ import {
 } from '@chakra-ui/react'
 import { FC } from 'react'
 import CustomButton from '../../components/Button/Button'
-import { EColors } from '../../App/constants'
 import ModalCreateTopic from './ModalCreateTopic'
 import { ForumTable } from './components'
 import { NavButton } from '../../components'
 import { ENavButtonDirection } from '../../components/NavButton/types'
 import { useGetTopicsQuery } from '../../api/forum'
+import { useSelector } from 'react-redux'
+import { IRootState } from '../../store/types'
+import { getThemeColors } from '../../App/constants'
 
 
 const Forum: FC = () => {
@@ -27,35 +28,50 @@ const Forum: FC = () => {
     onClose: onCloseCreate,
   } = useDisclosure()
 
+  const currentTheme = useSelector((state: IRootState) => state.app.theme)
+  const themeColors = getThemeColors(currentTheme)
+
   return (
     <Container
-      maxW='700px'
       p={0}
     >
       <Box position={'absolute'} left={4} top={4} >
         <NavButton direction={ENavButtonDirection.HOME}/>
       </Box>
-      <Grid
-      h='100vh'
-      w='full'
-      templateRows='auto 1fr auto'
-      gap={4}
+
+      <Box
+        display="grid"
+        borderTop='2px solid #ffffff85'
+        borderBottom='2px solid #00000085'
+        background={themeColors.BACKGROUND}
+        backdropFilter="auto"
+        backdropBlur='15px'
+        gap={30}
+        position="absolute"
+        top="50%"
+        left="50%"
+        marginRight="-50%"
+        transform="translate(-50%, -50%)"
+        borderRadius="12px"
+        justifyContent="center"
+        padding='60px 70px'
       >
-        <Center pt={20} pb={12}>
+        <Center pb={6}>
           <Heading size='lg'>
             Форум
           </Heading>
         </Center>
         <Box
           overflowY="auto"
-          maxHeight="auto"
+          height="400px"
+          width="650px"
         >
           {topics.isFetching
           ? <Center><Spinner/></Center>
           : <ForumTable topicsData={topics.data}/>
           }
         </Box>
-        <Center pb={20} pt={12}>
+        <Center pt={12}>
           <CustomButton
             width='250px'
             onClick={onOpenCreate}
@@ -63,7 +79,7 @@ const Forum: FC = () => {
             Создать тему
           </CustomButton>
         </Center>
-      </Grid>
+      </Box>
       <Modal
         isOpen={isOpenCreate}
         onClose={onCloseCreate}

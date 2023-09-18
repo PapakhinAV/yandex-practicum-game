@@ -82,3 +82,15 @@ export const generateSimpleWaves = (numberOfWaves: number, enemiesStep: number, 
 
   return waves
 }
+
+export const compareBuildings = (a:Building, b:Building) => {
+  if (a.position.y !== b.position.y) {
+    return a.position.y < b.position.y ? -1 : 1
+  }
+
+  if (a.position.x !== b.position.x) {
+    return a.position.x < b.position.x ? -1 : 1
+  }
+  
+  return 0
+}

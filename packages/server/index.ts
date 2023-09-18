@@ -47,7 +47,7 @@ async function startServer (){
   app.use(cookieParser())
 
   let vite: ViteDevServer | undefined
-  const port = Number(process.env.SERVER_PORT) || 3001
+  const port = Number(process.env.SERVER_PORT) || 3000
   const distPath = path.dirname(require.resolve('../client/dist/index.html'))
   const srcPath = path.dirname(require.resolve('../client'))
   const ssrClientPath = require.resolve('../client/dist-ssr/client.cjs')

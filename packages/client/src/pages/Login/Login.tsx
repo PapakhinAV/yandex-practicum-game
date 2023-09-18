@@ -17,11 +17,14 @@ import { AppDispatch } from '../../store/store'
 import { IRootState } from '../../store/types'
 import { resetErrorMessage } from '../../store/appReducer'
 import { oauthApi } from '../../api/oauth'
+import classNames from 'classnames'
+import { EThemes } from '../../types/EThemes'
 
 const Login = () => {
   const dispatch = useDispatch<AppDispatch>()
   const methods = useForm()
   const errorMessage = useSelector((state: IRootState) => state.app.errorMessage)
+  const currentTheme = useSelector((state: IRootState) => state.app.theme)
 
   const onSubmit = async (data: Record<string, string>) => {
     dispatch(signinAndFetchUser({
@@ -48,7 +51,12 @@ const Login = () => {
         <NavButton direction={ENavButtonDirection.HOME}/>
       </Box>
       <div className={styles.login}>
-        <div className={styles.login__wrapper}>
+        <div className={classNames(styles.login__wrapper,
+          {
+            [styles.login__dayTheme]: currentTheme === EThemes.DAY,
+            [styles.login__nightTheme]: currentTheme === EThemes.NIGHT,
+          }
+          )}>
           <h2 className={styles.login__title}>Вход</h2>
 
           <CustomForm
@@ -59,25 +67,25 @@ const Login = () => {
               <div className={styles.login__field}>
                 <label>Логин</label>
 
-              <FormInput
-                name="login"
-                registerOptions={{
-                validate: value => loginValidator(value),
-                }}
-              />
-            </div>
+                <FormInput
+                  name="login"
+                  registerOptions={{
+                  validate: value => loginValidator(value),
+                  }}
+                />
+              </div>
 
-              <div>
+              <div className={styles.login__field}>
                 <label>Пароль</label>
 
-              <FormInput
-                type="password"
-                name="password"
-                registerOptions={{
-                validate: value => passwordValidator(value),
-                }}
-              />
-            </div>
+                <FormInput
+                  type="password"
+                  name="password"
+                  registerOptions={{
+                  validate: value => passwordValidator(value),
+                  }}
+                />
+              </div>
 
            <div className={styles.login__button_wrapper}>
             { errorMessage

@@ -2,12 +2,13 @@ import React, { useEffect, useRef } from 'react'
 import { Placement } from '../BaseClasses/Placement'
 import { tileSize, towerSize } from '../baseConstants'
 import { IPosition } from '../types'
+import { DefaultPlacement } from '../GameElements/Placements/DefaultPlacement'
 
 const useActiveTile = (
   mouseRef:  React.MutableRefObject<IPosition>,
-  placementTiles: Placement[]
+  placementTiles: DefaultPlacement[]
 ) => {
-  const activeTile = useRef<Placement | null>(null)
+  const activeTile = useRef<DefaultPlacement | null>(null)
 
   useEffect(() => {
 

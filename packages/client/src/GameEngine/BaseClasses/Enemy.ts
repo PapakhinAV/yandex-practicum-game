@@ -85,17 +85,17 @@ export class Enemy implements IEnemy {
         }
       }
     } else {
-      context.fillStyle = EColors.RED
+      context.fillStyle = EColors.ENEMY_FILL
       context.beginPath()
       context.arc(this.center.x, this.center.y, this.radius, 0, Math.PI * 2)
       context.fill()
     }
 
     //health bar
-    context.fillStyle = EColors.RED
+    context.fillStyle = EColors.HEALTH_BAR_EMPTY
     context.fillRect(this.position.x, this.position.y - 15, this.width, 10)
 
-    context.fillStyle = EColors.GREEN
+    context.fillStyle = EColors.HEALTH_BAR_FILL
     context.fillRect(
       this.position.x,
       this.position.y - 15,

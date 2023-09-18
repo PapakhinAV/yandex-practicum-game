@@ -6,14 +6,19 @@ import {
 } from '@chakra-ui/react'
 import { FC } from 'react'
 import { TMessage } from '../../types'
-import { EColors } from '../../../../App/constants'
+import { getThemeColors } from '../../../../App/constants'
 import { formatDate } from '../../utils'
+import { useSelector } from 'react-redux'
+import { IRootState } from '../../../../store/types'
 
 interface MessageComponentProps {
   message: TMessage;
 }
 
 const Message: FC<MessageComponentProps> = ({ message }) => {
+  const currentTheme = useSelector((state: IRootState) => state.app.theme)
+  const themeColors = getThemeColors(currentTheme)
+
   return (
     <HStack 
       align='flex-start'
@@ -23,16 +28,16 @@ const Message: FC<MessageComponentProps> = ({ message }) => {
       <Box>
         <VStack 
           align='flex-start' 
-          bg={EColors.BLACK_ALPHA}
+          background={themeColors.CONTRAST_BACKGROUND}
           px={3}
           py={2}
           spacing={0.5} 
           borderRadius='0 10px 10px 10px'
-          color={EColors.WHITE}
+          color={themeColors.TEXT}
           maxW='550px'
         >
-          <Text>{message.user}</Text>
-          <Text>{message.content}</Text>
+          <Text color={themeColors.USERNAME} m={0}>{message.user}</Text>
+          <Text m={0}>{message.content}</Text>
           <Text alignSelf='flex-end' fontSize='10px' m={0}>{formatDate(message.createdAt)}</Text>
         </VStack>
       </Box>

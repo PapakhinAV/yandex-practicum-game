@@ -8,10 +8,12 @@ import {
   Text, 
 } from '@chakra-ui/react'
 import { FC } from 'react'
-import { EColors } from '../../../../App/constants'
+import { getThemeColors } from '../../../../App/constants'
 import { useNavigate } from 'react-router-dom'
 import { ERoutes } from '../../../../core/Router/ERoutes'
 import type { Topic } from '../../types'
+import { useSelector } from 'react-redux'
+import { IRootState } from '../../../../store/types'
 
 interface ForumTableComponentProps {
   topicsData: Topic[];
@@ -20,17 +22,28 @@ interface ForumTableComponentProps {
 const ForumTable: FC<ForumTableComponentProps> = ({ topicsData }) => {
 
   const navigate = useNavigate()
+
+  const currentTheme = useSelector((state: IRootState) => state.app.theme)
+  const themeColors = getThemeColors(currentTheme)
   
   return (
     <Table w='full'>
       <Thead 
         position="sticky" 
         top={0} 
-        bgColor={EColors.WHITE}
+        bgColor={themeColors.INVERTED_BACKGROUND}
       >
         <Tr>
-          <Th minW='90%'>Тема</Th>
-          <Th isNumeric>Дата</Th>
+          <Th 
+            minW='90%' 
+            color={themeColors.INVERTED_TEXT}
+            borderBottomColor={themeColors.INVERTED_BACKGROUND}
+          > Тема</Th>
+          <Th 
+            isNumeric
+            color={themeColors.INVERTED_TEXT}
+            borderBottomColor={themeColors.INVERTED_BACKGROUND}
+          > Дата</Th>
         </Tr>
       </Thead>
       <Tbody>
@@ -40,15 +53,16 @@ const ForumTable: FC<ForumTableComponentProps> = ({ topicsData }) => {
             <Tr 
               key={`topic-${id}`} 
               onClick={() => navigate(`${ERoutes.FORUM}/${id}`)}>
-              <Td>
+              <Td borderBottomColor={themeColors.INVERTED_BACKGROUND}>
                 <Text 
                   maxW="lg" 
                   noOfLines={1}
+                  m={0}
                 >
                   {name}
                 </Text>
               </Td>
-              <Td isNumeric>{createdAt.slice(0,10)}</Td>
+              <Td isNumeric borderBottomColor={themeColors.INVERTED_BACKGROUND}>{createdAt.slice(0,10)}</Td>
             </Tr>
           )
         })}

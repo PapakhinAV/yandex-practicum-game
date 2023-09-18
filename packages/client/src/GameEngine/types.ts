@@ -21,6 +21,8 @@ export interface IEnemy {
 
 export interface IPlacementOptions {
   position?: IPosition
+  imgPath?: string
+  imgHoverPath?: string
 }
 
 export interface IBuildingOptions {

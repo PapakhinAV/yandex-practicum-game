@@ -22,11 +22,14 @@ import { Box } from '@chakra-ui/react'
 import { AppDispatch } from '../../store/store'
 import { IRootState } from '../../store/types'
 import { resetErrorMessage } from '../../store/appReducer'
+import classNames from 'classnames'
+import { EThemes } from '../../types/EThemes'
 
 const Register = () => {
   const dispatch = useDispatch<AppDispatch>()
   const methods = useForm()
   const errorMessage = useSelector((state: IRootState) => state.app.errorMessage)
+  const currentTheme = useSelector((state: IRootState) => state.app.theme)
 
   const onSubmit = async (data: Record<string, string>) => {
     dispatch(signupAndFetchUser({...data}))
@@ -42,7 +45,11 @@ const Register = () => {
         <NavButton direction={ENavButtonDirection.HOME}/>
       </Box>
       <div className={styles.register}>
-        <div className={styles.register__wrapper}>
+        <div className={classNames(styles.register__wrapper,
+          {
+            [styles.register__dayTheme]: currentTheme === EThemes.DAY,
+            [styles.register__nightTheme]: currentTheme === EThemes.NIGHT,
+          })}>
           <h2 className={styles.register__title}>Регистрация</h2>
           <CustomForm
             className={styles.register__form}
