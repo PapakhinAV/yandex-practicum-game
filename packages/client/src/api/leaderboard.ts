@@ -40,6 +40,7 @@ export const leaderboardApi = createApi({
           teamName: TEAM_NAME,
           ratingFieldName: 'score'
         },
+        responseHandler: 'text',
       }),
     }),
   }),
