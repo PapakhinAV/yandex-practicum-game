@@ -9,6 +9,12 @@ interface ITopic {
   messages: TMessage[]
   user: string
 }
+
+interface IReaction {
+  unified: string
+  userIds: number[]
+}
+
 export const forumApi = createApi({
   reducerPath: 'forumApi',
   refetchOnMountOrArgChange: true,
@@ -37,9 +43,34 @@ export const forumApi = createApi({
         body,
       }),
     }),
+    getReactions: builder.query<IReaction[], number>({
+      query: topicId => `reactions/${topicId}`,
+    }),
+    addReaction: builder.mutation({
+      query: body => ({
+        method: 'POST',
+        url: 'reactions',
+        body,
+      }),
+    }),
+    deleteReaction: builder.mutation({
+      query: body => ({
+        method: 'DELETE',
+        url: 'reactions',
+        body,
+      }),
+    }),
   }),
 })
 
 // Export hooks for usage in functional components, which are
 // auto-generated based on the defined endpoints
-export const { useGetTopicsQuery, useCreateTopicMutation, useGetTopicQuery, useCreateMessageMutation } = forumApi
+export const {
+  useGetTopicsQuery,
+  useCreateTopicMutation,
+  useGetTopicQuery,
+  useCreateMessageMutation,
+  useGetReactionsQuery,
+  useAddReactionMutation,
+  useDeleteReactionMutation
+} = forumApi
