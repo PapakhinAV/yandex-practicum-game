@@ -5,7 +5,7 @@
 3. Выполните команду `yarn bootstrap` - это обязательный шаг, без него ничего работать не будет :)
 4. Соберите проект `yarn docker:build`
 5. Для запуска в режиме development `yarn docker:dev`
-6. Для запуска в режиме production `yarn docker:dev`
+6. Для запуска в режиме production `yarn docker:up`
 
 
 
