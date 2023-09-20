@@ -1,5 +1,4 @@
 import React, { FC } from 'react'
-import { useSelector } from 'react-redux'
 import EmojiPicker, { EmojiClickData } from 'emoji-picker-react'
 import {
   Box,
@@ -14,7 +13,6 @@ import {
   useAddReactionMutation,
   useDeleteReactionMutation
 } from '../../../../api/forum'
-import { IRootState } from '../../../../store/types'
 import { Reaction } from '..'
 
 interface ReactionsComponentProps {
@@ -22,19 +20,18 @@ interface ReactionsComponentProps {
 }
 
 const Reactions: FC<ReactionsComponentProps> = ({ topicId }) => {
-  const user = useSelector((state: IRootState) => state.app.user)
   const { onOpen, onClose, isOpen } = useDisclosure()
   const [addReaction] = useAddReactionMutation()
   const [deleteReaction] = useDeleteReactionMutation()
   const reactions = useGetReactionsQuery(topicId)
 
   const handleReactionAdd = async ({ unified }: EmojiClickData) => {
-    await addReaction({ unified, topicId, userId: user?.id })
+    await addReaction({ unified, topicId })
     onClose()
   }
 
   const handleReactionDelete = async (unified: string) => {
-    await deleteReaction({ unified, topicId, userId: user?.id })
+    await deleteReaction({ unified, topicId })
   }
 
   return (

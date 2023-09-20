@@ -54,7 +54,7 @@ export const forumApi = createApi({
         url: 'reactions',
         body,
       }),
-      invalidatesTags: (result, error, body) => [{ type: 'Reactions', id: body.topicId }],
+      invalidatesTags: (result, error, { topicId }) => [{ type: 'Reactions', id: topicId }],
     }),
     deleteReaction: builder.mutation({
       query: body => ({
@@ -62,7 +62,7 @@ export const forumApi = createApi({
         url: 'reactions',
         body,
       }),
-      invalidatesTags: (result, error, body) => [{ type: 'Reactions', id: body.topicId }],
+      invalidatesTags: (result, error, { topicId }) => [{ type: 'Reactions', id: topicId }],
     }),
   }),
 })
