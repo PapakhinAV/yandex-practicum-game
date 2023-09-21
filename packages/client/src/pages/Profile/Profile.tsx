@@ -57,7 +57,7 @@ const Profile: FC = () => {
       >
         <Avatar
           name={`${user.first_name || ''} ${user.second_name || ''}`}
-          src={`https://ya-praktikum.tech/api/v2/resources${user.avatar}`}
+          src={`${__SERVER_API__}/api/v2/resources${user.avatar}`}
           size="2xl"
           margin="auto"
         />
