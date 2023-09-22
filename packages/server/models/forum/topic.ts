@@ -1,6 +1,6 @@
 import { AllowNull, Column, HasMany, Model, NotEmpty, Table } from 'sequelize-typescript'
 import { Message } from './message'
-
+import { Reaction } from './reaction'
 
 @Table({ tableName: 'topics' })
 export class Topic extends Model {
@@ -20,4 +20,7 @@ export class Topic extends Model {
 
   @HasMany(() => Message, 'topicId')
   messages!: Message[]
+
+  @HasMany(() => Reaction, 'topicId')
+  reactions!: Reaction[]
 }

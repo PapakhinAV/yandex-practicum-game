@@ -1,6 +1,7 @@
 import { Sequelize, SequelizeOptions } from 'sequelize-typescript'
 import { Topic } from './models/forum/topic'
 import { Message } from './models/forum/message'
+import { Reaction } from './models/forum/reaction'
 import { UserTheme, SiteTheme } from './models/themes'
 import { readdir } from 'fs/promises'
 import { join } from 'path'
@@ -23,7 +24,7 @@ const sequelizeOptions: SequelizeOptions = {
   password: POSTGRES_PASSWORD,
   database: POSTGRES_DB,
   dialect: 'postgres',
-  models: [Topic, Message, UserTheme, SiteTheme],
+  models: [Topic, Message, Reaction, UserTheme, SiteTheme],
 }
 
 export const sequelize = new Sequelize(sequelizeOptions)

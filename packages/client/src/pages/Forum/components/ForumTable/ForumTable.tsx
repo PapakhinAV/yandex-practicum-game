@@ -14,6 +14,7 @@ import { ERoutes } from '../../../../core/Router/ERoutes'
 import type { Topic } from '../../types'
 import { useSelector } from 'react-redux'
 import { IRootState } from '../../../../store/types'
+import { Reactions } from '..'
 
 interface ForumTableComponentProps {
   topicsData: Topic[];
@@ -50,17 +51,17 @@ const ForumTable: FC<ForumTableComponentProps> = ({ topicsData }) => {
         {topicsData.map(topic => {
           const { id, name, createdAt } = topic
           return (
-            <Tr 
-              key={`topic-${id}`} 
-              onClick={() => navigate(`${ERoutes.FORUM}/${id}`)}>
-              <Td borderBottomColor={themeColors.INVERTED_BACKGROUND}>
+            <Tr key={`topic-${id}`}>
+              <Td>
                 <Text 
                   maxW="lg" 
                   noOfLines={1}
-                  m={0}
+                  onClick={() => navigate(`${ERoutes.FORUM}/${id}`)}
+                  cursor="pointer"
                 >
                   {name}
                 </Text>
+                <Reactions topicId={Number(id)} />
               </Td>
               <Td isNumeric borderBottomColor={themeColors.INVERTED_BACKGROUND}>{createdAt.slice(0,10)}</Td>
             </Tr>
