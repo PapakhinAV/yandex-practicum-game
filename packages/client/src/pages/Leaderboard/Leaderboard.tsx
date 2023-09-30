@@ -21,6 +21,7 @@ import { IRootState } from '../../store/types'
 import { NavButton } from '../../components'
 import { ENavButtonDirection } from '../../components/NavButton/types'
 import { getThemeColors } from '../../App/constants'
+import { sanitize } from '../../utils/sanitize'
 
 const Leaderboard: FC = () => {
   const [cursor, setCursor] = useState(0)
@@ -113,7 +114,7 @@ const Leaderboard: FC = () => {
                     color={user.id === item.data.id ? 'black' : undefined}
                   >
                     <Td borderBottomColor={themeColors.INVERTED_BACKGROUND}>{index + 1}</Td>
-                    <Td borderBottomColor={themeColors.INVERTED_BACKGROUND}>{item.data.username}</Td>
+                    <Td borderBottomColor={themeColors.INVERTED_BACKGROUND}>{sanitize(item.data.username)}</Td>
                     <Td borderBottomColor={themeColors.INVERTED_BACKGROUND}>{item.data.score}</Td>
                   </Tr>
                 ))}
