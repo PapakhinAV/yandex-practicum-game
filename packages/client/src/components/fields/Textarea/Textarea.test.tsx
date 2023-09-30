@@ -25,12 +25,12 @@ describe('Компонент Textarea', () => {
       name: 'test-name'
     }
 
-    render(<Textarea 
+    render(<Textarea
       data-testid={textareaTestId}
       id={attrinutes.id}
       name={attrinutes.name}
     />)
-    
+
     const renderedTextarea = screen.getByTestId(textareaTestId)
 
     expect(renderedTextarea).toHaveAttribute('id', attrinutes.id)

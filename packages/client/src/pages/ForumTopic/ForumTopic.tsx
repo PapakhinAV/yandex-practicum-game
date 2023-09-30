@@ -23,6 +23,7 @@ import { useCreateMessageMutation, useGetTopicQuery } from '../../api/forum'
 import { useSelector } from 'react-redux'
 import { IRootState } from '../../store/types'
 import { getThemeColors } from '../../App/constants'
+import { sanitize } from '../../utils/sanitize'
 
 const ForumTopic: FC = () => {
   const { topicId } = useParams<'topicId'>()
@@ -46,7 +47,7 @@ const ForumTopic: FC = () => {
     <Helmet>
       <title>{topic.data?.name || 'Загрузка'}</title>
     </Helmet>
-    <Container 
+    <Container
       maxW='700px'
       p={0}
     >
@@ -65,7 +66,7 @@ const ForumTopic: FC = () => {
         <Center h='55px' borderBottom="1px solid #FFF">
           {topic.isLoading
             ? <Spinner/>
-            : <Heading size='md' margin={0} width='full' textAlign='center'>{topic.data?.name}</Heading>}
+            : <Heading size='md' margin={0} width='full' textAlign='center'>{sanitize(topic.data?.name)}</Heading>}
         </Center>
         <Box
           overflowY='auto'

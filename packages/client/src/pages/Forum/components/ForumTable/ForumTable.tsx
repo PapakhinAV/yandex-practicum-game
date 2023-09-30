@@ -1,11 +1,11 @@
-import { 
+import {
   Table,
   Thead,
   Tbody,
   Tr,
   Th,
   Td,
-  Text, 
+  Text,
 } from '@chakra-ui/react'
 import { FC } from 'react'
 import { getThemeColors } from '../../../../App/constants'
@@ -15,6 +15,7 @@ import type { Topic } from '../../types'
 import { useSelector } from 'react-redux'
 import { IRootState } from '../../../../store/types'
 import { Reactions } from '..'
+import { sanitize } from '../../../../utils/sanitize'
 
 interface ForumTableComponentProps {
   topicsData: Topic[];
@@ -26,21 +27,21 @@ const ForumTable: FC<ForumTableComponentProps> = ({ topicsData }) => {
 
   const currentTheme = useSelector((state: IRootState) => state.app.theme)
   const themeColors = getThemeColors(currentTheme)
-  
+
   return (
     <Table w='full'>
-      <Thead 
-        position="sticky" 
-        top={0} 
+      <Thead
+        position="sticky"
+        top={0}
         bgColor={themeColors.INVERTED_BACKGROUND}
       >
         <Tr>
-          <Th 
-            minW='90%' 
+          <Th
+            minW='90%'
             color={themeColors.INVERTED_TEXT}
             borderBottomColor={themeColors.INVERTED_BACKGROUND}
           > Тема</Th>
-          <Th 
+          <Th
             isNumeric
             color={themeColors.INVERTED_TEXT}
             borderBottomColor={themeColors.INVERTED_BACKGROUND}
@@ -53,13 +54,13 @@ const ForumTable: FC<ForumTableComponentProps> = ({ topicsData }) => {
           return (
             <Tr key={`topic-${id}`}>
               <Td>
-                <Text 
-                  maxW="lg" 
+                <Text
+                  maxW="lg"
                   noOfLines={1}
                   onClick={() => navigate(`${ERoutes.FORUM}/${id}`)}
                   cursor="pointer"
                 >
-                  {name}
+                  {sanitize(name)}
                 </Text>
                 <Reactions topicId={Number(id)} />
               </Td>
