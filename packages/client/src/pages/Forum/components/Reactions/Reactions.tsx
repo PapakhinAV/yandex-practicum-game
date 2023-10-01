@@ -88,7 +88,7 @@ const Reactions: FC<ReactionsComponentProps> = ({ topicId }) => {
       {
         !reactions.isLoading && reactions?.data
         && reactions.data.map(({ unified, userIds }) => (
-          <Reaction unified={unified} userIds={userIds} onClick={handleReactionDelete} />
+          <Reaction key={unified} unified={unified} userIds={userIds} onClick={handleReactionDelete} />
         ))
       }
     </Box>
