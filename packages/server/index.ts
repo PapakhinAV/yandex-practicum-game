@@ -8,6 +8,7 @@ import cors from 'cors'
 import express from 'express'
 import * as fs from 'fs'
 import * as path from 'path'
+import helmet from 'helmet'
 import { createServer as createViteServer } from 'vite'
 import type { ViteDevServer } from 'vite'
 import type { EmotionCache } from '@emotion/css'
@@ -23,7 +24,7 @@ import { dbConnect } from './db'
 
 const isDev = () => process.env.NODE_ENV === 'development'
 
-async function startServer (){
+async function startServer() {
 
   const app = express()
 
@@ -35,6 +36,38 @@ async function startServer (){
     ],
     optionsSuccessStatus: 200,
   }))
+
+  app.use(
+    helmet({
+      contentSecurityPolicy: {
+        useDefaults: true,
+        directives: {
+          scriptSrc: [
+            '"self"', 
+            '"unsafe-inline"'
+          ],
+          styleSrc: [
+            '"self"', 
+            'https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/',
+            '"unsafe-inline"'
+          ],
+          conectSrc: [
+            '"self"',
+            'https://ya-praktikum.tech/',
+            'http://localhost:*',
+            /* 
+            'https://??PROJECT_NAME??.ya-praktikum.tech', //после разворачивания проекта на Яндекс.Облаке необходимо будет добавить URL
+            */
+          ],
+          imgSrc: [
+            '"self"',
+            'https://cdn.jsdelivr.net/npm/emoji-datasource-apple/',
+          ]
+        },
+      }
+    })
+  )
+
   app.use('/api', apiRoute)
   app.use(
     '/api/v2',
