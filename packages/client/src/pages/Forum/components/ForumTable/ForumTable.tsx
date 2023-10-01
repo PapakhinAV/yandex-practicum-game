@@ -16,6 +16,7 @@ import { useSelector } from 'react-redux'
 import { IRootState } from '../../../../store/types'
 import { Reactions } from '..'
 import { sanitize } from '../../../../utils/sanitize'
+import { formatDate } from '../../../ForumTopic/utils'
 
 interface ForumTableComponentProps {
   topicsData: Topic[];
@@ -53,18 +54,23 @@ const ForumTable: FC<ForumTableComponentProps> = ({ topicsData }) => {
           const { id, name, createdAt } = topic
           return (
             <Tr key={`topic-${id}`}>
-              <Td>
+              <Td borderBottomColor={themeColors.INVERTED_BACKGROUND}>
                 <Text
                   maxW="lg"
                   noOfLines={1}
                   onClick={() => navigate(`${ERoutes.FORUM}/${id}`)}
                   cursor="pointer"
+                  fontSize='18px'
                 >
                   {sanitize(name)}
                 </Text>
                 <Reactions topicId={Number(id)} />
               </Td>
-              <Td isNumeric borderBottomColor={themeColors.INVERTED_BACKGROUND}>{createdAt.slice(0,10)}</Td>
+              <Td 
+                isNumeric 
+                borderBottomColor={themeColors.INVERTED_BACKGROUND}>
+                {formatDate(createdAt)}
+              </Td>
             </Tr>
           )
         })}
