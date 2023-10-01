@@ -4,7 +4,6 @@ import { Emoji } from 'emoji-picker-react'
 import { Button } from '@chakra-ui/react'
 import { IRootState } from '../../../../store/types'
 import { getThemeColors } from '../../../../App/constants'
-import { MdOutlineAddReaction } from 'react-icons/md'
 
 interface ReactionComponentProps {
   unified: string
