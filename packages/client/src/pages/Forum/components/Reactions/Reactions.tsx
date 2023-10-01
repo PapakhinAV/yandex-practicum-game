@@ -87,8 +87,8 @@ const Reactions: FC<ReactionsComponentProps> = ({ topicId }) => {
       </Popover>
       {
         !reactions.isLoading && reactions?.data
-        && reactions.data.map(({ unified, userIds }) => (
-          <Reaction key={unified} unified={unified} userIds={userIds} onClick={handleReactionDelete} />
+        && reactions.data.map(({ unified, userIds }, index) => (
+          <Reaction key={`${index}-${unified}`} unified={unified} userIds={userIds} onClick={handleReactionDelete} />
         ))
       }
     </Box>
