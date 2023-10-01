@@ -37,22 +37,23 @@ async function startServer() {
     optionsSuccessStatus: 200,
   }))
 
+  /* eslint-disable quotes */
   app.use(
     helmet({
       contentSecurityPolicy: {
         useDefaults: true,
         directives: {
           scriptSrc: [
-            '"self"', 
-            '"unsafe-inline"'
+            "'self'", 
+            "'unsafe-inline'"
           ],
           styleSrc: [
-            '"self"', 
+            "'self'", 
             'https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/',
-            '"unsafe-inline"'
+            "'unsafe-inline'"
           ],
           conectSrc: [
-            '"self"',
+            "'self'",
             'https://ya-praktikum.tech/',
             'http://localhost:*',
             /* 
@@ -60,13 +61,14 @@ async function startServer() {
             */
           ],
           imgSrc: [
-            '"self"',
+            "'self'",
             'https://cdn.jsdelivr.net/npm/emoji-datasource-apple/',
           ]
         },
       }
     })
   )
+  /* eslint-enable quotes */
 
   app.use('/api', apiRoute)
   app.use(
