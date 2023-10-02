@@ -28,5 +28,8 @@ jobs:
         with:
           context: .
           file: Dockerfile.server
+          build-args: |
+            SERVER_PORT=${{ secrets.SERVER_PORT }}
+            SERVER_API=${{ secrets.SERVER_API }}
           push: true
           tags: ghcr.io/${{ env.OWNER_LC }}/${{ github.event.repository.name }}/server:${{ github.sha }}
