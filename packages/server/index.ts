@@ -56,9 +56,8 @@ async function startServer() {
             "'self'",
             'https://ya-praktikum.tech/',
             'http://localhost:*',
-            /* 
-            'https://??PROJECT_NAME??.ya-praktikum.tech', //после разворачивания проекта на Яндекс.Облаке необходимо будет добавить URL
-            */
+            'http://51.250.109.136',
+            'https://51.250.109.136',
           ],
           imgSrc: [
             "'self'",
