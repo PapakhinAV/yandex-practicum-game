@@ -1,14 +1,15 @@
 import express, { type Response, Router } from 'express'
 import { SiteTheme, UserTheme } from '../../models/themes'
+import { checkAuth } from '../../middlewares/checkAuth'
 
 export const themeRoute = Router()
   .use(express.json())
   .use(express.urlencoded({ extended: true }))
-  // .use(checkAuth)
+  .use(checkAuth)
   .get('/all-themes', async (_, res: Response) => {
     try {
       const themes = await SiteTheme.findAll()
-      res.json( themes )
+      res.status(200).json( themes )
     } catch (error: any) {
       res.status(500).json({ error: error?.message })
     }
@@ -20,9 +21,9 @@ export const themeRoute = Router()
 
       if (userTheme) {
         const siteTheme = await SiteTheme.findOne({ where: { theme: userTheme.theme } })
-        res.json(siteTheme)
+        res.status(200).json(siteTheme)
       } else {
-        res.status(404).json({ error: 'Не найдена тема для данного пользователя' })
+        res.status(400).json({ error: 'Не найдена тема для данного пользователя' })
       }
     } catch (error: any) {
       res.status(500).json({ error: error?.message })

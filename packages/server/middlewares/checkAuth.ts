@@ -19,8 +19,10 @@ export const checkAuth: RequestHandler = async (req, res, next) => {
         res.locals.user = user
         next()
       })
-      .catch(next)
+      .catch(() => {
+        res.status(401).json({ reason: 'Error' })
+      })
   } else {
-    next()
+    res.status(401).json({ reason: 'Error', error: 'Пользователь не аутентифицирован' })
   }
 }

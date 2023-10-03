@@ -28,11 +28,7 @@ export const forumTopicRoute = Router()
       .catch(() => res.status(500).json({ reason: 'Error' }))
   })
   .post('/', xssValidator(), xssErrorHandler, (req: Request, res: Response) => {
-    if (res?.locals?.user) {
-      Topic.create({ ...req.body, user: res.locals.user.display_name || res.locals.user.login })
-        .then(topic => res.status(200).send({ id: topic.id }))
-        .catch(() => res.status(500).json({ reason: 'Error' }))
-    } else {
-      res.status(401).json({ reason: 'Error' })
-    }
+    Topic.create({ ...req.body, user: res.locals.user.display_name || res.locals.user.login })
+      .then(topic => res.status(200).send({ id: topic.id }))
+      .catch(() => res.status(500).json({ reason: 'Error' }))
   })

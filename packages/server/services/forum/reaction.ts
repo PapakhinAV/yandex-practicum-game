@@ -27,26 +27,21 @@ export const forumReactionRoute = Router()
   .post('/', xssValidator(), xssErrorHandler, async (req: Request, res: Response) => {
     const { unified, topicId } = req.body
     const userId = res.locals.user?.id
-
     try {
-      if (userId) {
-        const reaction = await sequelize.transaction(async transaction => {
-          const existingReaction = await Reaction.findOne({
-            where: { unified, topicId, userId },
-            transaction
-          })
-
-          if (existingReaction) {
-            return existingReaction
-          } else {
-            return await Reaction.create({ unified, topicId, userId }, { transaction })
-          }
+      const reaction = await sequelize.transaction(async transaction => {
+        const existingReaction = await Reaction.findOne({
+          where: { unified, topicId, userId },
+          transaction
         })
 
-        res.status(200).json(reaction)
-      } else {
-        res.status(401).json({ error: 'Пользователь не аутентифицирован' })
-      }
+        if (existingReaction) {
+          return existingReaction
+        } else {
+          return await Reaction.create({ unified, topicId, userId }, { transaction })
+        }
+      })
+
+      res.status(200).json(reaction)
     } catch (error: any) {
       res.status(500).json({ error: error?.message })
     }
@@ -56,18 +51,14 @@ export const forumReactionRoute = Router()
     const userId = res.locals.user?.id
 
     try {
-      if (userId) {
-        const deletedCount = await Reaction.destroy({
-          where: { unified, topicId, userId },
-        })
-  
-        if (deletedCount === 0) {
-          res.status(404).json({ error: 'Запись не найдена' })
-        } else {
-          res.json({ message: 'Запись успешно удалена' })
-        }
+      const deletedCount = await Reaction.destroy({
+        where: { unified, topicId, userId },
+      })
+
+      if (deletedCount === 0) {
+        res.status(400).json({ error: 'Запись не найдена' })
       } else {
-        res.status(401).json({ error: 'Пользователь не аутентифицирован' })
+        res.json({ message: 'Запись успешно удалена' })
       }
     } catch (error: any) {
       res.status(500).json({ error: error?.message })
