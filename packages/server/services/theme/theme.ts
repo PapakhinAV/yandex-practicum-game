@@ -16,15 +16,9 @@ export const themeRoute = Router()
   })
   .get('/user-theme/:userId', async (req, res: Response) => {
     try {
-      const userId = req.params.userId
-      const userTheme = await UserTheme.findOne({ where: { userId } })
-
-      if (userTheme) {
-        const siteTheme = await SiteTheme.findOne({ where: { theme: userTheme.theme } })
-        res.status(200).json(siteTheme)
-      } else {
-        res.status(400).json({ error: 'Не найдена тема для данного пользователя' })
-      }
+      const userTheme = await UserTheme.findOne({ where: { userId: req.params.userId } })
+      const siteTheme = await SiteTheme.findOne({ where: { theme: userTheme?.theme || 'day' } })
+      res.status(200).json(siteTheme)
     } catch (error: any) {
       res.status(500).json({ error: error?.message })
     }
