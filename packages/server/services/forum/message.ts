@@ -8,11 +8,7 @@ export const forumMessageRoute = Router()
   .use(express.urlencoded({ extended: true }))
   .use(checkAuth)
   .post('/', xssValidator(), xssErrorHandler, (req: Request, res: Response) => {
-    if (res?.locals?.user) {
-      Message.create({...req.body, user: res.locals.user.display_name || res.locals.user.login })
-        .then(() => res.status(200).json({}))
-        .catch(() => res.status(500).json({ reason: 'Error' }))
-    } else {
-      res.status(401).json({ reason: 'Error' })
-    }
+    Message.create({...req.body, user: res.locals.user.display_name || res.locals.user.login })
+      .then(() => res.status(200).json({}))
+      .catch(() => res.status(500).json({ reason: 'Error' }))
   })

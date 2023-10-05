@@ -13,7 +13,7 @@ const Theme: FC<IThemeProps> = ()=>{
   const currentTheme = useSelector((state: IRootState) => state.app.theme)
   const themeColors = getThemeColors(currentTheme)
 
-  if(!allThemes) return null
+  if(!allThemes || !userId) return null
 
   const onChange = (event: ChangeEvent<HTMLSelectElement>) => {
 

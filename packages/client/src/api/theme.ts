@@ -3,7 +3,10 @@ import { ISiteTheme } from '../types/ISiteTheme'
 
 export const themeApi = createApi({
   reducerPath: 'themeApi',
-  baseQuery: fetchBaseQuery({ baseUrl: '/api/theme' }),
+  baseQuery: fetchBaseQuery({
+    baseUrl: `${__SERVER_API__}/api/theme`,
+    credentials: 'include',
+  }),
   tagTypes: ['UserTheme'],
   endpoints: builder => ({
     getAllThemes: builder.query<ISiteTheme[], void>({
