@@ -32,7 +32,8 @@ async function startServer() {
     credentials: true,
     origin: [
       `http://127.0.0.1:${process.env.CLIENT_PORT}`, `http://localhost:${process.env.CLIENT_PORT}`,
-      `http://127.0.0.1:${process.env.SERVER_PORT}`, `http://localhost:${process.env.SERVER_PORT}`
+      `http://127.0.0.1:${process.env.SERVER_PORT}`, `http://localhost:${process.env.SERVER_PORT}`,
+      'http://4tunas-ork-rush-28.ya-praktikum.tech'
     ],
     optionsSuccessStatus: 200,
   }))
@@ -41,8 +42,9 @@ async function startServer() {
   app.use(
     helmet({
       contentSecurityPolicy: {
-        useDefaults: true,
+        useDefaults: false,
         directives: {
+          defaultSrc: ["'self'"],
           scriptSrc: [
             "'self'", 
             "'unsafe-inline'"
@@ -56,14 +58,15 @@ async function startServer() {
             "'self'",
             'https://ya-praktikum.tech/',
             'http://localhost:*',
-            /* 
-            'https://??PROJECT_NAME??.ya-praktikum.tech', //после разворачивания проекта на Яндекс.Облаке необходимо будет добавить URL
-            */
+            'http://51.250.109.136',
+            'http://4tunas-ork-rush-28.ya-praktikum.tech',
           ],
           imgSrc: [
             "'self'",
             'https://cdn.jsdelivr.net/npm/emoji-datasource-apple/',
-          ]
+            'data:',
+          ],
+          upgradeInsecureRequests: null,
         },
       }
     })
