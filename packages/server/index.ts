@@ -30,7 +30,11 @@ async function startServer() {
 
   app.use('/', cors({
     credentials: true,
-    origin: 'http://4tunas-ork-rush-28.ya-praktikum.tech',
+    origin: [
+      `http://127.0.0.1:${process.env.CLIENT_PORT}`, `http://localhost:${process.env.CLIENT_PORT}`,
+      `http://127.0.0.1:${process.env.SERVER_PORT}`, `http://localhost:${process.env.SERVER_PORT}`,
+      'http://4tunas-ork-rush-28.ya-praktikum.tech'
+    ],
     optionsSuccessStatus: 200,
   }))
 
