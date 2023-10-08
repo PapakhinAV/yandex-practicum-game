@@ -9,6 +9,8 @@ jobs:
   build-and-push:
     runs-on: ubuntu-latest
 
+    environment: OrkRush
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
