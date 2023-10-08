@@ -13,13 +13,13 @@ RUN yarn install --frozen-lockfile
 
 COPY . .
 
+ENV SERVER_PORT=$SERVER_PORT
+ENV SERVER_API=$SERVER_API
+
 RUN yarn lerna bootstrap && yarn build:client && yarn build:server
 
 FROM node:$NODE_VERSION-buster-slim as production
 WORKDIR /app
-
-ENV SERVER_PORT=$SERVER_PORT
-ENV SERVER_API=$SERVER_API
 
 COPY --from=builder /app/packages/client/ /client/
 COPY --from=builder /app/packages/server/dist/ /app/

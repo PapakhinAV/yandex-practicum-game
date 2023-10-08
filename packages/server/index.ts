@@ -33,7 +33,8 @@ async function startServer() {
     origin: [
       `http://127.0.0.1:${process.env.CLIENT_PORT}`, `http://localhost:${process.env.CLIENT_PORT}`,
       `http://127.0.0.1:${process.env.SERVER_PORT}`, `http://localhost:${process.env.SERVER_PORT}`,
-      'http://4tunas-ork-rush-28.ya-praktikum.tech'
+      'http://4tunas-ork-rush-28.ya-praktikum.tech',
+      'https://4tunas-ork-rush-28.ya-praktikum.tech'
     ],
     optionsSuccessStatus: 200,
   }))
@@ -59,7 +60,9 @@ async function startServer() {
             'https://ya-praktikum.tech/',
             'http://localhost:*',
             'http://51.250.109.136',
+            'https://51.250.109.136',
             'http://4tunas-ork-rush-28.ya-praktikum.tech',
+            'https://4tunas-ork-rush-28.ya-praktikum.tech',
           ],
           imgSrc: [
             "'self'",

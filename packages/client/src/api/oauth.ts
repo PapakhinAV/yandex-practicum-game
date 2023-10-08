@@ -20,10 +20,10 @@ export const oauthApi = createApi({
       }),
     }),
     getServiceId: builder.query<GetServiceIdResponse, string>({
-      query: redirect_url => ({
+      query: redirect_uri => ({
         url: 'yandex/service-id',
         params: {
-          redirect_url,
+          redirect_uri,
         },
       }),
     }),
