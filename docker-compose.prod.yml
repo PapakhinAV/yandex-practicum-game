@@ -1,0 +1,56 @@
+version: "3.9"
+
+services:
+  postgres:
+    container_name: tunas-postgres
+    image: postgres:14
+    ports:
+      - "5432:5432"
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_DB: postgres
+    volumes:
+      - pg-data:/var/lib/postgresql/data
+    networks:
+      - tuna-net
+  server:
+    container_name: tunas-game
+    image: diity/tunas-game:0.10
+    restart: always
+    environment:
+      POSTGRES_HOST: tunas-postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_DB: postgres
+      SERVER_PORT: 3000
+      SERVER_API: https://4tunas-ork-rush-28.ya-praktikum.tech
+    depends_on:
+      - tunas-postgres
+    networks:
+      - tuna-net
+  nginx:
+    container_name: tunas-nginx
+    image: nginx:1.24.0
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - type: bind
+        source: /nginx/nginx.conf
+        target: /etc/nginx/nginx.conf
+        read_only: true
+      - /etc/letsencrypt:/etc/letsencrypt
+    depends_on:
+      - server
+    networks:
+      - tuna-net
+
+networks:
+  tuna-net:
+    driver: bridge
+
+volumes:
+  pg-data:
