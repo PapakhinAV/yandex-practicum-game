@@ -10,16 +10,17 @@ jobs:
     runs-on: ubuntu-latest
     environment: OrkRush
 
+    env:
+      OWNER: '${{ github.repository_owner }}'
+      SERVER_PORT: '${{ vars.SERVER_PORT }}'
+      SERVER_API: '${{ vars.SERVER_API }}'
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
       - name: set lower case owner name
         run: |
           echo "OWNER_LC=${OWNER,,}" >>${GITHUB_ENV}
-        env:
-          OWNER: '${{ github.repository_owner }}'
-          SERVER_PORT: '${{ secrets.SERVER_PORT }}'
-          SERVER_API: '${{ secrets.SERVER_API }}'
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v1
         with:

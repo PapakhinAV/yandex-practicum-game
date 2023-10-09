@@ -2,7 +2,9 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import * as path from 'path'
 import { VitePWA } from 'vite-plugin-pwa'
+import * as dotenv from 'dotenv'
 
+dotenv.config()
 export default defineConfig({
   define: {
     __SERVER_PORT__: Number(process.env.SERVER_PORT) || 3000,
