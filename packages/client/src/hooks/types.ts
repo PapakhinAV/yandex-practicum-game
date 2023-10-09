@@ -21,3 +21,9 @@ export interface DocumentElementWithFullscreen extends Element {
   mozRequestFullScreen?: () => void
   webkitRequestFullscreen?: () => void
 }
+
+export interface LocationState {
+  latitude: number | null
+  longitude: number | null
+  error: string | null
+}

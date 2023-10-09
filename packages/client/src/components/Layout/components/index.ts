@@ -1,3 +1,5 @@
 export { default as IconEnterFullScreen } from './IconEnterFullScreen/IconEnterFullScreen'
 export { default as IconExitFullScreen } from './IconExitFullScreen/IconExitFullScreen'
+export { default as IconLocation } from './IconLocation/IconLocation'
+export { default as ModalLocation } from './ModalLocation/ModalLocation'
 export { default as Theme } from './Theme/Theme'
